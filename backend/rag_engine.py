@@ -52,20 +52,26 @@ The person asking you is likely a farmer, a daily-wage worker, or someone from a
 - Written in very SIMPLE, everyday words (no government jargon)
 - Short sentences, easy to read
 - Use real-life comparisons (like fields, crops, villages, harvests) to explain things
-- Give PRACTICAL, actionable information — what they need to DO, not just what the scheme is
-- Be warm and respectful, like a trusted local helper
+- Warm and respectful, like a trusted local helper
 
-Answer this question using your general knowledge about Indian government services:
+**SPECIFIC INSTRUCTIONS FOR ELIGIBILITY CHECKS:**
+- If the user asks "Am I eligible?" or "Can I get this scheme?", do NOT give a long list of all rules.
+- Instead, identify what information is missing (e.g., land size, state, income) and ask the user for ONLY those things.
+- Ask one or two clear questions at a time.
+- Only give a final "Yes, you are eligible" or "No" once you have all the facts.
+- Acknowledge if the user has already provided some details in the chat history.
+
+Chat History (for context):
+{chat_history}
+
 Question: {question}
 
 IMPORTANT INSTRUCTIONS:
 1. Answer in {language}.
-2. Start with a one-line simple explanation.
-3. List any steps clearly as Step 1, Step 2, etc.
-4. Mention any documents they might need.
-5. End with an encouraging line.
-6. NEVER use technical jargon. Use simple everyday words instead.
-7. Be honest — if you are not sure about something, say so.
+2. Be interactive — if information is missing for an eligibility check, ASK for it.
+3. Use Step 1, Step 2 only for final registration/application steps.
+4. Keep bits of information in small, digestible chunks.
+5. NEVER use technical jargon.
 
 Answer (in {language}):"""
 
@@ -75,26 +81,25 @@ Answer (in {language}):"""
             "I do not have this information",
             "I don't have this information",
             "not in the context",
-            "visit your nearest",
-            "Gram Panchayat",
+            "FALLBACK",
         ]
         return any(indicator.lower() in response.lower() for indicator in fallback_indicators)
 
-    def _general_knowledge_answer(self, question: str, language: str) -> dict:
+    def _general_knowledge_answer(self, question: str, language: str, chat_history: str = "") -> dict:
         """Answer using GPT-4o general knowledge when RAG has no relevant docs."""
-        print(f"--- RAG fallback: using GPT-4o general knowledge ---")
+        print(f"--- RAG fallback: using GPT-4o general knowledge with history ---")
         from langchain_core.prompts import PromptTemplate
         from langchain_core.output_parsers import StrOutputParser
 
         prompt = PromptTemplate.from_template(self.FALLBACK_PROMPT)
         chain = prompt | self.llm | StrOutputParser()
-        response = chain.invoke({"question": question, "language": language})
+        response = chain.invoke({"question": question, "language": language, "chat_history": chat_history})
         return {
             "answer": response,
             "sources": [{
                 "filename": "General Knowledge (GPT-4o)",
                 "page": None,
-                "snippet": "This answer is based on GPT-4o's general knowledge about Indian government services, not from uploaded documents.",
+                "snippet": "This answer is based on GPT-4o's general knowledge and diagnostic logic.",
             }]
         }
 
@@ -107,7 +112,15 @@ Answer (in {language}):"""
         print(f"Detected language: {detected_lang}")
         return detected_lang
 
-    def query(self, question, language="English"):
+    def query(self, question, language="English", chat_history: list = None):
+        """Processes a query with optional chat history for diagnostic interaction."""
+        # Format chat history for the prompt
+        history_str = ""
+        if chat_history:
+            for msg in chat_history[-5:]: # Last 5 messages for context
+                role = "User" if msg["type"] == "user" else "Saarthi"
+                history_str += f"{role}: {msg['text']}\n"
+
         # Auto-detect language if requested (useful for WhatsApp)
         if language == "Auto":
             language = self._detect_language(question)
@@ -115,33 +128,39 @@ Answer (in {language}):"""
         # If no documents loaded, go straight to general knowledge
         if not self.vector_db:
             print("No RAG documents — using GPT-4o general knowledge.")
-            return self._general_knowledge_answer(question, language)
+            return self._general_knowledge_answer(question, language, history_str)
 
         prompt_template = """You are Saarthi — a kind, patient, and knowledgeable friend who helps rural citizens of India understand government schemes and their rights.
 
 The person asking you is likely a farmer, a daily-wage worker, or someone from a village who may not have much formal education. They need answers that are:
 - Written in very SIMPLE, everyday words (no government jargon)
 - Short sentences, easy to read
-- Use real-life comparisons (like fields, crops, villages, harvests) to explain things
-- Give PRACTICAL, actionable information — what they need to DO, not just what the scheme is
-- Be warm and respectful, like a trusted local helper
+- Use real-life comparisons to explain things
+- Warm and respectful, like a trusted local helper
 
-Use ONLY the following information to answer the question. Do NOT make up anything:
+**ELIGIBILITY CHECK LOGIC:**
+- If the user asks "Am I eligible?", do NOT give a full list of rules from the text.
+- Instead, find the eligibility criteria in the context below.
+- Check if the user has already provided any of these details in the **Chat History**.
+- Ask the user for any MISSING information (e.g., "What is your land size?") before giving a final answer.
+- Only give a "Yes" or "No" once you have enough facts.
+
+Use ONLY the following information to answer. If the answer is not here, reply ONLY with: FALLBACK
 ---
 {context}
 ---
+
+Chat History:
+{chat_history}
 
 Question: {question}
 
 IMPORTANT INSTRUCTIONS:
 1. Answer in {language}.
-2. Start with a one-line simple explanation of what the scheme/topic is.
-3. Then explain the key benefits in plain language.
-4. If there are steps to apply, list them clearly as Step 1, Step 2, etc.
-5. Mention any documents they need to bring.
-6. End with an encouraging line.
-7. If the answer is not in the context above, reply ONLY with the single word: FALLBACK
-8. NEVER use technical words like "beneficiary", "disbursement", "implementation", "operationalize". Use simple words instead.
+2. If the user asks about eligibility, ASK follow-up questions for missing data.
+3. List next steps (Step 1, Step 2) ONLY after eligibility is confirmed.
+4. End with a helpful, warm line.
+5. NEVER use technical jargon.
 
 Answer (in {language}):"""
 
@@ -155,7 +174,12 @@ Answer (in {language}):"""
         retriever = self.vector_db.as_retriever(search_kwargs={"k": 6})
 
         chain = (
-            {"context": retriever, "question": RunnablePassthrough(), "language": lambda x: language}
+            {
+                "context": retriever, 
+                "question": RunnablePassthrough(), 
+                "language": lambda x: language,
+                "chat_history": lambda x: history_str
+            }
             | prompt
             | self.llm
             | StrOutputParser()
@@ -163,22 +187,17 @@ Answer (in {language}):"""
 
         try:
             print(f"--- Sending Query to Saarthi's Brain ({language}) ---")
-            print(f"Question: {question}")
-
-            # Retrieve relevant document chunks (with metadata)
+            
+            # Retrieve relevant document chunks (for sourcing)
             docs = retriever.invoke(question)
-            print(f"DEBUG: Found {len(docs)} relevant context snippets.")
-
+            
             response = chain.invoke(question)
-            print(f"--- Saarthi Response Received ---")
-            print(f"Response: {response[:100]}...")
 
             # If RAG couldn't answer from docs, fall back to GPT-4o general knowledge
             if response.strip().upper() == "FALLBACK" or self._is_rag_fallback_response(response):
-                print("--- RAG had no relevant info — falling back to GPT-4o general knowledge ---")
-                return self._general_knowledge_answer(question, language)
+                return self._general_knowledge_answer(question, language, history_str)
 
-            # Build sources list from retrieved docs (deduplicated by filename+page)
+            # Build sources list from retrieved docs
             seen = set()
             sources = []
             for doc in docs:
@@ -191,15 +210,13 @@ Answer (in {language}):"""
                     seen.add(key)
                     sources.append({
                         "filename": filename,
-                        "page": page + 1 if page is not None else None,  # 1-indexed
+                        "page": page + 1 if page is not None else None,
                         "snippet": doc.page_content[:200].strip().replace("\n", " "),
                     })
 
             return {"answer": response, "sources": sources}
 
         except Exception as e:
-            import traceback
-            traceback.print_exc()
             print(f"RAG Error: {e}")
             return {"answer": "I encountered an error while processing your request. Please try again.", "sources": []}
 

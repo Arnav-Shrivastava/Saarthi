@@ -16,6 +16,22 @@ from openai import OpenAI
 app = FastAPI(title="Saarthi API", description="Multilingual Assistant for Citizens")
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+# Simple in-memory chat history storage
+# Key is user ID (IP for web, phone number for WhatsApp/Voice)
+chat_histories = {}
+
+def get_history(user_id: str):
+    if user_id not in chat_histories:
+        chat_histories[user_id] = []
+    return chat_histories[user_id]
+
+def add_to_history(user_id: str, message: str, role: str):
+    history = get_history(user_id)
+    history.append({"type": role, "text": message})
+    # Keep only last 10 messages to save memory
+    if len(chat_histories[user_id]) > 10:
+        chat_histories[user_id] = chat_histories[user_id][-10:]
+
 # Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
@@ -41,7 +57,16 @@ async def root():
 @app.post("/chat")
 async def chat(message: str = Form(...), language: str = Form("English")):
     try:
-        result = rag_engine.query(message, language=language)
+        # Use a static ID for web for now (real apps would use sessions/auth)
+        user_id = "web-user-default"
+        history = get_history(user_id)
+        
+        result = rag_engine.query(message, language=language, chat_history=history)
+        
+        # Save to history
+        add_to_history(user_id, message, "user")
+        add_to_history(user_id, result["answer"], "saarthi")
+        
         return {
             "user_message": message,
             "language": language,
@@ -175,9 +200,16 @@ async def whatsapp_webhook(
             twiml.message("Namaste! I am Saarthi. How can I help you today?")
             return Response(content=str(twiml), media_type="application/xml")
 
-        # Query the RAG engine with "Auto" language detection
-        result = rag_engine.query(user_message, language="Auto")
+        # Get history for this WhatsApp user
+        history = get_history(From)
+
+        # Query the RAG engine with history
+        result = rag_engine.query(user_message, language="Auto", chat_history=history)
         answer = result["answer"]
+        
+        # Save to history
+        add_to_history(From, user_message, "user")
+        add_to_history(From, answer, "saarthi")
         
         # Add a small signature for WhatsApp
         if result.get("sources"):
@@ -237,9 +269,16 @@ async def voice_answer(SpeechResult: str = Form(None)):
         
         print(f"--- Recieved Voice Question: {SpeechResult} ---")
         
-        # Query Saarthi's brain with Auto detection
-        result = rag_engine.query(SpeechResult, language="Auto")
+        # Get history for this caller
+        history = get_history(From)
+
+        # Query Saarthi's brain with history
+        result = rag_engine.query(SpeechResult, language="Auto", chat_history=history)
         answer = result["answer"]
+        
+        # Save to history
+        add_to_history(From, SpeechResult, "user")
+        add_to_history(From, answer, "saarthi")
         
         # Determine which voice to use based on detected language
         detected_lang = rag_engine._detect_language(SpeechResult)
@@ -276,7 +315,10 @@ async def voice_answer(SpeechResult: str = Form(None)):
 @app.post("/upload")
 async def upload_document(file: UploadFile = File(...), language: str = Form("English")):
     try:
-        data_dir = "../data"
+        # Use absolute path relative to this script's location
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        data_dir = os.path.join(os.path.dirname(base_dir), "data")
+        
         if not os.path.exists(data_dir):
             os.makedirs(data_dir)
         file_path = os.path.join(data_dir, file.filename)
