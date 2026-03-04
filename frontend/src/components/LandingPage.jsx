@@ -64,13 +64,13 @@ export default function LandingPage({ onStart }) {
                 <nav className="max-w-7xl mx-auto flex h-14 items-center justify-between px-4 sm:px-6">
                     <div className="flex items-center gap-2.5">
                         {/* Logo */}
-                        <div className="flex h-7 w-7 items-center justify-center rounded-md bg-primary">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary shadow-sm shadow-primary/20">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
                                 <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="white" strokeWidth="2" strokeLinejoin="round" fill="rgba(255,255,255,0.15)" />
                                 <path d="M12 7v10M7 9.5l5 2.5 5-2.5" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
                         </div>
-                        <span className="font-semibold text-sm tracking-tight">Saarthi</span>
+                        <span className="font-bold text-lg tracking-tight">Saarthi</span>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -226,6 +226,93 @@ export default function LandingPage({ onStart }) {
                 </div>
             </section>
 
+            {/* Example Flow Section */}
+            <section className="py-24 bg-muted/40 border-y border-border/60">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6">
+                    <div className="text-center mb-16">
+                        <Badge variant="outline" className="mb-4">Real-World Case Study</Badge>
+                        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-4">
+                            How Saarthi Helps You
+                        </h2>
+                        <p className="text-muted-foreground text-sm max-w-lg mx-auto">
+                            Saarthi guides citizens through complex eligibility checks by asking the right questions.
+                        </p>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-12 items-center">
+                        <div className="space-y-6">
+                            <div className="flex flex-col gap-2">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-muted-foreground ml-4">User</span>
+                                <div className="bg-white border border-border/60 shadow-sm p-4 rounded-2xl rounded-tl-none max-w-[85%]">
+                                    <p className="text-sm font-medium">"Am I eligible for PM Kisan?"</p>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-2 items-end">
+                                <span className="text-[10px] font-bold uppercase tracking-wider text-primary mr-4">Saarthi</span>
+                                <div className="bg-primary text-primary-foreground p-5 rounded-2xl rounded-tr-none max-w-[90%] shadow-lg shadow-primary/10">
+                                    <p className="text-sm font-medium mb-3 font-mono leading-tight">Please answer:</p>
+                                    <ul className="space-y-1 text-sm opacity-90">
+                                        <li className="flex items-center gap-2">• Land size?</li>
+                                        <li className="flex items-center gap-2">• Which state?</li>
+                                        <li className="flex items-center gap-2">• Land ownership?</li>
+                                        <li className="flex items-center gap-2">• Annual income?</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col gap-2 items-end">
+                                <div className="bg-primary text-primary-foreground p-5 rounded-2xl rounded-tr-none max-w-[90%] shadow-lg shadow-primary/10 border-t border-primary-foreground/10">
+                                    <p className="text-base font-bold mb-4 flex items-center gap-2">
+                                        You are eligible ✅
+                                    </p>
+                                    <p className="text-sm font-bold mb-2">Steps to apply:</p>
+                                    <ol className="space-y-2 text-sm opacity-90 list-decimal pl-4">
+                                        <li>Visit CSC</li>
+                                        <li>Carry Aadhaar</li>
+                                        <li>Bank details</li>
+                                    </ol>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="relative group p-1">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-violet-600 rounded-2xl blur opacity-10 group-hover:opacity-20 transition duration-1000"></div>
+                            <div className="relative bg-white border border-border/60 rounded-2xl p-10 shadow-xl overflow-hidden">
+                                <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+                                <h4 className="font-bold text-lg mb-4 flex items-center gap-2">
+                                    <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></div>
+                                    Dynamic Reasoning
+                                </h4>
+                                <p className="text-sm text-muted-foreground mb-8 leading-relaxed">
+                                    Saarthi doesn't just read documents — it understands the logic of government schemes and performs real-time eligibility checks in your language.
+                                </p>
+                                <div className="space-y-5">
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                            <span>Policy Matching</span>
+                                            <span>94%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-muted rounded-full overflow-hidden p-0.5">
+                                            <div className="h-full bg-primary rounded-full w-[94%]"></div>
+                                        </div>
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
+                                            <span>Logical Deduction</span>
+                                            <span>88%</span>
+                                        </div>
+                                        <div className="h-2 w-full bg-muted rounded-full overflow-hidden p-0.5">
+                                            <div className="h-full bg-violet-500 rounded-full w-[88%]"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* How It Works */}
             <section className="border-t border-border/60 bg-muted/20">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
@@ -307,9 +394,14 @@ export default function LandingPage({ onStart }) {
                     <p className="text-xs text-muted-foreground">
                         Multilingual AI assistant for Indian citizens · Built with OpenAI GPT-4o + RAG
                     </p>
-                    <div className="flex items-center gap-1">
-                        <Shield className="h-3 w-3 text-muted-foreground" />
-                        <span className="text-[10px] text-muted-foreground">Privacy First</span>
+                    <div className="flex flex-col items-center sm:items-end gap-1">
+                        <div className="flex items-center gap-1">
+                            <Shield className="h-3 w-3 text-muted-foreground" />
+                            <span className="text-[10px] text-muted-foreground">Privacy First</span>
+                        </div>
+                        <p className="text-[10px] text-muted-foreground">
+                            Developed for LinguaVerse by <span className="font-semibold text-foreground/80">Arnav Shrivastava & Kunal Krishna</span>
+                        </p>
                     </div>
                 </div>
             </footer>
