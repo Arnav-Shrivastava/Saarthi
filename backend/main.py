@@ -256,7 +256,7 @@ async def voice_greeting():
         return Response(content="<Response><Say>Internal Error</Say></Response>", media_type="text/xml")
 
 @app.post("/voice-answer")
-async def voice_answer(SpeechResult: str = Form(None)):
+async def voice_answer(SpeechResult: str = Form(None), From: str = Form(None)):
     """Processes the speech transcript and speaks the answer back."""
     try:
         response = VoiceResponse()
