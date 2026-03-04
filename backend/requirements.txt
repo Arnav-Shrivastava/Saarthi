@@ -15,3 +15,5 @@ python-docx
 # For OCR (Vision handled by OpenAI, but Tesseract for local)
 pytesseract
 Pillow
+twilio
+requests
