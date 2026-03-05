@@ -528,22 +528,22 @@ async def whatsapp_webhook(
         return Response(content=str(twiml), media_type="application/xml")
 
 def _get_voice(detected_lang: str) -> tuple[str, str]:
-    """Returns (polly_voice, lang_code) for a given detected language name."""
+    """Returns (voice_name, lang_code) for a given detected language name."""
     lang_voice_map = {
-        "Hindi": ("Polly.Aditi", "hi-IN"),
-        "Tamil": ("Polly.Aditi", "ta-IN"),
-        "Telugu": ("Polly.Aditi", "te-IN"),
-        "Bengali": ("Polly.Aditi", "bn-IN"),
-        "Marathi": ("Polly.Aditi", "mr-IN"),
-        "Kannada": ("Polly.Aditi", "kn-IN"),
-        "Gujarati": ("Polly.Aditi", "gu-IN"),
-        "Punjabi": ("Polly.Aditi", "pa-IN"),
-        "Malayalam": ("Polly.Aditi", "ml-IN"),
+        "Hindi": ("Polly.Aditi", "hi-IN"),  # Polly Aditi supports Hindi natively
+        "Tamil": ("Google.ta-IN-Standard-A", "ta-IN"),
+        "Telugu": ("Google.te-IN-Standard-A", "te-IN"),
+        "Bengali": ("Google.bn-IN-Standard-A", "bn-IN"),
+        "Marathi": ("Google.mr-IN-Standard-A", "mr-IN"),
+        "Kannada": ("Google.kn-IN-Standard-A", "kn-IN"),
+        "Gujarati": ("Google.gu-IN-Standard-A", "gu-IN"),
+        "Punjabi": ("Google.pa-IN-Standard-A", "pa-IN"),
+        "Malayalam": ("Google.ml-IN-Standard-A", "ml-IN"),
     }
     for lang_key, (voice, code) in lang_voice_map.items():
         if lang_key.lower() in detected_lang.lower():
             return voice, code
-    return "Polly.Aditi", "en-IN"  # default English
+    return "Polly.Aditi", "en-IN"  # default Indian English
 
 
 @app.post("/voice")
@@ -554,11 +554,14 @@ async def voice_greeting():
         response = VoiceResponse()
         
         # IVR Language Selection
-        gather = Gather(num_digits=1, action="/voice-language-select", timeout=10)
+        gather = Gather(num_digits=1, action="/voice-language-select", timeout=12)
         # We speak the prompt in the respective languages
         gather.say("Welcome to Saarthi. For English, press 1.", voice="Polly.Aditi", language="en-IN")
         gather.say("सारथी में आपका स्वागत है। हिंदी के लिए, दो दबाएं।", voice="Polly.Aditi", language="hi-IN")
-        gather.say("சாரதிக்கு வரவேற்கிறோம். தமிழுக்கு மூன்றை அழுத்தவும்.", voice="Polly.Aditi", language="ta-IN")
+        gather.say("சாரதிக்கு வரவேற்கிறோம். தமிழுக்கு மூன்றை அழுத்தவும்.", voice="Google.ta-IN-Standard-A", language="ta-IN")
+        gather.say("సారథికి స్వాగతం. తెలుగు కోసం నాలుగు నొక్కండి.", voice="Google.te-IN-Standard-A", language="te-IN")
+        gather.say("सारथीमध्ये आपले स्वागत आहे. मराठीसाठी पाच दाबा.", voice="Google.mr-IN-Standard-A", language="mr-IN")
+        gather.say("সারথিতে স্বাগতম। বাংলার জন্য ছয় চাপুন।", voice="Google.bn-IN-Standard-A", language="bn-IN")
         response.append(gather)
         
         # If they don't press anything
@@ -577,9 +580,12 @@ async def voice_language_select(Digits: str = Form(None), From: str = Form(None)
         
         # Map digits to language codes
         lang_map = {
-            "1": {"saarthi_lang": "English", "twilio_lang": "en-IN", "voice": "Polly.Aditi", "prompt": "Namaste! I am Saarthi, your helpful friend. How can I help you today? Please tell me your question now."},
-            "2": {"saarthi_lang": "Hindi", "twilio_lang": "hi-IN", "voice": "Polly.Aditi", "prompt": "नमस्ते! मैं सारथी हूँ, आपका मददगार दोस्त। आज मैं आपकी कैसे मदद कर सकता हूँ? कृपया अपना सवाल अभी बताएं।"},
-            "3": {"saarthi_lang": "Tamil", "twilio_lang": "ta-IN", "voice": "Polly.Aditi", "prompt": "நமஸ்தே! நான் சாரதி, உங்கள் உதவிகரமான நண்பன். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்? தயவுசெய்து உங்கள் கேள்வியை இப்போது சொல்லுங்கள்."}
+            "1": {"saarthi_lang": "English", "twilio_lang": "en-IN", "voice": "Polly.Aditi", "prompt": "Namaste! I am Saarthi, your helpful friend. How can I help you today? Please tell me your question now.", "fallback": "I'm sorry, I didn't hear anything. Please call back if you need help."},
+            "2": {"saarthi_lang": "Hindi", "twilio_lang": "hi-IN", "voice": "Polly.Aditi", "prompt": "नमस्ते! मैं सारथी हूँ, आपका मददगार दोस्त। आज मैं आपकी कैसे मदद कर सकता हूँ? कृपया अपना सवाल अभी बताएं।", "fallback": "मुझे कुछ सुनाई नहीं दिया। कृपया फिर से कॉल करें।"},
+            "3": {"saarthi_lang": "Tamil", "twilio_lang": "ta-IN", "voice": "Google.ta-IN-Standard-A", "prompt": "நமஸ்தே! நான் சாரதி, உங்கள் உதவிகரமான நண்பன். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்? தயவுசெய்து உங்கள் கேள்வியை இப்போது சொல்லுங்கள்.", "fallback": "மன்னிக்கவும், எனக்கு எதுவும் கேட்கவில்லை. தயவுசெய்து மீண்டும் அழைக்கவும்."},
+            "4": {"saarthi_lang": "Telugu", "twilio_lang": "te-IN", "voice": "Google.te-IN-Standard-A", "prompt": "నమస్తే! నేను సారథి, మీ సహాయక స్నేహితుడిని. ఈ రోజు నేను మీకు ఎలా సహాయపడగలను? దయచేసి మీ ప్రశ్నను ఇప్పుడు చెప్పండి.", "fallback": "క్షమించండి, నాకు ఏమీ వినపడలేదు. దయచేసి మళ్లీ కాల్ చేయండి."},
+            "5": {"saarthi_lang": "Marathi", "twilio_lang": "mr-IN", "voice": "Google.mr-IN-Standard-A", "prompt": "नमस्ते! मी सारथी आहे, तुमचा मदतीचा मित्र. आज मी तुम्हाला कशी मदत करू शकतो? कृपया आपला प्रश्न आता सांगा.", "fallback": "क्षमस्व, मला काहीही ऐकू आले नाही. कृपया पुन्हा कॉल करा."},
+            "6": {"saarthi_lang": "Bengali", "twilio_lang": "bn-IN", "voice": "Google.bn-IN-Standard-A", "prompt": "নমস্তে! আমি সারথি, আপনার সাহায্যকারী বন্ধু। আজ আমি আপনাকে কীভাবে সাহায্য করতে পারি? দয়া করে এখন আপনার প্রশ্নটি বলুন।", "fallback": "দুঃখিত, আমি কিছু শুনতে পাইনি। অনুগ্রহ করে আবার কল করুন।"}
         }
         
         # Default to English if invalid input
@@ -593,8 +599,7 @@ async def voice_language_select(Digits: str = Form(None), From: str = Form(None)
         response.append(gather)
         
         # If they don't say anything
-        fallback_msg = "I'm sorry, I didn't hear anything. Please call back if you need help." if Digits == "1" else "मुझे कुछ सुनाई नहीं दिया। कृपया फिर से कॉल करें।"
-        response.say(fallback_msg, voice=selection['voice'], language=selection['twilio_lang'])
+        response.say(selection['fallback'], voice=selection['voice'], language=selection['twilio_lang'])
         
         return Response(content=str(response), media_type="text/xml")
     except Exception as e:
@@ -616,14 +621,21 @@ async def voice_answer(
 
         if not SpeechResult:
             print("--- Voice: No speech detected ---")
-            no_speech_msg = "I'm sorry, I didn't quite catch that. Please tell me your question again."
-            if saarthi_lang == "Hindi": no_speech_msg = "मुझे क्षमा करें, मैं समझ नहीं पाया। कृपया अपना प्रश्न फिर से बताएं।"
-            elif saarthi_lang == "Tamil": no_speech_msg = "மன்னிக்கவும், எனக்கு புரியவில்லை. தயவுசெய்து உங்கள் கேள்வியை மீண்டும் சொல்லுங்கள்."
+            no_speech_reqs = {
+                "English": "I'm sorry, I didn't quite catch that. Please tell me your question again.",
+                "Hindi": "मुझे क्षमा करें, मैं समझ नहीं पाया। कृपया अपना प्रश्न फिर से बताएं।",
+                "Tamil": "மன்னிக்கவும், எனக்கு புரியவில்லை. தயவுசெய்து உங்கள் கேள்வியை மீண்டும் சொல்லுங்கள்.",
+                "Telugu": "క్షమించండి, నాకు అర్థం కాలేదు. దయచేసి మీ ప్రశ్నను మళ్ళీ చెప్పండి.",
+                "Marathi": "क्षमस्व, मला समजले नाही. कृपया तुमचा प्रश्न पुन्हा सांगा.",
+                "Bengali": "দুঃখিত, আমি বুঝতে পারিনি। অনুগ্রহ করে আপনার প্রশ্নটি আবার বলুন।"
+            }
+            no_speech_msg = no_speech_reqs.get(saarthi_lang, no_speech_reqs["English"])
             
             response.say(no_speech_msg, voice=voice, language=lang_code)
-            action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
-            response.redirect(action_url)
-            return Response(content=str(response), media_type="text/xml")
+
+        action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
+        response.redirect(action_url)
+        return Response(content=str(response), media_type="text/xml")
         
         print(f"--- Recieved Voice Question: {SpeechResult} ---")
 
@@ -658,9 +670,15 @@ async def voice_answer(
             action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
             gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
             
-            more_q_msg = "Do you have any more questions? Please tell me now, or you can hang up."
-            if detected_lang == "Hindi": more_q_msg = "क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं, या आप फोन काट सकते हैं।"
-            elif detected_lang == "Tamil": more_q_msg = "உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள் அல்லது அழைப்பைத் துண்டிக்கலாம்."
+            more_qs = {
+                "English": "Do you have any more questions? Please tell me now, or you can hang up.",
+                "Hindi": "क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं, या आप फोन काट सकते हैं।",
+                "Tamil": "உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள் அல்லது அழைப்பைத் துண்டிக்கலாம்.",
+                "Telugu": "మీకు ఇంకా ఏమైనా ప్రశ్నలు ఉన్నాయా? దయచేసి ఇప్పుడే చెప్పండి లేదా మీరు కట్ చేయవచ్చు.",
+                "Marathi": "तुमचे आणखी काही प्रश्न आहेत का? कृपया आता सांगा, किंवा तुम्ही फोन ठेवू शकता.",
+                "Bengali": "আপনার কি আরও কোনো প্রশ্ন আছে? দয়া করে এখনই বলুন, বা আপনি ফোন কেটে দিতে পারেন।"
+            }
+            more_q_msg = more_qs.get(detected_lang, more_qs["English"])
             
             gather.say(more_q_msg, voice=voice, language=lang_code)
             response.append(gather)
@@ -690,9 +708,15 @@ async def voice_answer(
                 action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
                 gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
                 
-                safe_msg = "Stay safe from fraud. Do you have any other questions? Please tell me now, or you can hang up."
-                if detected_lang == "Hindi": safe_msg = "धोखाधड़ी से सुरक्षित रहें। क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं।"
-                elif detected_lang == "Tamil": safe_msg = "மோசடியில் இருந்து உங்களைப் பாதுகாத்துக் கொள்ளுங்கள். உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள்."
+                safe_msgs = {
+                    "English": "Stay safe from fraud. Do you have any other questions? Please tell me now, or you can hang up.",
+                    "Hindi": "धोखाधड़ी से सुरक्षित रहें। क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं।",
+                    "Tamil": "மோசடியில் இருந்து உங்களைப் பாதுகாத்துக் கொள்ளுங்கள். உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள்.",
+                    "Telugu": "మోసం నుండి సురక్షితంగా ఉండండి. మీకు ఇతర ప్రశ్నలు ఉన్నాయా? దయచేసి ఇప్పుడే చెప్పండి.",
+                    "Marathi": "फसवणुकीपासून सुरक्षित राहा. तुमचे आणखी काही प्रश्न आहेत का? कृपया आता सांगा.",
+                    "Bengali": "প্রতারণা থেকে নিরাপদ থাকুন। আপনার কি অন্য কোনো প্রশ্ন আছে? দয়া করে এখনই বলুন।"
+                }
+                safe_msg = safe_msgs.get(detected_lang, safe_msgs["English"])
                 
                 gather.say(safe_msg, voice=voice, language=lang_code)
                 response.append(gather)
@@ -719,9 +743,15 @@ async def voice_answer(
         action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
         gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
         
-        more_q_msg = "Do you have any more questions? Please tell me now, or you can hang up."
-        if detected_lang == "Hindi": more_q_msg = "क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं, या आप फोन काट सकते हैं।"
-        elif detected_lang == "Tamil": more_q_msg = "உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள் அல்லது அழைப்பைத் துண்டிக்கலாம்."
+        more_qs_end = {
+            "English": "Do you have any more questions? Please tell me now, or you can hang up.",
+            "Hindi": "क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं, या आप फोन काट सकते हैं।",
+            "Tamil": "உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள் அல்லது அழைப்பைத் துண்டிக்கலாம்.",
+            "Telugu": "మీకు ఇంకా ఏమైనా ప్రశ్నలు ఉన్నాయా? దయచేసి ఇప్పుడే చెప్పండి లేదా మీరు ఫోన్ పెట్టవచ్చు.",
+            "Marathi": "तुमचे आणखी काही प्रश्न आहेत का? कृपया आता सांगा, किंवा तुम्ही फोन ठेवू शकता.",
+            "Bengali": "আপনার কি আরও কোনো প্রশ্ন আছে? দয়া করে এখনই বলুন, বা আপনি ফোন কেটে দিতে পারেন।"
+        }
+        more_q_msg = more_qs_end.get(detected_lang, more_qs_end["English"])
         
         gather.say(more_q_msg, voice=voice, language=lang_code)
         response.append(gather)
