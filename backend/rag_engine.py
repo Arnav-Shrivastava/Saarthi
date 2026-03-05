@@ -9,8 +9,8 @@ from langchain_core.prompts import PromptTemplate
 class RagEngine:
     def __init__(self, data_path=None):
         if data_path is None:
-            # Get the path to the 'data' folder in the root of the project
-            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            # Get the path to the 'data' folder in the backend folder
+            base_dir = os.path.dirname(os.path.abspath(__file__))
             self.data_path = os.path.join(base_dir, "data")
         else:
             self.data_path = data_path

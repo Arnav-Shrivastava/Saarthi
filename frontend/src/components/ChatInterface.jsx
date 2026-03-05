@@ -4,15 +4,17 @@ import { Button } from '@/components/ui/button'
 import { Paperclip, Mic, MicOff, Send, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const API_BASE_URL = 'https://saarthi-production-7b58.up.railway.app'
+const API_BASE_URL = 'http://localhost:8000'
 
-function ChatInterface({ language, onBack }) {
+function ChatInterface({ language, onBack, onFindSchemes, preFillMessage, onPreFillConsumed }) {
   const [messages, setMessages] = useState([])
   const [inputText, setInputText] = useState('')
   const [isTyping, setIsTyping] = useState(false)
   const [isRecording, setIsRecording] = useState(false)
   const chatEndRef = useRef(null)
   const fileInputRef = useRef(null)
+
+
 
   const scrollToBottom = () => {
     chatEndRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -64,6 +66,15 @@ function ChatInterface({ language, onBack }) {
     }
   }
 
+  // IMPORTANT: placed AFTER handleSend so the function reference is in scope
+  useEffect(() => {
+    if (preFillMessage) {
+      handleSend(preFillMessage)
+      onPreFillConsumed?.()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [preFillMessage])
+
   const handleFileUpload = async (event) => {
     const file = event.target.files[0]
     if (!file) return
@@ -92,7 +103,11 @@ function ChatInterface({ language, onBack }) {
     if (isRecording) { setIsRecording(false); return }
 
     const recognition = new window.webkitSpeechRecognition()
-    const langMap = { English: 'en-US', Hindi: 'hi-IN', Tamil: 'ta-IN', Telugu: 'te-IN', Marathi: 'mr-IN', Bengali: 'bn-IN', Kannada: 'kn-IN', Gujarati: 'gu-IN' }
+    const langMap = {
+      English: 'en-US', Hindi: 'hi-IN', Tamil: 'ta-IN', Telugu: 'te-IN',
+      Marathi: 'mr-IN', Bengali: 'bn-IN', Kannada: 'kn-IN', Gujarati: 'gu-IN',
+      Punjabi: 'pa-IN', Malayalam: 'ml-IN',
+    }
     recognition.lang = langMap[language] || 'en-US'
     recognition.onstart = () => setIsRecording(true)
     recognition.onend = () => setIsRecording(false)
@@ -104,12 +119,22 @@ function ChatInterface({ language, onBack }) {
     recognition.start()
   }
 
+  const FIND_SCHEMES_SUGGESTION = '🎯 Find eligible schemes for me'
+
   const suggestions = [
+    FIND_SCHEMES_SUGGESTION,
     'Tell me about PM Kisan Scheme',
     'What is crop insurance (PMFBY)?',
     'How to apply for Aadhaar card?',
-    'What are my rights as a farmer?',
   ]
+
+  const handleSuggestionClick = (s) => {
+    if (s === FIND_SCHEMES_SUGGESTION) {
+      onFindSchemes?.()
+    } else {
+      handleSend(s)
+    }
+  }
 
   return (
     <div className="flex flex-col h-full w-full bg-background">
@@ -152,8 +177,12 @@ function ChatInterface({ language, onBack }) {
                 {suggestions.map((s) => (
                   <button
                     key={s}
-                    onClick={() => handleSend(s)}
-                    className="text-left text-xs px-3 py-3 rounded-lg border border-border/60 bg-background hover:border-primary/30 hover:bg-muted/40 transition-all duration-150 text-muted-foreground hover:text-foreground"
+                    onClick={() => handleSuggestionClick(s)}
+                    className={cn(
+                      'text-left text-xs px-3 py-3 rounded-lg border border-border/60 bg-background',
+                      'hover:border-primary/30 hover:bg-muted/40 transition-all duration-150 text-muted-foreground hover:text-foreground',
+                      s === FIND_SCHEMES_SUGGESTION && 'border-primary/30 bg-primary/5 text-primary hover:bg-primary/10 font-medium'
+                    )}
                   >
                     {s}
                   </button>

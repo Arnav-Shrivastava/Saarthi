@@ -119,7 +119,12 @@ export default function LandingPage({ onStart }) {
                             Try Saarthi Free
                             <ArrowRight className="h-4 w-4" />
                         </Button>
-                        <Button variant="outline" size="xl" className="w-full sm:w-auto">
+                        <Button
+                            variant="outline"
+                            size="xl"
+                            className="w-full sm:w-auto"
+                            onClick={() => document.getElementById('omnichannel')?.scrollIntoView({ behavior: 'smooth' })}
+                        >
                             <BookOpen className="h-4 w-4" />
                             See How It Works
                         </Button>
@@ -128,7 +133,7 @@ export default function LandingPage({ onStart }) {
             </section>
 
             {/* Omnichannel Section */}
-            <section className="py-20 border-b border-border/60">
+            <section id="omnichannel" className="py-20 border-b border-border/60 scroll-mt-14">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="flex flex-col lg:flex-row items-center gap-12">
                         <div className="flex-1 text-left">

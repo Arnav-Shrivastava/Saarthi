@@ -3,16 +3,25 @@ import './index.css'
 import LanguageSelect from './components/LanguageSelect'
 import ChatInterface from './components/ChatInterface'
 import LandingPage from './components/LandingPage'
+import SchemeRecommender from './components/SchemeRecommender'
+import ScamDetector from './components/ScamDetector'
 import { Button } from '@/components/ui/button'
-import { Home, Globe } from 'lucide-react'
+import { Home, Globe, Target, ShieldAlert } from 'lucide-react'
 
 function App() {
-  const [view, setView] = useState('landing') // landing, language, chat
+  const [view, setView] = useState('landing') // landing, language, chat, recommend
   const [language, setLanguage] = useState(null)
+  const [preFillMessage, setPreFillMessage] = useState(null)
 
   const handleStart = () => setView('language')
 
   const handleLanguageSelect = (lang) => {
+    // Prime the speech engine to unlock it for future automated guidance
+    if ('speechSynthesis' in window) {
+      const utterance = new SpeechSynthesisUtterance('')
+      utterance.volume = 0
+      window.speechSynthesis.speak(utterance)
+    }
     setLanguage(lang)
     setView('chat')
     localStorage.setItem('saarthi-language', lang)
@@ -24,6 +33,18 @@ function App() {
   }
 
   const handleBackToLanguage = () => setView('language')
+
+  // Called from ChatInterface "Find My Schemes" suggestion
+  const handleFindSchemes = () => setView('recommend')
+
+  // Called from SchemeCard "Learn More" button — navigates to chat with pre-filled question
+  const handleLearnMore = (scheme) => {
+    const question = language === 'English'
+      ? `Tell me everything about ${scheme.name} — how to apply, eligibility, and benefits.`
+      : `${scheme.name} के बारे में सब कुछ बताएं।`
+    setPreFillMessage(question)
+    setView('chat')
+  }
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-foreground font-sans">
@@ -70,6 +91,24 @@ function App() {
                 <Globe className="h-3.5 w-3.5" />
                 Change Language
               </Button>
+              <Button
+                variant={view === 'recommend' ? 'secondary' : 'ghost'}
+                size="sm"
+                className="justify-start gap-2 text-muted-foreground hover:text-foreground"
+                onClick={() => setView('recommend')}
+              >
+                <Target className="h-3.5 w-3.5" />
+                Find My Schemes
+              </Button>
+              <Button
+                variant={view === 'verify' ? 'secondary' : 'ghost'}
+                size="sm"
+                className="justify-start gap-2 text-muted-foreground hover:text-foreground"
+                onClick={() => setView('verify')}
+              >
+                <ShieldAlert className="h-3.5 w-3.5 text-red-500/80" />
+                Scam Detector
+              </Button>
             </nav>
 
             {/* Footer */}
@@ -89,7 +128,26 @@ function App() {
           {/* Main content */}
           <main className="flex-1 flex flex-col overflow-hidden">
             {view === 'language' && <LanguageSelect onSelect={handleLanguageSelect} />}
-            {view === 'chat' && <ChatInterface language={language} onBack={handleBackToLanguage} />}
+            {view === 'chat' && (
+              <ChatInterface
+                language={language}
+                onBack={handleBackToLanguage}
+                onFindSchemes={handleFindSchemes}
+                preFillMessage={preFillMessage}
+                onPreFillConsumed={() => setPreFillMessage(null)}
+              />
+            )}
+            {view === 'recommend' && (
+              <SchemeRecommender
+                language={language}
+                onLearnMore={handleLearnMore}
+              />
+            )}
+            {view === 'verify' && (
+              <ScamDetector
+                language={language}
+              />
+            )}
           </main>
         </>
       )}

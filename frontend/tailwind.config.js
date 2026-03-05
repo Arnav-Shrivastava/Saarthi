@@ -70,7 +70,18 @@ export default {
                 'pulse-soft': 'pulse-soft 2s ease-in-out infinite',
             },
             fontFamily: {
-                sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                sans: [
+                    'Inter',
+                    'Noto Sans Devanagari', // Marathi / Hindi
+                    'Noto Sans Gujarati',   // Gujarati
+                    'Noto Sans Gurmukhi',   // Punjabi
+                    'Noto Sans Malayalam',  // Malayalam
+                    'Noto Sans Tamil',      // Tamil
+                    'Noto Sans Telugu',     // Telugu
+                    'Noto Sans Bengali',    // Bengali
+                    'Noto Sans Kannada',    // Kannada
+                    'system-ui', '-apple-system', 'sans-serif'
+                ],
                 mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
             },
         },
