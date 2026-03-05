@@ -548,46 +548,89 @@ def _get_voice(detected_lang: str) -> tuple[str, str]:
 
 @app.post("/voice")
 async def voice_greeting():
-    """Initial greeting for the voice helpline."""
+    """Initial greeting for the voice helpline (Language Selection)."""
     try:
         print("--- Incoming Voice Call! ---")
         response = VoiceResponse()
         
-        # Use Polly.Aditi for a natural Indian accent
-        gather = Gather(input="speech", action="/voice-answer", speechTimeout="auto", language="en-IN")
-        gather.say(
-            "Namaste! I am Saarthi, your helpful friend. "
-            "How can I help you today? Please tell me your question now.", 
-            voice="Polly.Aditi",
-            language="en-IN"
-        )
+        # IVR Language Selection
+        gather = Gather(num_digits=1, action="/voice-language-select", timeout=10)
+        # We speak the prompt in the respective languages
+        gather.say("Welcome to Saarthi. For English, press 1.", voice="Polly.Aditi", language="en-IN")
+        gather.say("सारथी में आपका स्वागत है। हिंदी के लिए, दो दबाएं।", voice="Polly.Aditi", language="hi-IN")
+        gather.say("சாரதிக்கு வரவேற்கிறோம். தமிழுக்கு மூன்றை அழுத்தவும்.", voice="Polly.Aditi", language="ta-IN")
         response.append(gather)
         
-        # If they don't say anything
-        response.say("I'm sorry, I didn't hear anything. Please call back if you need help. Good bye!", voice="Polly.Aditi", language="en-IN")
+        # If they don't press anything
+        response.say("I'm sorry, I didn't receive an input. Please call back. Good bye!", voice="Polly.Aditi", language="en-IN")
         
         return Response(content=str(response), media_type="text/xml")
     except Exception as e:
         print(f"Voice Error: {e}")
         return Response(content="<Response><Say>Internal Error</Say></Response>", media_type="text/xml")
 
+@app.post("/voice-language-select")
+async def voice_language_select(Digits: str = Form(None), From: str = Form(None)):
+    """Handles the IVR language selection and prompts for the first question."""
+    try:
+        response = VoiceResponse()
+        
+        # Map digits to language codes
+        lang_map = {
+            "1": {"saarthi_lang": "English", "twilio_lang": "en-IN", "voice": "Polly.Aditi", "prompt": "Namaste! I am Saarthi, your helpful friend. How can I help you today? Please tell me your question now."},
+            "2": {"saarthi_lang": "Hindi", "twilio_lang": "hi-IN", "voice": "Polly.Aditi", "prompt": "नमस्ते! मैं सारथी हूँ, आपका मददगार दोस्त। आज मैं आपकी कैसे मदद कर सकता हूँ? कृपया अपना सवाल अभी बताएं।"},
+            "3": {"saarthi_lang": "Tamil", "twilio_lang": "ta-IN", "voice": "Polly.Aditi", "prompt": "நமஸ்தே! நான் சாரதி, உங்கள் உதவிகரமான நண்பன். இன்று நான் உங்களுக்கு எப்படி உதவ முடியும்? தயவுசெய்து உங்கள் கேள்வியை இப்போது சொல்லுங்கள்."}
+        }
+        
+        # Default to English if invalid input
+        selection = lang_map.get(Digits, lang_map["1"])
+        
+        # Pass the selected language code to the voice-answer endpoint
+        action_url = f"/voice-answer?lang_code={selection['twilio_lang']}&saarthi_lang={selection['saarthi_lang']}"
+        
+        gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=selection['twilio_lang'])
+        gather.say(selection['prompt'], voice=selection['voice'], language=selection['twilio_lang'])
+        response.append(gather)
+        
+        # If they don't say anything
+        fallback_msg = "I'm sorry, I didn't hear anything. Please call back if you need help." if Digits == "1" else "मुझे कुछ सुनाई नहीं दिया। कृपया फिर से कॉल करें।"
+        response.say(fallback_msg, voice=selection['voice'], language=selection['twilio_lang'])
+        
+        return Response(content=str(response), media_type="text/xml")
+    except Exception as e:
+        print(f"Language Select Error: {e}")
+        return Response(content="<Response><Say>Internal Error</Say></Response>", media_type="text/xml")
+
 @app.post("/voice-answer")
-async def voice_answer(SpeechResult: str = Form(None), From: str = Form(None)):
+async def voice_answer(
+    SpeechResult: str = Form(None), 
+    From: str = Form(None),
+    lang_code: str = "en-IN",
+    saarthi_lang: str = "English"
+):
     """Processes the speech transcript and speaks the answer back."""
     try:
         response = VoiceResponse()
         
+        voice, _ = _get_voice(saarthi_lang) # We already know the language now
+
         if not SpeechResult:
             print("--- Voice: No speech detected ---")
-            response.say("I'm sorry, I didn't quite catch that. Please tell me your question again.", voice="Polly.Aditi", language="en-IN")
-            response.redirect("/voice")
+            no_speech_msg = "I'm sorry, I didn't quite catch that. Please tell me your question again."
+            if saarthi_lang == "Hindi": no_speech_msg = "मुझे क्षमा करें, मैं समझ नहीं पाया। कृपया अपना प्रश्न फिर से बताएं।"
+            elif saarthi_lang == "Tamil": no_speech_msg = "மன்னிக்கவும், எனக்கு புரியவில்லை. தயவுசெய்து உங்கள் கேள்வியை மீண்டும் சொல்லுங்கள்."
+            
+            response.say(no_speech_msg, voice=voice, language=lang_code)
+            action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
+            response.redirect(action_url)
             return Response(content=str(response), media_type="text/xml")
         
         print(f"--- Recieved Voice Question: {SpeechResult} ---")
 
-        # Detect language first (needed for both recommendation and RAG)
-        detected_lang = rag_engine._detect_language(SpeechResult)
-
+        # Detect language (We default to saarthi_lang but RAG does its own detection optionally)
+        # Using saarthi_lang passed from IVR is safer to enforce the intended response language
+        detected_lang = saarthi_lang
+        
         # ── Voice Recommendation ───────────────────────────────────────────────
         if is_recommendation_request(SpeechResult):
             print("--- Voice: Recommendation request detected ---")
@@ -609,13 +652,19 @@ async def voice_answer(SpeechResult: str = Form(None), From: str = Form(None)):
             }
             answer += followup.get(detected_lang, followup["English"])
 
-            voice, lang_code = _get_voice(detected_lang)
+            voice, _ = _get_voice(detected_lang)
             response.say(answer, voice=voice, language=lang_code)
 
-            gather = Gather(input="speech", action="/voice-answer", speechTimeout="auto", language="en-IN")
-            gather.say("Do you have any more questions? Please tell me now, or you can hang up.", voice="Polly.Aditi", language="en-IN")
+            action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
+            gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
+            
+            more_q_msg = "Do you have any more questions? Please tell me now, or you can hang up."
+            if detected_lang == "Hindi": more_q_msg = "क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं, या आप फोन काट सकते हैं।"
+            elif detected_lang == "Tamil": more_q_msg = "உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள் அல்லது அழைப்பைத் துண்டிக்கலாம்."
+            
+            gather.say(more_q_msg, voice=voice, language=lang_code)
             response.append(gather)
-            response.redirect("/voice") # Fallback if they stay silent
+            response.redirect(action_url) # Fallback if they stay silent
 
             return Response(content=str(response), media_type="text/xml")
         # ── End Voice Recommendation ───────────────────────────────────────────
@@ -635,13 +684,20 @@ async def voice_answer(SpeechResult: str = Form(None), From: str = Form(None)):
                 if verdict.get("official_details"):
                     voice_resp += f"The actual official information is: {verdict['official_details']}"
                 
-                voice, lang_code = _get_voice(detected_lang)
+                voice, _ = _get_voice(detected_lang)
                 response.say(voice_resp, voice=voice, language=lang_code)
 
-                gather = Gather(input="speech", action="/voice-answer", speechTimeout="auto", language="en-IN")
-                gather.say("Stay safe from fraud. Do you have any other questions? Please tell me now, or you can hang up.", voice="Polly.Aditi", language="en-IN")
+                action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
+                gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
+                
+                safe_msg = "Stay safe from fraud. Do you have any other questions? Please tell me now, or you can hang up."
+                if detected_lang == "Hindi": safe_msg = "धोखाधड़ी से सुरक्षित रहें। क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं।"
+                elif detected_lang == "Tamil": safe_msg = "மோசடியில் இருந்து உங்களைப் பாதுகாத்துக் கொள்ளுங்கள். உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள்."
+                
+                gather.say(safe_msg, voice=voice, language=lang_code)
                 response.append(gather)
-                response.redirect("/voice") # Fallback
+                response.redirect(action_url) # Fallback
+
 
                 return Response(content=str(response), media_type="text/xml")
 
@@ -654,18 +710,24 @@ async def voice_answer(SpeechResult: str = Form(None), From: str = Form(None)):
         add_to_history(caller_id, answer, "saarthi")
         
         # Determine which voice to use based on detected language
-        voice, lang_code = _get_voice(detected_lang)
+        voice, _ = _get_voice(detected_lang)
 
         # Speak the answer
         response.say(answer, voice=voice, language=lang_code)
         
         # Ask if they have more questions with a Gather loop
-        gather = Gather(input="speech", action="/voice-answer", speechTimeout="auto", language="en-IN")
-        gather.say("Do you have any more questions? Please tell me now, or you can hang up.", voice="Polly.Aditi", language="en-IN")
+        action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
+        gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
+        
+        more_q_msg = "Do you have any more questions? Please tell me now, or you can hang up."
+        if detected_lang == "Hindi": more_q_msg = "क्या आपका कोई और सवाल है? कृपया मुझे अभी बताएं, या आप फोन काट सकते हैं।"
+        elif detected_lang == "Tamil": more_q_msg = "உங்களுக்கு வேறு ஏதேனும் கேள்விகள் உள்ளதா? தயவுசெய்து இப்போது சொல்லுங்கள் அல்லது அழைப்பைத் துண்டிக்கலாம்."
+        
+        gather.say(more_q_msg, voice=voice, language=lang_code)
         response.append(gather)
         
         # Fallback if no speech detected
-        response.redirect("/voice")
+        response.redirect(action_url)
         
         return Response(content=str(response), media_type="text/xml")
         
