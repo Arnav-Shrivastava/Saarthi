@@ -594,7 +594,8 @@ async def voice_language_select(Digits: str = Form(None), From: str = Form(None)
         # Pass the selected language code to the voice-answer endpoint
         action_url = f"/voice-answer?lang_code={selection['twilio_lang']}&saarthi_lang={selection['saarthi_lang']}"
         
-        gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=selection['twilio_lang'])
+        # Add timeout to give them time to think before speaking
+        gather = Gather(input="speech", action=action_url, timeout=10, speechTimeout="auto", language=selection['twilio_lang'])
         gather.say(selection['prompt'], voice=selection['voice'], language=selection['twilio_lang'])
         response.append(gather)
         
@@ -632,10 +633,10 @@ async def voice_answer(
             no_speech_msg = no_speech_reqs.get(saarthi_lang, no_speech_reqs["English"])
             
             response.say(no_speech_msg, voice=voice, language=lang_code)
-
-        action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
-        response.redirect(action_url)
-        return Response(content=str(response), media_type="text/xml")
+            
+            action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
+            response.redirect(action_url)
+            return Response(content=str(response), media_type="text/xml")
         
         print(f"--- Recieved Voice Question: {SpeechResult} ---")
 
@@ -668,7 +669,8 @@ async def voice_answer(
             response.say(answer, voice=voice, language=lang_code)
 
             action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
-            gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
+            # Add timeout
+            gather = Gather(input="speech", action=action_url, timeout=10, speechTimeout="auto", language=lang_code)
             
             more_qs = {
                 "English": "Do you have any more questions? Please tell me now, or you can hang up.",
@@ -706,7 +708,7 @@ async def voice_answer(
                 response.say(voice_resp, voice=voice, language=lang_code)
 
                 action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
-                gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
+                gather = Gather(input="speech", action=action_url, timeout=10, speechTimeout="auto", language=lang_code)
                 
                 safe_msgs = {
                     "English": "Stay safe from fraud. Do you have any other questions? Please tell me now, or you can hang up.",
@@ -741,7 +743,8 @@ async def voice_answer(
         
         # Ask if they have more questions with a Gather loop
         action_url = f"/voice-answer?lang_code={lang_code}&saarthi_lang={saarthi_lang}"
-        gather = Gather(input="speech", action=action_url, speechTimeout="auto", language=lang_code)
+        # Add timeout
+        gather = Gather(input="speech", action=action_url, timeout=10, speechTimeout="auto", language=lang_code)
         
         more_qs_end = {
             "English": "Do you have any more questions? Please tell me now, or you can hang up.",
