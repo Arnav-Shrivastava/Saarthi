@@ -132,68 +132,119 @@ export default function LandingPage({ onStart }) {
                 </div>
             </section>
 
-            {/* Omnichannel Section */}
-            <section id="omnichannel" className="py-20 border-b border-border/60 scroll-mt-14">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                    <div className="flex flex-col lg:flex-row items-center gap-12">
-                        <div className="flex-1 text-left">
-                            <Badge variant="secondary" className="mb-4">Omnichannel Accessibility</Badge>
-                            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-6">
-                                Accessible anywhere,
-                                <br />
-                                <span className="text-blue-600">even without a computer.</span>
-                            </h2>
-                            <p className="text-muted-foreground text-lg mb-8">
-                                We designed Saarthi to meet citizens where they are. Whether they have a smartphone or just a feature phone, Saarthi is just a message or a call away.
-                            </p>
+            {/* Voice-First Accessibility Section (The Core of the Project) */}
+            <section id="voice-first" className="py-24 border-b border-border/60 bg-slate-50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 p-20 opacity-[0.03] pointer-events-none">
+                    <Mic className="h-96 w-96 rotate-12" />
+                </div>
 
-                            <div className="grid gap-6">
-                                <div className="flex gap-4">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-green-50 text-green-600 border border-green-100 shadow-sm">
-                                        <MessageSquare className="h-6 w-6" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 relative">
+                    <div className="flex flex-col lg:flex-row items-center gap-16">
+                        <div className="flex-1 space-y-8">
+                            <div>
+                                <Badge className="mb-4 bg-primary/10 text-primary border-primary/20 hover:bg-primary/20 px-3 py-1 text-xs uppercase tracking-wider font-bold">
+                                    Digital Inclusion Hero
+                                </Badge>
+                                <h2 className="text-4xl sm:text-5xl font-black tracking-tight leading-[1.1] mb-6">
+                                    No Internet? No Smartphone?
+                                    <br />
+                                    <span className="text-primary underline decoration-primary/20 decoration-4 underline-offset-8">No Problem.</span>
+                                </h2>
+                                <p className="text-muted-foreground text-lg leading-relaxed max-w-xl">
+                                    Saarthi is built for the <strong className="text-foreground">real India</strong>. While other apps require expensive phones and high-speed data, Saarthi works over a simple phone call.
+                                </p>
+                            </div>
+
+                            <div className="grid gap-8">
+                                <div className="group flex gap-5 bg-white p-6 rounded-2xl border border-border/60 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                                    <div className="flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-100 shadow-inner group-hover:scale-110 transition-transform">
+                                        <Mic className="h-7 w-7" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold">WhatsApp Integration</h4>
-                                        <p className="text-sm text-muted-foreground">Send messages, photos, or PDFs. Get instant explanations in your chat.</p>
+                                        <h4 className="font-bold text-lg mb-1">Voice Helpline (IVR AI)</h4>
+                                        <p className="text-sm text-muted-foreground leading-relaxed">
+                                            Just dial our number from <strong className="text-foreground/80">any button phone</strong>. Speak your question in your mother tongue, and Saarthi speaks the answer back instantly.
+                                        </p>
                                     </div>
                                 </div>
-                                <div className="flex gap-4">
-                                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-50 text-amber-600 border border-amber-100 shadow-sm">
-                                        <Mic className="h-6 w-6" />
+
+                                <div className="group flex gap-5 bg-white p-6 rounded-2xl border border-border/60 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                                    <div className="flex-shrink-0 flex h-14 w-14 items-center justify-center rounded-xl bg-green-50 text-green-600 border border-green-100 shadow-inner group-hover:scale-110 transition-transform">
+                                        <MessageSquare className="h-7 w-7" />
                                     </div>
                                     <div>
-                                        <h4 className="font-semibold">Voice Helpline</h4>
-                                        <p className="text-sm text-muted-foreground">Speak your question on a call. Saarthi speaks the answer back in natural voice.</p>
+                                        <h4 className="font-bold text-lg mb-1">WhatsApp for 2G/3G</h4>
+                                        <p className="text-sm text-muted-foreground leading-relaxed">
+                                            Low data? No problem. Saarthi's lightweight WhatsApp bot handles text and voice notes effortlessly even on slow rural networks.
+                                        </p>
                                     </div>
                                 </div>
                             </div>
+
+                            <div className="pt-4">
+                                <div className="flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-xl mb-6">
+                                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                                    <p className="text-sm font-semibold text-primary">Live Helpline: +91 (Currently Integrated via Twilio)</p>
+                                </div>
+                                <Button size="xl" onClick={onStart} className="gap-2 px-8">
+                                    Learn More About Voice Support <ChevronRight className="h-4 w-4" />
+                                </Button>
+                            </div>
                         </div>
 
-                        <div className="flex-1 relative">
-                            {/* Visual representation placeholder */}
-                            <div className="rounded-3xl border border-border/60 bg-muted/30 aspect-square overflow-hidden shadow-2xl p-8 flex items-center justify-center">
-                                <div className="relative w-full max-w-md">
-                                    <div className="absolute -top-10 -left-10 w-40 h-40 bg-blue-500/10 blur-3xl rounded-full" />
-                                    <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-violet-500/10 blur-3xl rounded-full" />
+                        <div className="flex-1 w-full max-w-lg lg:max-w-none flex justify-center lg:justify-end">
+                            {/* Feature Phone UI Representation */}
+                            <div className="relative group">
+                                <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 via-violet-500/10 to-transparent blur-3xl rounded-full opacity-60 group-hover:opacity-80 transition-opacity" />
 
-                                    <div className="relative bg-white border border-border/60 rounded-2xl shadow-xl p-6 space-y-4">
-                                        <div className="flex items-center gap-3 border-b pb-4">
-                                            <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center text-white font-bold">S</div>
-                                            <div>
-                                                <p className="font-bold text-sm">Saarthi AI</p>
-                                                <p className="text-[10px] text-green-500">Online | Multilingual</p>
+                                {/* Button Phone Mockup CSS */}
+                                <div className="relative w-64 sm:w-72 bg-[#1a1c1e] rounded-[40px] border-[8px] border-[#2d2f31] shadow-2xl overflow-hidden p-6 aspect-[1/2] flex flex-col ring-1 ring-white/10">
+                                    {/* Screen */}
+                                    <div className="w-full bg-[#f8fafc] rounded-xl flex-1 mb-8 overflow-hidden flex flex-col border border-black/10">
+                                        <div className="h-6 bg-[#e2e8f0] flex items-center justify-between px-3">
+                                            <div className="h-1.5 w-6 bg-[#94a3b8] rounded-full" />
+                                            <div className="flex gap-1">
+                                                <div className="h-1.5 w-1.5 bg-[#94a3b8] rounded-full" />
+                                                <div className="h-1.5 w-3 bg-[#94a3b8] rounded-full" />
                                             </div>
                                         </div>
-                                        <div className="bg-muted/50 p-3 rounded-lg rounded-tl-none mr-8">
-                                            <p className="text-xs">"Namaste! Aap PM Kisan scheme ke baare mein jaanna chahte hain?"</p>
+                                        <div className="flex-1 flex flex-col items-center justify-center p-4 text-center">
+                                            <div className="mb-4 p-3 bg-primary/10 rounded-full animate-bounce">
+                                                <Mic className="h-10 w-10 text-primary" />
+                                            </div>
+                                            <p className="text-[10px] uppercase font-bold text-muted-foreground tracking-tighter mb-1">Incoming call</p>
+                                            <p className="text-lg font-black text-[#0f172a] leading-none mb-4">Saarthi AI</p>
+                                            <div className="space-y-1.5 w-full">
+                                                <div className="h-2 w-full bg-slate-200 rounded-full" />
+                                                <div className="h-2 w-3/4 bg-slate-200 rounded-full mx-auto" />
+                                            </div>
                                         </div>
-                                        <div className="bg-primary text-white p-3 rounded-lg rounded-tr-none ml-8 text-right">
-                                            <p className="text-xs">"Yes, in English please."</p>
-                                        </div>
-                                        <div className="bg-muted/50 p-3 rounded-lg rounded-tl-none mr-8">
-                                            <p className="text-xs line-clamp-2">"Certainly! PM Kisan provides ₹6,000 per year to farmers in three installments..."</p>
+                                        <div className="p-3 bg-primary text-white text-[10px] font-bold text-center">
+                                            SPEAKING...
                                         </div>
                                     </div>
+
+                                    {/* Keypad */}
+                                    <div className="grid grid-cols-3 gap-3 mb-4">
+                                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, '*', 0, '#'].map((k) => (
+                                            <div key={k} className="h-10 sm:h-12 bg-[#2d2f31] rounded-lg flex items-center justify-center text-white/40 font-bold text-sm shadow-inner border border-white/5">
+                                                {k}
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="w-12 h-1 bg-[#2d2f31] rounded-full mx-auto" />
+                                </div>
+
+                                {/* Callouts */}
+                                <div className="absolute -top-6 -right-12 bg-white border border-border/60 shadow-xl rounded-2xl p-4 max-w-[180px] animate-in slide-in-from-right-8 duration-700">
+                                    <p className="text-[11px] font-medium leading-relaxed italic">
+                                        "Mera PM Kisan ka paisa kab aayega?"
+                                    </p>
+                                </div>
+                                <div className="absolute top-1/2 -left-12 bg-primary text-white shadow-xl rounded-2xl p-4 max-w-[180px] animate-in slide-in-from-left-8 duration-700 delay-300">
+                                    <p className="text-[11px] font-bold leading-relaxed">
+                                        "Aapki agli kist ₹2000 jald hi aapke bank account mein jama hogi."
+                                    </p>
                                 </div>
                             </div>
                         </div>
