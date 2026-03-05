@@ -37,7 +37,7 @@ export default function ScamDetector({ language = 'English' }) {
                 formData.append('file', file)
             }
 
-            const response = await fetch('http://localhost:8000/verify', {
+            const response = await fetch('https://saarthi-production-7b58.up.railway.app/verify', {
                 method: 'POST',
                 body: formData
             })

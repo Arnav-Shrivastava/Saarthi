@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils'
 import { getT, INDIAN_STATES } from '@/lib/translations'
 import SchemeCard from './SchemeCard'
 
-const API_BASE_URL = 'http://localhost:8000'
+const API_BASE_URL = 'https://saarthi-production-7b58.up.railway.app'
 
 // Combined occupation data — explicit emoji, label, and card colour
 const OCCUPATION_META = [
