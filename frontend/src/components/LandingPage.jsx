@@ -19,14 +19,14 @@ const features = [
         icon: MessageSquare,
         title: 'WhatsApp Chat Interface',
         description:
-            'Access Saarthi directly on WhatsApp. Send text queries, photos of documents, or PDFs. Saarthi analyzes media and responds in your language instantly.',
+            'Access Saarthi on WhatsApp: +1 (415) 523-8886. Send text, photos, or PDFs. Saarthi analyzes media and responds in your language instantly.',
         badge: 'WhatsApp Bot',
     },
     {
         icon: Mic,
         title: 'Voice Helpline Assistant',
         description:
-            'Call the Saarthi helpline. Speak your question in your mother tongue. Saarthi listens and speaks back the answer in a natural localized voice.',
+            'Call +1 (360) 233-2489. Speak your question in your mother tongue. Saarthi listens and speaks back the answer in a natural localized voice.',
         badge: 'Voice Channel',
     },
     {
@@ -161,9 +161,9 @@ export default function LandingPage({ onStart }) {
                                         <Mic className="h-7 w-7" />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-lg mb-1">Voice Helpline (IVR AI)</h4>
+                                        <h4 className="font-bold text-lg mb-1">Voice Helpline (AI IVR)</h4>
                                         <p className="text-sm text-muted-foreground leading-relaxed">
-                                            Just dial our number from <strong className="text-foreground/80">any button phone</strong>. Speak your question in your mother tongue, and Saarthi speaks the answer back instantly.
+                                            Just dial <strong className="text-foreground">+1 (360) 233-2489</strong> from any phone. Speak your question in your mother tongue, and Saarthi speaks the answer back.
                                         </p>
                                     </div>
                                 </div>
@@ -173,7 +173,7 @@ export default function LandingPage({ onStart }) {
                                         <MessageSquare className="h-7 w-7" />
                                     </div>
                                     <div>
-                                        <h4 className="font-bold text-lg mb-1">WhatsApp for 2G/3G</h4>
+                                        <h4 className="font-bold text-lg mb-1">WhatsApp: +1 (415) 523-8886</h4>
                                         <p className="text-sm text-muted-foreground leading-relaxed">
                                             Low data? No problem. Saarthi's lightweight WhatsApp bot handles text and voice notes effortlessly even on slow rural networks.
                                         </p>
@@ -184,7 +184,7 @@ export default function LandingPage({ onStart }) {
                             <div className="pt-4">
                                 <div className="flex items-center gap-3 p-4 bg-primary/5 border border-primary/10 rounded-xl mb-6">
                                     <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
-                                    <p className="text-sm font-semibold text-primary">Live Helpline: +91 (Currently Integrated via Twilio)</p>
+                                    <p className="text-sm font-semibold text-primary">Live Helpline: +1 (360) 233-2489</p>
                                 </div>
                                 <Button size="xl" onClick={onStart} className="gap-2 px-8">
                                     Learn More About Voice Support <ChevronRight className="h-4 w-4" />
