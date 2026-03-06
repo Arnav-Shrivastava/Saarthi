@@ -406,7 +406,7 @@ export default function LandingPage({ onStart }) {
                             </div>
                             <div>
                                 <p className="font-semibold text-sm">10+ Indian Languages Supported</p>
-                                <p className="text-xs text-muted-foreground">Hindi · Tamil · Telugu · Kannada · Marathi · Bengali · Gujarati · Punjabi · Malayalam · Odia</p>
+                                <p className="text-xs text-muted-foreground">English · Hindi · Tamil · Telugu · Kannada · Marathi · Bengali · Gujarati · Punjabi · Malayalam</p>
                             </div>
                         </div>
                         <Button onClick={onStart} size="lg" className="flex-shrink-0">
