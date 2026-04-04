@@ -16,7 +16,7 @@ class RagEngine:
             self.data_path = data_path
         self.vector_db = None
         self.embeddings = OpenAIEmbeddings()
-        self.llm = ChatOpenAI(model_name="gpt-4o", temperature=0)
+        self.llm = ChatOpenAI(model_name="gpt-5-mini", temperature=0)
         
     def load_documents(self):
         if not os.path.exists(self.data_path):
@@ -97,14 +97,14 @@ Answer (in {language}):"""
         return {
             "answer": response,
             "sources": [{
-                "filename": "General Knowledge (GPT-4o)",
+                "filename": "General Knowledge (GPT-5)",
                 "page": None,
-                "snippet": "This answer is based on GPT-4o's general knowledge and diagnostic logic.",
+                "snippet": "This answer is based on GPT-5's general knowledge and diagnostic logic.",
             }]
         }
 
     def _detect_language(self, text: str) -> str:
-        """Detect the language of the input text using GPT-4o."""
+        """Detect the language of the input text using GPT-5."""
         print(f"--- Detecting language for: '{text[:50]}...' ---")
         prompt = f"Detect the language of the following text. Respond ONLY with the name of the language in English (e.g., 'Hindi', 'Tamil', 'English', etc.):\n\n{text}"
         response = self.llm.invoke(prompt)

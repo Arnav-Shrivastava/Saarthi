@@ -35,7 +35,7 @@ export default function Hero({ onStart }) {
           className="mb-8 inline-flex items-center gap-2 rounded-full border border-border/40 bg-white/70 backdrop-blur-sm px-4 py-1.5 text-xs text-muted-foreground shadow-sm"
         >
           <Zap className="h-3 w-3 text-amber-500" />
-          Powered by GPT-4o + RAG · 10+ Indian Languages
+          Powered by GPT-5 + RAG · 10+ Indian Languages
         </motion.div>
 
         {/* Main Heading */}

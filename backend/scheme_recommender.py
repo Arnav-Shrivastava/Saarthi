@@ -1,6 +1,6 @@
 """
 Saarthi — Personalised Multilingual Scheme Recommendation Engine
-Rule-based engine with GPT-4o for multilingual output.
+Rule-based engine with GPT-5 for multilingual output.
 """
 
 from __future__ import annotations

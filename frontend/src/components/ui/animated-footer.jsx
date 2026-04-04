@@ -147,7 +147,7 @@ const AnimatedFooter = ({
               Built With
             </h4>
             <ul className="space-y-2.5">
-              <li><span className="text-sm text-white/40">GPT-4o</span></li>
+              <li><span className="text-sm text-white/40">GPT-5</span></li>
               <li><span className="text-sm text-white/40">RAG Pipeline</span></li>
               <li><span className="text-sm text-white/40">Whisper ASR</span></li>
               <li><span className="text-sm text-white/40">Twilio IVR</span></li>

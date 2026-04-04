@@ -103,7 +103,7 @@ function Sidebar({ activeNav = 'Change Language', onNavigate }) {
           color: 'var(--text-tertiary)',
           animation: 'pulse 8s cubic-bezier(0.4, 0, 0.6, 1) infinite'
         }}>
-          v1.0.0 · GPT-4o
+          v1.0.0 · GPT-5
         </div>
       </div>
 
