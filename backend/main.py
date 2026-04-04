@@ -208,7 +208,7 @@ async def draft_complaint(req: ComplaintRequest):
                 },
                 {"role": "user", "content": req.story}
             ],
-            temperature=0.3,
+            temperature=1,
             max_completion_tokens=800
         )
         draft = response.choices[0].message.content
@@ -525,7 +525,7 @@ async def whatsapp_webhook(
             intent_check = client.chat.completions.create(
                 model="gpt-5-mini",
                 messages=[{"role": "system", "content": "Return 'TRUE' if the user is asking to write, draft, or format a complaint/FIR. Otherwise return 'FALSE'."}, {"role": "user", "content": user_message}],
-                temperature=0
+                temperature=1
             ).choices[0].message.content.strip()
             
             if "TRUE" in intent_check:
@@ -546,7 +546,7 @@ async def whatsapp_webhook(
                             },
                             {"role": "user", "content": user_message}
                         ],
-                        temperature=0.3,
+                        temperature=1,
                         max_completion_tokens=800
                     )
                     draft = draft_resp.choices[0].message.content

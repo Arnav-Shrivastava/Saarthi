@@ -504,7 +504,7 @@ function SchemeRecommender({ language, onLearnMore }) {
                             >
                                 <div className="mt-0.5">⚠️</div>
                                 <p style={{ fontFamily: 'DM Sans, sans-serif' }}>
-                                  {error} — Please ensure the backend is running at localhost:8000
+                                    {error} — Please ensure the backend is running and accessible
                                 </p>
                             </div>
                         )}
