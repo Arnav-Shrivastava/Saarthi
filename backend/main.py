@@ -209,7 +209,7 @@ async def draft_complaint(req: ComplaintRequest):
                 {"role": "user", "content": req.story}
             ],
             temperature=0.3,
-            max_tokens=800
+            max_completion_tokens=800
         )
         draft = response.choices[0].message.content
         return {"draft": draft}
@@ -342,7 +342,7 @@ async def whatsapp_webhook(
                             ],
                         }
                     ],
-                    max_tokens=800,
+                    max_completion_tokens=800,
                 )
                 answer = response.choices[0].message.content
                 
@@ -547,7 +547,7 @@ async def whatsapp_webhook(
                             {"role": "user", "content": user_message}
                         ],
                         temperature=0.3,
-                        max_tokens=800
+                        max_completion_tokens=800
                     )
                     draft = draft_resp.choices[0].message.content
                     twiml.message(f"📝 *Saarthi Legal Draft*\n\n{draft}")
@@ -950,7 +950,7 @@ async def upload_document(file: UploadFile = File(...), language: str = Form("En
                         ],
                     }
                 ],
-                max_tokens=600,
+                max_completion_tokens=600,
             )
             summary = response.choices[0].message.content
             print(f"--- OCR Summary Received ---")
