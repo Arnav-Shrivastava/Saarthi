@@ -149,7 +149,7 @@ function ChatInterface({ language, onBack, onFindSchemes, preFillMessage, onPreF
             </div>
             <div>
               <p className="text-sm font-semibold leading-none">{language} Assistant</p>
-              <p className="text-[10px] text-muted-foreground mt-0.5">Powered by GPT-5 + RAG</p>
+              <p className="text-[10px] text-muted-foreground mt-0.5">Powered by gpt-5.4-nano + RAG</p>
             </div>
           </div>
           <div className="flex items-center gap-2">

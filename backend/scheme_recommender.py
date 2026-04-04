@@ -1,6 +1,6 @@
 """
 Saarthi — Personalised Multilingual Scheme Recommendation Engine
-Rule-based engine with GPT-5 for multilingual output.
+Rule-based engine with gpt-5.4-nano for multilingual output.
 """
 
 from __future__ import annotations
@@ -496,7 +496,7 @@ def recommend_schemes(profile: dict, language: str = "English", llm=None, vector
     Flow:
     1. Rule-based filter → matched schemes (fast, deterministic)
     2. For each matched scheme, query the vector store for PDF content
-    3. Use GPT-5-mini to extract structured fields (description, benefit, how_to_apply)
+    3. Use gpt-5.4-nano to extract structured fields (description, benefit, how_to_apply)
        from the retrieved PDF chunks
     4. Optionally translate the final cards if language != English
 
@@ -569,7 +569,7 @@ def recommend_schemes(profile: dict, language: str = "English", llm=None, vector
             enriched.append(s)
         matched = enriched
 
-    # ── Translation (single GPT-5-mini batch call) ─────────────────────────────
+    # ── Translation (single gpt-5.4-nano batch call) ─────────────────────────────
     if language == "English" or not llm:
         return matched
 

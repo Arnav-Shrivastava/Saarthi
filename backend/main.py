@@ -196,7 +196,7 @@ async def draft_complaint(req: ComplaintRequest):
     """
     try:
         response = client.chat.completions.create(
-            model="gpt-5-mini",
+            model="gpt-5.4-nano",
             messages=[
                 {
                     "role": "user",
@@ -318,7 +318,7 @@ async def whatsapp_webhook(
 
                 # Use auto-language detection logic indirectly by asking Vision to detect
                 response = client.chat.completions.create(
-                    model="gpt-5-mini",
+                    model="gpt-5.4-nano",
                     messages=[
                         {
                             "role": "user",
@@ -404,7 +404,7 @@ async def whatsapp_webhook(
                         if verify_lang != "English":
                             # Translate the rejection message
                             msg_resp = client.chat.completions.create(
-                                model="gpt-5-mini",
+                                model="gpt-5.4-nano",
                                 messages=[{"role": "user", "content": f"Translate this message concisely to {verify_lang}: {answer}"}]
                             )
                             answer = msg_resp.choices[0].message.content
@@ -419,7 +419,7 @@ async def whatsapp_webhook(
                         if verify_lang != "English":
                             # Simple translate/re-generate confirmation
                             msg_resp = client.chat.completions.create(
-                                model="gpt-5-mini",
+                                model="gpt-5.4-nano",
                                 messages=[{"role": "user", "content": f"Translate this message concisely to {verify_lang}: {msg}"}]
                             )
                             msg = msg_resp.choices[0].message.content
@@ -522,7 +522,7 @@ async def whatsapp_webhook(
             
             # check intent
             intent_check = client.chat.completions.create(
-                model="gpt-5-mini",
+                model="gpt-5.4-nano",
                 messages=[{"role": "user", "content": "Return 'TRUE' if the user is asking to write, draft, or format a complaint/FIR. Otherwise return 'FALSE'.\n\nUser message: " + user_message}],
             ).choices[0].message.content.strip()
 
@@ -532,7 +532,7 @@ async def whatsapp_webhook(
                 # Draft the complaint
                 try:
                     draft_resp = client.chat.completions.create(
-                        model="gpt-5-mini",
+                        model="gpt-5.4-nano",
                         messages=[
                             {
                                 "role": "user",
@@ -925,7 +925,7 @@ async def upload_document(file: UploadFile = File(...), language: str = Form("En
             print(f"--- Sending Image to OpenAI Vision for OCR ---")
             base64_image = base64.b64encode(content).decode('utf-8')
             response = client.chat.completions.create(
-                model="gpt-5-mini",
+                model="gpt-5.4-nano",
                 messages=[
                     {
                         "role": "user",

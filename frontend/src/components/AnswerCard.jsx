@@ -58,7 +58,7 @@ function AnswerCard({ content, language }) {
           </p>
           <div className="flex flex-wrap gap-2">
             {sources.map((src, idx) => {
-              const isGeneralKnowledge = src.filename === 'General Knowledge (GPT-5)'
+              const isGeneralKnowledge = src.filename === 'General Knowledge (gpt-5.4-nano)'
               return (
                 <button
                   key={idx}

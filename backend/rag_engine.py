@@ -15,7 +15,7 @@ class RagEngine:
             self.data_path = data_path
         self.vector_db = None
         self.embeddings = OpenAIEmbeddings()
-        self.llm = ChatOpenAI(model_name="gpt-5-mini",)
+        self.llm = ChatOpenAI(model_name="gpt-5.4-nano")
         
     def load_documents(self, force_reload=False):
         db_path = os.path.join(self.data_path, "vector_db")
@@ -94,8 +94,8 @@ Answer (in {language}):"""
         return any(indicator.lower() in response.lower() for indicator in fallback_indicators)
 
     def _general_knowledge_answer(self, question: str, language: str, chat_history: str = "") -> dict:
-        """Answer using GPT-5-mini general knowledge when RAG has no relevant docs."""
-        print(f"--- RAG fallback: using GPT-5-mini general knowledge with history ---")
+        """Answer using gpt-5.4-nano general knowledge when RAG has no relevant docs."""
+        print(f"--- RAG fallback: using gpt-5.4-nano general knowledge with history ---")
         from langchain_core.prompts import PromptTemplate
         from langchain_core.output_parsers import StrOutputParser
 
@@ -105,14 +105,14 @@ Answer (in {language}):"""
         return {
             "answer": response,
             "sources": [{
-                "filename": "General Knowledge (GPT-5)",
+                "filename": "General Knowledge (gpt-5.4-nano)",
                 "page": None,
-                "snippet": "This answer is based on GPT-5's general knowledge and diagnostic logic.",
+                "snippet": "This answer is based on gpt-5.4-nano's general knowledge and diagnostic logic.",
             }]
         }
 
     def _detect_language(self, text: str) -> str:
-        """Detect the language of the input text using GPT-5-mini."""
+        """Detect the language of the input text using gpt-5.4-nano."""
         print(f"--- Detecting language for: '{text[:50]}...' ---")
         prompt = f"Detect the language of the following text. Respond ONLY with the name of the language in English (e.g., 'Hindi', 'Tamil', 'English', etc.):\n\n{text}"
         response = self.llm.invoke(prompt)
@@ -135,7 +135,7 @@ Answer (in {language}):"""
 
         # If no documents loaded, go straight to general knowledge
         if not self.vector_db:
-            print("No RAG documents — using GPT-5-mini general knowledge.")
+            print("No RAG documents — using gpt-5.4-nano general knowledge.")
             return self._general_knowledge_answer(question, language, history_str)
 
         prompt_template = """You are Saarthi — a kind, patient, and knowledgeable friend who helps rural citizens of India understand government schemes and their rights.
@@ -201,7 +201,7 @@ Answer (in {language}):"""
             
             response = chain.invoke(question)
 
-            # If RAG couldn't answer from docs, fall back to GPT-5-mini general knowledge
+            # If RAG couldn't answer from docs, fall back to gpt-5.4-nano general knowledge
             if response.strip().upper() == "FALLBACK" or self._is_rag_fallback_response(response):
                 return self._general_knowledge_answer(question, language, history_str)
 
