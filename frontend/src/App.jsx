@@ -4,14 +4,23 @@ import LanguageSelectorPage from './components/LanguageSelectorPage'
 import ChatInterface from './components/ChatInterface'
 import LandingPage from './components/LandingPage'
 import SchemeRecommender from './components/SchemeRecommender'
-import ScamDetector from './components/ScamDetector'
-import ComplaintDrafter from './components/ComplaintDrafter'
 import HowItWorksPage from './components/HowItWorksPage'
 import PrivacyPolicyPage from './components/PrivacyPolicyPage'
+import TermsOfServicePage from './components/TermsOfServicePage'
+import ApiDocsPage from './components/ApiDocsPage'
 import Sidebar from './components/Sidebar'
 
 function App() {
-  const [view, setView] = useState('landing') // landing, language, chat, recommend, verify, list, draft, how-it-works, privacy
+  const getInitialView = () => {
+    const path = window.location.pathname;
+    if (path === '/how-it-works') return 'how-it-works';
+    if (path === '/privacy') return 'privacy';
+    if (path === '/terms') return 'terms';
+    if (path === '/api-docs') return 'api-docs';
+    return 'landing';
+  }
+
+  const [view, setView] = useState(getInitialView()) // landing, language, chat, etc.
   const [language, setLanguage] = useState(null)
   const [preFillMessage, setPreFillMessage] = useState(null)
 
@@ -71,6 +80,14 @@ function App() {
       ) : view === 'privacy' ? (
         <div className="flex-1 overflow-y-auto w-full">
           <PrivacyPolicyPage onBack={() => setView('landing')} />
+        </div>
+      ) : view === 'terms' ? (
+        <div className="flex-1 overflow-y-auto w-full">
+          <TermsOfServicePage onBack={() => setView('landing')} />
+        </div>
+      ) : view === 'api-docs' ? (
+        <div className="flex-1 overflow-y-auto w-full">
+          <ApiDocsPage onBack={() => setView('landing')} />
         </div>
       ) : (
         <>

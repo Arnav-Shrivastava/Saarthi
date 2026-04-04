@@ -76,10 +76,10 @@ const AnimatedFooter = ({
     {
       title: 'Resources',
       links: [
-        { label: 'How It Works', href: null, view: 'how-it-works' },
-        { label: 'API Docs', href: '#' },
-        { label: 'Privacy Policy', href: null, view: 'privacy' },
-        { label: 'Terms of Service', href: '#' },
+        { label: 'How It Works', href: '/how-it-works' },
+        { label: 'API Docs', href: '/api-docs' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Terms of Service', href: '/terms' },
       ],
     },
   ];
@@ -133,18 +133,9 @@ const AnimatedFooter = ({
               <ul className="space-y-2.5">
                 {group.links.map((link, j) => (
                   <li key={j}>
-                    {link.view ? (
-                      <button
-                        onClick={() => onNavigate?.(link.view)}
-                        className="text-sm text-white/40 hover:text-white/80 transition-colors bg-transparent border-0 cursor-pointer p-0"
-                      >
-                        {link.label}
-                      </button>
-                    ) : (
-                      <a href={link.href} className="text-sm text-white/40 hover:text-white/80 transition-colors">
-                        {link.label}
-                      </a>
-                    )}
+                    <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/80 transition-colors">
+                      {link.label}
+                    </a>
                   </li>
                 ))}
               </ul>
