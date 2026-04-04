@@ -18,7 +18,14 @@ class RagEngine:
         self.embeddings = OpenAIEmbeddings()
         self.llm = ChatOpenAI(model_name="gpt-5-mini", temperature=0)
         
-    def load_documents(self):
+    def load_documents(self, force_reload=False):
+        db_path = os.path.join(self.data_path, "vector_db")
+        
+        if not force_reload and os.path.exists(os.path.join(db_path, "index.faiss")):
+            print("Loading existing FAISS vector database from disk...")
+            self.vector_db = FAISS.load_local(db_path, self.embeddings, allow_dangerous_deserialization=True)
+            return True
+
         if not os.path.exists(self.data_path):
             os.makedirs(self.data_path)
             
@@ -41,7 +48,9 @@ class RagEngine:
         
         if texts:
             self.vector_db = FAISS.from_documents(texts, self.embeddings)
-            print(f"RAG Engine loaded {len(all_docs)} documents.")
+            os.makedirs(db_path, exist_ok=True)
+            self.vector_db.save_local(db_path)
+            print(f"RAG Engine loaded {len(all_docs)} documents and saved DB to disk.")
             return True
         return False
 

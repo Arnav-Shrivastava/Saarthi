@@ -380,7 +380,7 @@ async def whatsapp_webhook(
                         return Response(content=str(twiml), media_type="application/xml")
                     else:
                         # Re-index RAG only if it is Authentic
-                        rag_engine.load_documents()
+                        rag_engine.load_documents(force_reload=True)
                         
                         msg = f"✅ *VERIFIED: AUTHENTIC*\n\nI've received your PDF document '{filename}' and verified its authenticity. It is a genuine scheme document!\n\nI'm adding it to my memory now. You can start asking me questions about it!"
                         if verify_lang != "English":
@@ -822,7 +822,7 @@ async def verify(
                     os.remove(file_path)
             else:
                 # ✅ Authentic file: leave it in the data folder and re-index
-                rag_engine.load_documents()
+                rag_engine.load_documents(force_reload=True)
 
         return result
         
