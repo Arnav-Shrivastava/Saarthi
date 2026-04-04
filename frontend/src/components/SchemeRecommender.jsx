@@ -93,6 +93,66 @@ function SchemeRecommender({ language, onLearnMore }) {
         setError(null)
     }
 
+    // ── Wizard Speech Guidance ────────────────────────────────────────────────
+    const speakStep = (text) => {
+        if (!('speechSynthesis' in window)) return
+
+        const langMap = {
+            English: 'en-US', Hindi: 'hi-IN', Tamil: 'ta-IN', Telugu: 'te-IN',
+            Marathi: 'mr-IN', Bengali: 'bn-IN', Kannada: 'kn-IN', Gujarati: 'gu-IN',
+            Punjabi: 'pa-IN', Malayalam: 'ml-IN',
+        }
+        const langCode = langMap[language] || 'en-US'
+
+        const performSpeak = () => {
+            window.speechSynthesis.cancel()
+            const utterance = new SpeechSynthesisUtterance(text)
+            utterance.lang = langCode
+            utterance.rate = 0.95
+
+            const voices = window.speechSynthesis.getVoices()
+            const bestVoice =
+                voices.find(v => v.lang === langCode && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premium'))) ||
+                voices.find(v => v.lang === langCode)
+
+            if (bestVoice) utterance.voice = bestVoice
+            window.speechSynthesis.speak(utterance)
+        }
+
+        // If voices aren't loaded yet, wait for them
+        if (window.speechSynthesis.getVoices().length === 0) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                performSpeak()
+                window.speechSynthesis.onvoiceschanged = null
+            }
+        } else {
+            performSpeak()
+        }
+    }
+
+    React.useEffect(() => {
+        if (loading) return
+
+        // Small timeout to ensure component is ready and any previous speech is cleared
+        const timer = setTimeout(() => {
+            let text = ""
+            if (schemes !== null) {
+                text = `${t.resultsTitle}. ${schemes.length} ${t.schemesFound || 'schemes found'}`
+            } else if (step === 1) {
+                text = t.steps.occupation.title
+            } else if (step === 2) {
+                text = t.steps.state.title
+            } else if (step === 3) {
+                text = t.steps.income.title
+            } else if (step === 4) {
+                text = t.steps.details.title
+            }
+            if (text) speakStep(text)
+        }, 150)
+
+        return () => clearTimeout(timer)
+    }, [step, schemes, loading, language, t])
+
     // ── Results view ──────────────────────────────────────────────────────────
     if (schemes !== null && !loading) {
         return (
@@ -164,66 +224,6 @@ function SchemeRecommender({ language, onLearnMore }) {
             </div>
         )
     }
-
-    // ── Wizard Speech Guidance ────────────────────────────────────────────────
-    const speakStep = (text) => {
-        if (!('speechSynthesis' in window)) return
-
-        const langMap = {
-            English: 'en-US', Hindi: 'hi-IN', Tamil: 'ta-IN', Telugu: 'te-IN',
-            Marathi: 'mr-IN', Bengali: 'bn-IN', Kannada: 'kn-IN', Gujarati: 'gu-IN',
-            Punjabi: 'pa-IN', Malayalam: 'ml-IN',
-        }
-        const langCode = langMap[language] || 'en-US'
-
-        const performSpeak = () => {
-            window.speechSynthesis.cancel()
-            const utterance = new SpeechSynthesisUtterance(text)
-            utterance.lang = langCode
-            utterance.rate = 0.95
-
-            const voices = window.speechSynthesis.getVoices()
-            const bestVoice =
-                voices.find(v => v.lang === langCode && (v.name.includes('Google') || v.name.includes('Natural') || v.name.includes('Premium'))) ||
-                voices.find(v => v.lang === langCode)
-
-            if (bestVoice) utterance.voice = bestVoice
-            window.speechSynthesis.speak(utterance)
-        }
-
-        // If voices aren't loaded yet, wait for them
-        if (window.speechSynthesis.getVoices().length === 0) {
-            window.speechSynthesis.onvoiceschanged = () => {
-                performSpeak()
-                window.speechSynthesis.onvoiceschanged = null
-            }
-        } else {
-            performSpeak()
-        }
-    }
-
-    React.useEffect(() => {
-        if (loading) return
-
-        // Small timeout to ensure component is ready and any previous speech is cleared
-        const timer = setTimeout(() => {
-            let text = ""
-            if (schemes !== null) {
-                text = `${t.resultsTitle}. ${schemes.length} ${t.schemesFound || 'schemes found'}`
-            } else if (step === 1) {
-                text = t.steps.occupation.title
-            } else if (step === 2) {
-                text = t.steps.state.title
-            } else if (step === 3) {
-                text = t.steps.income.title
-            } else if (step === 4) {
-                text = t.steps.details.title
-            }
-            if (text) speakStep(text)
-        }, 150)
-
-        return () => clearTimeout(timer)
-    }, [step, schemes, loading, language])
 
     // ── Wizard steps ──────────────────────────────────────────────────────────
     return (
