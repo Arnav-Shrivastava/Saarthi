@@ -37,7 +37,7 @@ export default function ScamDetector({ language = 'English' }) {
                 formData.append('file', file)
             }
 
-            const response = await fetch('https://saarthi-production-7b58.up.railway.app/verify', {
+            const response = await fetch('http://localhost:8000/verify', {
                 method: 'POST',
                 body: formData
             })
@@ -176,50 +176,82 @@ export default function ScamDetector({ language = 'English' }) {
     const style = result ? getVerdictStyle(result.verdict) : null
 
     return (
-        <div className="flex-1 overflow-y-auto bg-white p-4 sm:p-8">
+        <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-10" style={{ backgroundColor: 'transparent' }}>
             <div className="max-w-3xl mx-auto space-y-8">
                 {/* Header */}
-                <div className="flex items-center gap-4 border-b pb-6">
-                    <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary border border-primary/20">
-                        <ShieldAlert className="h-6 w-6" />
+                <div className="flex items-center gap-5 border-b border-border-soft pb-8">
+                    <div 
+                      className="h-14 w-14 rounded-2xl flex items-center justify-center transition-transform hover:scale-105"
+                      style={{ 
+                        backgroundColor: 'var(--brand-indigo)',
+                        border: '1px solid var(--border-medium)',
+                        boxShadow: '0 8px 32px rgba(27,20,100,0.12)'
+                      }}
+                    >
+                        <ShieldAlert className="h-7 w-7 text-white" />
                     </div>
                     <div>
-                        <h1 className="text-2xl font-bold tracking-tight">{t.title}</h1>
-                        <p className="text-muted-foreground text-sm">{t.subtitle}</p>
+                        <h1 
+                          style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '32px', color: 'var(--text-primary)' }}
+                        >
+                          {t.title}
+                        </h1>
+                        <p style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '15px', color: 'var(--text-secondary)' }}>
+                          {t.subtitle}
+                        </p>
                     </div>
                 </div>
 
                 {!result ? (
-                    <Card className="border-border/60 shadow-sm overflow-hidden">
-                        <CardHeader className="bg-muted/30 pb-4">
-                            <CardTitle className="text-base flex items-center gap-2">
-                                <MessageSquare className="h-4 w-4 text-primary" />
+                    <Card 
+                      style={{ 
+                        borderRadius: '16px', 
+                        border: '1px solid var(--border-soft)',
+                        backgroundColor: 'var(--bg-surface)',
+                        overflow: 'hidden'
+                      }}
+                    >
+                        <CardHeader className="pb-4" style={{ backgroundColor: 'rgba(27, 20, 100, 0.02)' }}>
+                            <CardTitle 
+                              className="flex items-center gap-2"
+                              style={{ fontFamily: 'Syne, sans-serif', fontSize: '18px', fontWeight: 600, color: 'var(--brand-indigo)' }}
+                            >
+                                <MessageSquare className="h-5 w-5" />
                                 Paste Message to Verify
                             </CardTitle>
-                            <CardDescription>
+                            <CardDescription style={{ fontFamily: 'DM Sans, sans-serif' }}>
                                 Copy the WhatsApp forward or news snippet and paste it below.
                             </CardDescription>
                         </CardHeader>
-                        <CardContent className="pt-6 space-y-4">
+                        <CardContent className="pt-8 space-y-6">
                             {!file && (
                                 <div className="relative">
                                     <Textarea
                                         placeholder={t.placeholder}
-                                        className="min-h-[200px] resize-none text-sm placeholder:text-muted-foreground/50 border-border/80 pr-12"
+                                        className="min-h-[220px] resize-none text-sm placeholder:text-muted-foreground/50 pr-14"
+                                        style={{
+                                          borderRadius: '12px',
+                                          border: '1px solid var(--border-medium)',
+                                          backgroundColor: 'var(--bg-base)',
+                                          fontFamily: 'DM Sans, sans-serif'
+                                        }}
                                         value={text}
                                         onChange={(e) => setText(e.target.value)}
                                     />
                                     <Button
                                         size="icon"
-                                        variant={isRecording ? "destructive" : "secondary"}
                                         className={cn(
-                                            "absolute bottom-4 right-4 rounded-full shadow-sm transition-all",
+                                            "absolute bottom-4 right-4 rounded-xl shadow-lg transition-all hover:scale-110",
                                             isRecording && "animate-pulse"
                                         )}
+                                        style={{
+                                          backgroundColor: isRecording ? '#ef4444' : 'var(--brand-saffron)',
+                                          color: isRecording ? 'white' : 'var(--brand-indigo)',
+                                        }}
                                         onClick={toggleRecording}
                                         title={isRecording ? t.micStop : t.micStart}
                                     >
-                                        {isRecording ? <Square className="h-4 w-4" fill="currentColor" /> : <Mic className="h-4 w-4" />}
+                                        {isRecording ? <Square className="h-4 w-4" fill="currentColor" /> : <Mic className="h-5 w-5" />}
                                     </Button>
                                 </div>
                             )}
@@ -255,15 +287,28 @@ export default function ScamDetector({ language = 'English' }) {
                                 </div>
                             )}
 
-                            <div className="flex justify-between items-center bg-muted/20 p-3 rounded-lg border border-border/40">
-                                <div className="flex items-center gap-2 text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
-                                    <ShieldCheck className="h-3 w-3" />
-                                    RAG Fact-Check Engine Active
+                            <div 
+                              className="flex justify-between items-center p-4 rounded-xl"
+                              style={{ backgroundColor: 'rgba(27, 20, 100, 0.03)', border: '1px solid var(--border-soft)' }}
+                            >
+                                <div 
+                                  className="flex items-center gap-2 text-[11px] uppercase tracking-widest font-bold"
+                                  style={{ color: 'var(--text-tertiary)' }}
+                                >
+                                    <ShieldCheck className="h-4 w-4" style={{ color: 'var(--success)' }} />
+                                    Fact-Check Engine Active
                                 </div>
                                 <Button
                                     onClick={handleVerify}
                                     disabled={loading || (!text.trim() && !file) || isRecording}
-                                    className="gap-2 shadow-sm"
+                                    className="gap-2 shadow-md px-6 py-5"
+                                    style={{
+                                      backgroundColor: 'var(--brand-indigo)',
+                                      color: 'white',
+                                      fontFamily: 'Syne, sans-serif',
+                                      fontWeight: 600,
+                                      borderRadius: '12px'
+                                    }}
                                 >
                                     {loading ? (
                                         <><Loader2 className="h-4 w-4 animate-spin" /> {file ? t.readingPdf : t.verifying}</>
@@ -276,40 +321,59 @@ export default function ScamDetector({ language = 'English' }) {
                     </Card>
                 ) : (
                     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                        <Card className={cn("border shadow-sm overflow-hidden relative", style.bg)}>
-
+                        <Card 
+                          className={cn("border overflow-hidden relative", style.bg)}
+                          style={{ borderRadius: '24px', border: '1px solid var(--border-medium)', boxShadow: '0 12px 48px rgba(27,20,100,0.08)' }}
+                        >
                             {/* TTS Listen Button */}
                             <Button
                                 size="icon"
-                                variant="outline"
-                                className="absolute top-4 right-4 bg-white/50 hover:bg-white/80 rounded-full h-10 w-10 shadow-sm border-border/40 transition-all hover:scale-105"
+                                className="absolute top-5 right-5 hover:scale-110 transition-all shadow-md h-11 w-11 rounded-xl"
+                                style={{
+                                  backgroundColor: 'white',
+                                  border: '1px solid var(--border-soft)',
+                                  color: 'var(--brand-indigo)'
+                                }}
                                 onClick={speakVerdict}
                                 title={t.listen}
                             >
                                 {isSpeaking ? (
-                                    <Square className="h-4 w-4 text-primary" fill="currentColor" />
+                                    <Square className="h-5 w-5" fill="currentColor" />
                                 ) : (
-                                    <Volume2 className="h-4 w-4 text-primary" />
+                                    <Volume2 className="h-5 w-5" />
                                 )}
                             </Button>
 
-                            <div className="p-8 text-center space-y-6">
+                            <div className="p-10 text-center space-y-8">
                                 <div className="flex justify-center">
-                                    <div className="p-4 bg-white rounded-full shadow-sm border border-border/40">
+                                    <div 
+                                      className="p-5 bg-white rounded-2xl shadow-sm"
+                                      style={{ border: '1px solid var(--border-soft)' }}
+                                    >
                                         {style.icon}
                                     </div>
                                 </div>
 
-                                <div className="space-y-2">
-                                    <Badge variant="outline" className={cn("mb-2 uppercase tracking-tighter text-[10px] font-black px-3", style.badge)}>
+                                <div className="space-y-3">
+                                    <Badge 
+                                      variant="outline" 
+                                      className={cn("mb-2 uppercase tracking-widest text-[11px] font-bold px-4 py-1", style.badge)}
+                                      style={{ borderRadius: '50px' }}
+                                    >
                                         Verdict: {result.verdict}
                                     </Badge>
-                                    <h2 className={cn("text-3xl font-black tracking-tight", style.title)}>
+                                    <h2 
+                                      className={cn("text-4xl font-bold tracking-tight", style.title)}
+                                      style={{ fontFamily: 'Syne, sans-serif' }}
+                                    >
                                         {result.verdict === 'Authentic' && "This Scheme is Authentic"}
                                         {result.verdict === 'Fake' && "Warning: This is Fake"}
                                         {result.verdict === 'Suspicious' && "Caution: Potential Scam"}
                                     </h2>
-                                    <p className="text-muted-foreground max-w-lg mx-auto text-sm leading-relaxed">
+                                    <p 
+                                      className="text-slate-600 max-w-lg mx-auto text-[16px] leading-relaxed"
+                                      style={{ fontFamily: 'DM Sans, sans-serif' }}
+                                    >
                                         {result.reasoning}
                                     </p>
                                 </div>
@@ -349,31 +413,73 @@ export default function ScamDetector({ language = 'English' }) {
                 )}
 
                 {/* Secondary Info */}
-                <div className="grid sm:grid-cols-3 gap-4">
-                    <div className="p-4 rounded-xl border border-border/60 bg-muted/5 flex flex-col gap-3">
-                        <div className="h-8 w-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center border border-red-100">
-                            <AlertTriangle className="h-4 w-4" />
+                <div className="grid sm:grid-cols-3 gap-6">
+                    <div 
+                      className="p-6 rounded-2xl border transition-all hover:shadow-md"
+                      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-soft)' }}
+                    >
+                        <div 
+                          className="h-10 w-10 rounded-xl flex items-center justify-center mb-4"
+                          style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' }}
+                        >
+                            <AlertTriangle className="h-5 w-5" />
                         </div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">What we check</h4>
-                        <p className="text-[11px] leading-relaxed text-muted-foreground/80">
+                        <h4 
+                          className="text-[11px] font-bold uppercase tracking-widest mb-2"
+                          style={{ color: 'var(--brand-indigo)', fontFamily: 'Syne, sans-serif' }}
+                        >
+                          What we check
+                        </h4>
+                        <p 
+                          className="text-[13px] leading-relaxed text-slate-500"
+                          style={{ fontFamily: 'DM Sans, sans-serif' }}
+                        >
                             We analyze benefit amounts, application processes, and suspicious patterns like requests for OTPs or personal money.
                         </p>
                     </div>
-                    <div className="p-4 rounded-xl border border-border/60 bg-muted/5 flex flex-col gap-3">
-                        <div className="h-8 w-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
-                            <CheckCircle2 className="h-4 w-4" />
+                    <div 
+                      className="p-6 rounded-2xl border transition-all hover:shadow-md"
+                      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-soft)' }}
+                    >
+                        <div 
+                          className="h-10 w-10 rounded-xl flex items-center justify-center mb-4"
+                          style={{ backgroundColor: 'rgba(27, 20, 100, 0.1)', color: 'var(--brand-indigo)' }}
+                        >
+                            <CheckCircle2 className="h-5 w-5" />
                         </div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Official Source</h4>
-                        <p className="text-[11px] leading-relaxed text-muted-foreground/80">
+                        <h4 
+                          className="text-[11px] font-bold uppercase tracking-widest mb-2"
+                          style={{ color: 'var(--brand-indigo)', fontFamily: 'Syne, sans-serif' }}
+                        >
+                          Official Source
+                        </h4>
+                        <p 
+                          className="text-[13px] leading-relaxed text-slate-500"
+                          style={{ fontFamily: 'DM Sans, sans-serif' }}
+                        >
                             Claims are verified directly against government PDFs and policy documents indexed in the Saarthi knowledge base.
                         </p>
                     </div>
-                    <div className="p-4 rounded-xl border border-border/60 bg-muted/5 flex flex-col gap-3">
-                        <div className="h-8 w-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center border border-green-100">
-                            <MessageSquare className="h-4 w-4" />
+                    <div 
+                      className="p-6 rounded-2xl border transition-all hover:shadow-md"
+                      style={{ backgroundColor: 'var(--bg-surface)', borderColor: 'var(--border-soft)' }}
+                    >
+                        <div 
+                          className="h-10 w-10 rounded-xl flex items-center justify-center mb-4"
+                          style={{ backgroundColor: 'rgba(255, 159, 28, 0.1)', color: 'var(--brand-saffron)' }}
+                        >
+                            <MessageSquare className="h-5 w-5" />
                         </div>
-                        <h4 className="text-xs font-bold uppercase tracking-wider text-muted-foreground">Stay Informed</h4>
-                        <p className="text-[11px] leading-relaxed text-muted-foreground/80">
+                        <h4 
+                          className="text-[11px] font-bold uppercase tracking-widest mb-2"
+                          style={{ color: 'var(--brand-indigo)', fontFamily: 'Syne, sans-serif' }}
+                        >
+                          Stay Informed
+                        </h4>
+                        <p 
+                          className="text-[13px] leading-relaxed text-slate-500"
+                          style={{ fontFamily: 'DM Sans, sans-serif' }}
+                        >
                             Found a scam? Share it with neighbors and friends. Awareness is the best defense against digital financial fraud.
                         </p>
                     </div>

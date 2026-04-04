@@ -1,5 +1,6 @@
 /* Latin / Primary UI font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400&display=swap');
 /* Indic scripts — loaded lazily by the browser only when needed */
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Gujarati:wght@400;500;600;700&display=swap');
@@ -45,6 +46,27 @@
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
+
+    /* Saarthi App Page tokens */
+    --bg-base: #FAFAF7;           /* warm off-white — main bg */
+    --bg-surface: #F4F3EE;        /* card and panel backgrounds */
+    --bg-surface-hover: #EDEAE2;  /* hover state for tiles */
+    --bg-sidebar: #F0EDE6;        /* sidebar background */
+    --bg-dark: #1B1A2E;           /* deep indigo — only for footer/accents */
+
+    --brand-indigo: #1B1464;      /* primary brand color */
+    --brand-indigo-mid: #2D2A8A;  /* medium indigo for hover states */
+    --brand-saffron: #FF9F1C;     /* accent — CTAs, highlights, selections */
+    --brand-saffron-soft: #FFB84D;/* lighter saffron for glows */
+    --brand-saffron-bg: #FFF4E0;  /* very light saffron for selected bg */
+
+    --text-primary: #1a1a2e;      /* near-black with indigo undertone */
+    --text-secondary: #4a4a6a;    /* muted indigo-grey */
+    --text-tertiary: #8888AA;     /* hints and labels */
+
+    --success: #1D9E75;
+    --border-soft: rgba(27, 20, 100, 0.08);
+    --border-medium: rgba(27, 20, 100, 0.15);
   }
 
   * {
