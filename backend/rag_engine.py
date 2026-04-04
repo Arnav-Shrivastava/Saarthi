@@ -211,7 +211,7 @@ Answer (in {language}):"""
             sources = []
             for doc in docs:
                 meta = doc.metadata or {}
-                source_file = meta.get("source", "")
+                source_file = meta.get("source", "").replace("\\", "/")
                 page = meta.get("page", None)
                 filename = os.path.basename(source_file) if source_file else "Uploaded Document"
                 key = (filename, page)
