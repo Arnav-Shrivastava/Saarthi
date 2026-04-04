@@ -16,7 +16,7 @@ class RagEngine:
             self.data_path = data_path
         self.vector_db = None
         self.embeddings = OpenAIEmbeddings()
-        self.llm = ChatOpenAI(model_name="gpt-5-mini", temperature=1)
+        self.llm = ChatOpenAI(model_name="gpt-5-mini",)
         
     def load_documents(self, force_reload=False):
         db_path = os.path.join(self.data_path, "vector_db")

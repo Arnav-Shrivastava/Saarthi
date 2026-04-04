@@ -199,16 +199,15 @@ async def draft_complaint(req: ComplaintRequest):
             model="gpt-5-mini",
             messages=[
                 {
-                    "role": "system",
+                    "role": "user",
                     "content": f"You are an expert Indian legal assistant.\n"
                                f"Translate and format the following casual story into a formal, structured official complaint addressed to the {req.recipient} in {req.language}.\n"
                                f"Maintain a respectful, formal, and objective legal tone.\n"
                                f"Include standard placeholders like [Date], [Your Name], [Your Address], and [Signature] where appropriate.\n"
-                               f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end."
-                },
-                {"role": "user", "content": req.story}
+                               f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end.\n\n"
+                               f"Story:\n{req.story}"
+                }
             ],
-            temperature=1,
             max_completion_tokens=800
         )
         draft = response.choices[0].message.content
@@ -524,10 +523,9 @@ async def whatsapp_webhook(
             # check intent
             intent_check = client.chat.completions.create(
                 model="gpt-5-mini",
-                messages=[{"role": "system", "content": "Return 'TRUE' if the user is asking to write, draft, or format a complaint/FIR. Otherwise return 'FALSE'."}, {"role": "user", "content": user_message}],
-                temperature=1
+                messages=[{"role": "user", "content": "Return 'TRUE' if the user is asking to write, draft, or format a complaint/FIR. Otherwise return 'FALSE'.\n\nUser message: " + user_message}],
             ).choices[0].message.content.strip()
-            
+
             if "TRUE" in intent_check:
                 print("--- WhatsApp: Complaint Drafting request detected ---")
                 detected_lang = rag_engine._detect_language(user_message)
@@ -537,16 +535,15 @@ async def whatsapp_webhook(
                         model="gpt-5-mini",
                         messages=[
                             {
-                                "role": "system",
+                                "role": "user",
                                 "content": f"You are an expert Indian legal assistant.\n"
                                            f"Translate and format the following casual story into a formal, structured official complaint addressed to the Police Station or relevant authority in {detected_lang}.\n"
                                            f"Maintain a respectful, formal, and objective legal tone.\n"
                                            f"Include standard placeholders like [Date], [Your Name], [Your Address], and [Signature] where appropriate.\n"
-                                           f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end."
-                            },
-                            {"role": "user", "content": user_message}
+                                           f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end.\n\n"
+                                           f"Story:\n{user_message}"
+                            }
                         ],
-                        temperature=1,
                         max_completion_tokens=800
                     )
                     draft = draft_resp.choices[0].message.content
