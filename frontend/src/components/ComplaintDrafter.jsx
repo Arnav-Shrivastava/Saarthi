@@ -64,8 +64,10 @@ export default function ComplaintDrafter() {
           </CardHeader>
           <CardContent className="space-y-4 relative z-10">
             <div>
-              <label className="text-sm font-medium mb-2 block">What happened?</label>
+              <label htmlFor="story-input" className="text-sm font-medium mb-2 block">What happened?</label>
               <textarea 
+                id="story-input"
+                aria-label="Describe what happened"
                 value={story}
                 onChange={(e) => setStory(e.target.value)}
                 placeholder="E.g., My neighbor broke my fence and threatened me..."
@@ -76,8 +78,10 @@ export default function ComplaintDrafter() {
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="text-sm font-medium mb-2 block">Language</label>
+                <label htmlFor="language-select" className="text-sm font-medium mb-2 block">Language</label>
                 <select 
+                  id="language-select"
+                  aria-label="Select Language"
                   value={language}
                   onChange={(e) => setLanguage(e.target.value)}
                   className="w-full rounded-md border border-input bg-background px-3 py-2"
@@ -92,8 +96,10 @@ export default function ComplaintDrafter() {
               </div>
               
               <div>
-                <label className="text-sm font-medium mb-2 block">Authority</label>
+                <label htmlFor="authority-select" className="text-sm font-medium mb-2 block">Authority</label>
                 <select 
+                  id="authority-select"
+                  aria-label="Select Authority"
                   value={recipient}
                   onChange={(e) => setRecipient(e.target.value)}
                   className="w-full rounded-md border border-input bg-background px-3 py-2"
