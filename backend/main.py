@@ -11,7 +11,7 @@ from contextlib import asynccontextmanager
 
 load_dotenv()
 
-from rag_engine import rag_engine
+from rag_engine import rag_engine, strip_markdown
 from openai import OpenAI
 from scheme_recommender import (
     recommend_schemes,
@@ -204,13 +204,14 @@ async def draft_complaint(req: ComplaintRequest):
                                f"Translate and format the following casual story into a formal, structured official complaint addressed to the {req.recipient} in {req.language}.\n"
                                f"Maintain a respectful, formal, and objective legal tone.\n"
                                f"Include standard placeholders like [Date], [Your Name], [Your Address], and [Signature] where appropriate.\n"
-                               f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end.\n\n"
+                               f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end.\n"
+                               f"CRITICAL: Do NOT use any Markdown formatting whatsoever. No **, ##, *, _, or backticks. Write in clean plain text only.\n\n"
                                f"Story:\n{req.story}"
                 }
             ],
             max_completion_tokens=800
         )
-        draft = response.choices[0].message.content
+        draft = strip_markdown(response.choices[0].message.content)
         return {"draft": draft}
     except Exception as e:
         print(f"Complaint Drafter Error: {e}")
@@ -546,8 +547,8 @@ async def whatsapp_webhook(
                         ],
                         max_completion_tokens=800
                     )
-                    draft = draft_resp.choices[0].message.content
-                    twiml.message(f"📝 *Saarthi Legal Draft*\n\n{draft}")
+                    draft = strip_markdown(draft_resp.choices[0].message.content)
+                    twiml.message(f"📝 Saarthi Legal Draft\n\n{draft}")
                     return Response(content=str(twiml), media_type="application/xml")
                 except Exception as e:
                     print(f"WhatsApp Complaint Error: {e}")
@@ -574,7 +575,7 @@ async def whatsapp_webhook(
 
         # Query the RAG engine with history
         result = rag_engine.query(user_message, language="Auto", chat_history=history)
-        answer = result["answer"]
+        answer = strip_markdown(result["answer"])
         
         # Save to history
         add_to_history(From, user_message, "user")
@@ -801,7 +802,7 @@ async def voice_answer(
 
         # Query Saarthi's brain with history
         result = rag_engine.query(SpeechResult, language=detected_lang, chat_history=history)
-        answer = result["answer"]
+        answer = strip_markdown(result["answer"])
         
         # Save to history
         add_to_history(caller_id, SpeechResult, "user")

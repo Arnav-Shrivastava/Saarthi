@@ -1,9 +1,34 @@
 import os
+import re
 from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_community.vectorstores import FAISS
 from langchain_community.document_loaders import PyPDFLoader, TextLoader, DirectoryLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import PromptTemplate
+
+
+def strip_markdown(text: str) -> str:
+    """Remove all Markdown symbols so output is clean for TTS, printing, and WhatsApp."""
+    if not text:
+        return text
+    # Remove ATX headings: # Heading, ## Heading, ### Heading
+    text = re.sub(r'^#{1,6}\s*', '', text, flags=re.MULTILINE)
+    # Remove bold: **text** or __text__
+    text = re.sub(r'\*\*(.*?)\*\*', r'\1', text, flags=re.DOTALL)
+    text = re.sub(r'__(.*?)__', r'\1', text, flags=re.DOTALL)
+    # Remove italic: *text* or _text_
+    text = re.sub(r'\*(.*?)\*', r'\1', text, flags=re.DOTALL)
+    text = re.sub(r'_(.*?)_', r'\1', text, flags=re.DOTALL)
+    # Remove any remaining lone asterisks or underscores used as decorators
+    text = re.sub(r'\*+', '', text)
+    # Remove inline code backticks: `code` or ```code```
+    text = re.sub(r'`+([^`]*)`+', r'\1', text)
+    text = re.sub(r'`+', '', text)
+    # Remove horizontal rules: --- or *** or ___
+    text = re.sub(r'^\s*[-*_]{3,}\s*$', '', text, flags=re.MULTILINE)
+    # Collapse 3+ blank lines to 2
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    return text.strip()
 
 class RagEngine:
     def __init__(self, data_path=None):
@@ -80,6 +105,7 @@ IMPORTANT INSTRUCTIONS:
 3. Use Step 1, Step 2 only for final registration/application steps.
 4. Keep bits of information in small, digestible chunks.
 5. NEVER use technical jargon.
+6. CRITICAL: Do NOT use any Markdown formatting. No **, ##, *, _, or backticks. Write in plain conversational text only.
 
 Answer (in {language}):"""
 
@@ -103,7 +129,7 @@ Answer (in {language}):"""
         chain = prompt | self.llm | StrOutputParser()
         response = chain.invoke({"question": question, "language": language, "chat_history": chat_history})
         return {
-            "answer": response,
+            "answer": strip_markdown(response),
             "sources": [{
                 "filename": "General Knowledge (gpt-5.4-nano)",
                 "page": None,
@@ -169,6 +195,7 @@ IMPORTANT INSTRUCTIONS:
 3. List next steps (Step 1, Step 2) ONLY after eligibility is confirmed.
 4. End with a helpful, warm line.
 5. NEVER use technical jargon.
+6. CRITICAL: Do NOT use any Markdown formatting. No **, ##, *, _, or backticks. Write in plain text only.
 
 Answer (in {language}):"""
 
@@ -222,7 +249,7 @@ Answer (in {language}):"""
                         "snippet": doc.page_content[:200].strip().replace("\n", " "),
                     })
 
-            return {"answer": response, "sources": sources}
+            return {"answer": strip_markdown(response), "sources": sources}
 
         except Exception as e:
             print(f"RAG Error: {e}")
