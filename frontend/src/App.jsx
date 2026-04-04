@@ -12,11 +12,12 @@ import Sidebar from './components/Sidebar'
 
 function App() {
   const getInitialView = () => {
-    const path = window.location.pathname;
-    if (path === '/how-it-works') return 'how-it-works';
-    if (path === '/privacy') return 'privacy';
-    if (path === '/terms') return 'terms';
-    if (path === '/api-docs') return 'api-docs';
+    const params = new URLSearchParams(window.location.search);
+    const viewQuery = params.get('view');
+    if (viewQuery === 'how-it-works') return 'how-it-works';
+    if (viewQuery === 'privacy') return 'privacy';
+    if (viewQuery === 'terms') return 'terms';
+    if (viewQuery === 'api-docs') return 'api-docs';
     return 'landing';
   }
 

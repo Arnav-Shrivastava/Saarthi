@@ -76,10 +76,10 @@ const AnimatedFooter = ({
     {
       title: 'Resources',
       links: [
-        { label: 'How It Works', href: '/how-it-works' },
-        { label: 'API Docs', href: '/api-docs' },
-        { label: 'Privacy Policy', href: '/privacy' },
-        { label: 'Terms of Service', href: '/terms' },
+        { label: 'How It Works', href: '?view=how-it-works' },
+        { label: 'API Docs', href: '?view=api-docs' },
+        { label: 'Privacy Policy', href: '?view=privacy' },
+        { label: 'Terms of Service', href: '?view=terms' },
       ],
     },
   ];
