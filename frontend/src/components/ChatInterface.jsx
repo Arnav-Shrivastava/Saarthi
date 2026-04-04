@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Paperclip, Mic, MicOff, Send, MessageSquare } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
-const API_BASE_URL = 'https://saarthi-production-7b58.up.railway.app/'
+const API_BASE_URL = 'https://saarthi-production-7b58.up.railway.app'
 
 function ChatInterface({ language, onBack, onFindSchemes, preFillMessage, onPreFillConsumed }) {
   const [messages, setMessages] = useState([])
