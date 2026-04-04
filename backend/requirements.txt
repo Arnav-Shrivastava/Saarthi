@@ -18,4 +18,3 @@ Pillow
 twilio
 requests
 scikit-learn
-langchain-classic

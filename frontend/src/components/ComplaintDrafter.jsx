@@ -5,30 +5,39 @@ import { Button } from './ui/button';
 import { FileText, Copy, Printer, Download } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://saarthi-production-7b58.up.railway.app';
+
 export default function ComplaintDrafter() {
   const [story, setStory] = useState('');
   const [language, setLanguage] = useState('English');
   const [recipient, setRecipient] = useState('Police Station');
   const [draft, setDraft] = useState('');
   const [isDrafting, setIsDrafting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleDraft = async () => {
     if (!story.trim()) return;
     setIsDrafting(true);
     setDraft('');
+    setError('');
     
     try {
-      const response = await fetch('https://saarthi-production-7b58.up.railway.app/draft-complaint', {
+      const response = await fetch(`${API_BASE_URL}/draft-complaint`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ story, language, recipient }),
       });
       
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.detail || `Server error: ${response.status}`);
+      }
+      
       const data = await response.json();
-      setDraft(data.draft || 'Failed to draft complaint.');
-    } catch (error) {
-      console.error(error);
-      setDraft('An error occurred while drafting your complaint.');
+      setDraft(data.draft || 'No draft was returned.');
+    } catch (err) {
+      console.error(err);
+      setError(err.message || 'An error occurred while drafting your complaint.');
     } finally {
       setIsDrafting(false);
     }
@@ -133,7 +142,26 @@ export default function ComplaintDrafter() {
             )}
           </CardHeader>
           <CardContent>
-            {draft ? (
+            {error ? (
+              <div className="h-[300px] flex items-center justify-center">
+                <div className="text-center text-red-500 text-sm p-4 border border-red-200 rounded-lg bg-red-50 dark:bg-red-950/20 dark:border-red-800">
+                  <p className="font-semibold mb-1">⚠️ Error</p>
+                  <p>{error}</p>
+                  <p className="mt-2 text-xs text-muted-foreground">Make sure the backend server is running.</p>
+                </div>
+              </div>
+            ) : isDrafting ? (
+              <div className="h-[300px] flex items-center justify-center text-muted-foreground">
+                <div className="flex flex-col items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <span className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.3s]" />
+                    <span className="h-2 w-2 rounded-full bg-primary animate-bounce [animation-delay:-0.15s]" />
+                    <span className="h-2 w-2 rounded-full bg-primary animate-bounce" />
+                  </div>
+                  <p className="text-sm">Drafting your complaint...</p>
+                </div>
+              </div>
+            ) : draft ? (
               <div className="prose dark:prose-invert max-w-none text-sm whitespace-pre-wrap">
                 <ReactMarkdown>{draft}</ReactMarkdown>
               </div>
