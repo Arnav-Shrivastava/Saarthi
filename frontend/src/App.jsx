@@ -5,11 +5,12 @@ import ChatInterface from './components/ChatInterface'
 import LandingPage from './components/LandingPage'
 import SchemeRecommender from './components/SchemeRecommender'
 import ScamDetector from './components/ScamDetector'
+import ComplaintDrafter from './components/ComplaintDrafter'
 // Remove AppNavbar as it's not needed for app pages
 import Sidebar from './components/Sidebar'
 
 function App() {
-  const [view, setView] = useState('landing') // landing, language, chat, recommend, verify
+  const [view, setView] = useState('landing') // landing, language, chat, recommend, verify, list, draft
   const [language, setLanguage] = useState(null)
   const [preFillMessage, setPreFillMessage] = useState(null)
 
@@ -53,6 +54,7 @@ function App() {
   if (view === 'language' || view === 'chat') activeNav = 'Change Language';
   if (view === 'recommend') activeNav = 'Find My Schemes';
   if (view === 'verify') activeNav = 'Scam Detector';
+  if (view === 'draft') activeNav = 'Complaint Drafter';
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-background text-foreground font-sans">
@@ -94,6 +96,11 @@ function App() {
                   <ScamDetector
                     language={language}
                   />
+                </div>
+              )}
+              {view === 'draft' && (
+                <div className="flex-1 overflow-y-auto w-full h-full">
+                  <ComplaintDrafter />
                 </div>
               )}
             </main>

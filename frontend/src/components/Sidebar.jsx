@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home, Globe, Target, ShieldAlert } from 'lucide-react';
+import { Home, Globe, Target, ShieldAlert, FileText } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 function Sidebar({ activeNav = 'Change Language', onNavigate }) {
@@ -8,6 +8,7 @@ function Sidebar({ activeNav = 'Change Language', onNavigate }) {
     { label: 'Change Language', icon: Globe, id: 'language' },
     { label: 'Find My Schemes', icon: Target, id: 'recommend' },
     { label: 'Scam Detector', icon: ShieldAlert, id: 'verify' },
+    { label: 'Complaint Drafter', icon: FileText, id: 'draft' },
   ];
 
   return (

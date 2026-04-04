@@ -174,6 +174,11 @@ async def root():
 # ---------------------------------------------------------------------------
 # Pydantic model for /recommend
 # ---------------------------------------------------------------------------
+class ComplaintRequest(BaseModel):
+    story: str
+    language: str = "English"
+    recipient: str = "Police Station"
+
 class RecommendRequest(BaseModel):
     occupation: str
     income: float = 0
@@ -182,6 +187,35 @@ class RecommendRequest(BaseModel):
     age: int = 25
     language: str = "English"
 
+
+@app.post("/draft-complaint")
+async def draft_complaint(req: ComplaintRequest):
+    """
+    Drafts a formal structured legal complaint/FIR based on user's natural language story.
+    Returns the drafted text in the requested language.
+    """
+    try:
+        response = client.chat.completions.create(
+            model="gpt-5-mini",
+            messages=[
+                {
+                    "role": "system",
+                    "content": f"You are an expert Indian legal assistant.\n"
+                               f"Translate and format the following casual story into a formal, structured official complaint addressed to the {req.recipient} in {req.language}.\n"
+                               f"Maintain a respectful, formal, and objective legal tone.\n"
+                               f"Include standard placeholders like [Date], [Your Name], [Your Address], and [Signature] where appropriate.\n"
+                               f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end."
+                },
+                {"role": "user", "content": req.story}
+            ],
+            temperature=0.3,
+            max_tokens=800
+        )
+        draft = response.choices[0].message.content
+        return {"draft": draft}
+    except Exception as e:
+        print(f"Complaint Drafter Error: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/recommend")
 async def recommend(req: RecommendRequest):
@@ -479,6 +513,47 @@ async def whatsapp_webhook(
             twiml.message(question)
             return Response(content=str(twiml), media_type="application/xml")
         # ── End Recommendation State Machine ───────────────────────────────────
+
+        # Step B.5: Check if user wants to draft a complaint/FIR
+        if user_message.lower().strip().startswith("draft:") or user_message.lower().strip().startswith("draft ") or "complaint" in user_message.lower() or "शिकायत" in user_message.lower():
+            # If the user says "draft: my neighbor stole my tractor", we extract "my neighbor stole my tractor"
+            # If they just mention "complaint", we will see if we should treat it as a drafting request or general RAG.
+            # We'll use a simple heuristic: if it starts with "draft", or contains a "complaint" intent that is clearly a drafting request.
+            # For simplicity in this demo, let's process it if it has "draft" or "complaint".
+            
+            # check intent
+            intent_check = client.chat.completions.create(
+                model="gpt-5-mini",
+                messages=[{"role": "system", "content": "Return 'TRUE' if the user is asking to write, draft, or format a complaint/FIR. Otherwise return 'FALSE'."}, {"role": "user", "content": user_message}],
+                temperature=0
+            ).choices[0].message.content.strip()
+            
+            if "TRUE" in intent_check:
+                print("--- WhatsApp: Complaint Drafting request detected ---")
+                detected_lang = rag_engine._detect_language(user_message)
+                # Draft the complaint
+                try:
+                    draft_resp = client.chat.completions.create(
+                        model="gpt-5-mini",
+                        messages=[
+                            {
+                                "role": "system",
+                                "content": f"You are an expert Indian legal assistant.\n"
+                                           f"Translate and format the following casual story into a formal, structured official complaint addressed to the Police Station or relevant authority in {detected_lang}.\n"
+                                           f"Maintain a respectful, formal, and objective legal tone.\n"
+                                           f"Include standard placeholders like [Date], [Your Name], [Your Address], and [Signature] where appropriate.\n"
+                                           f"Ensure the chronological order of events is clear and any demands for action/investigation are formally stated at the end."
+                            },
+                            {"role": "user", "content": user_message}
+                        ],
+                        temperature=0.3,
+                        max_tokens=800
+                    )
+                    draft = draft_resp.choices[0].message.content
+                    twiml.message(f"📝 *Saarthi Legal Draft*\n\n{draft}")
+                    return Response(content=str(twiml), media_type="application/xml")
+                except Exception as e:
+                    print(f"WhatsApp Complaint Error: {e}")
 
         # Step C: AUTO SCAM DETECTION (New hackathon feature)
         # If message is long (forwarded style) or contains "fake/real/scam"
