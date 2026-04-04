@@ -17,7 +17,7 @@ import { SmokeBackground } from '@/components/ui/spooky-smoke-animation'
 import { SpiralAnimation } from '@/components/ui/spiral-animation'
 import { ContainerScroll } from '@/components/ui/container-scroll-animation'
 
-export default function LandingPage({ onStart }) {
+export default function LandingPage({ onStart, onNavigate }) {
   return (
     <div className="min-h-screen bg-white text-foreground font-sans">
       {/* Scroll-responsive Navbar */}
@@ -265,7 +265,7 @@ export default function LandingPage({ onStart }) {
       </section>
 
       {/* Animated Footer */}
-      <AnimatedFooter onStart={onStart} />
+      <AnimatedFooter onStart={onStart} onNavigate={onNavigate} />
     </div>
   )
 }

@@ -6,11 +6,12 @@ import LandingPage from './components/LandingPage'
 import SchemeRecommender from './components/SchemeRecommender'
 import ScamDetector from './components/ScamDetector'
 import ComplaintDrafter from './components/ComplaintDrafter'
-// Remove AppNavbar as it's not needed for app pages
+import HowItWorksPage from './components/HowItWorksPage'
+import PrivacyPolicyPage from './components/PrivacyPolicyPage'
 import Sidebar from './components/Sidebar'
 
 function App() {
-  const [view, setView] = useState('landing') // landing, language, chat, recommend, verify, list, draft
+  const [view, setView] = useState('landing') // landing, language, chat, recommend, verify, list, draft, how-it-works, privacy
   const [language, setLanguage] = useState(null)
   const [preFillMessage, setPreFillMessage] = useState(null)
 
@@ -61,7 +62,15 @@ function App() {
       {view === 'landing' ? (
         // Landing page: full width, scrollable
         <div className="flex-1 overflow-y-auto w-full">
-          <LandingPage onStart={handleStart} />
+          <LandingPage onStart={handleStart} onNavigate={(id) => setView(id)} />
+        </div>
+      ) : view === 'how-it-works' ? (
+        <div className="flex-1 overflow-y-auto w-full">
+          <HowItWorksPage onBack={() => setView('landing')} />
+        </div>
+      ) : view === 'privacy' ? (
+        <div className="flex-1 overflow-y-auto w-full">
+          <PrivacyPolicyPage onBack={() => setView('landing')} />
         </div>
       ) : (
         <>

@@ -4,6 +4,7 @@ import { ArrowRight, Github, Shield } from 'lucide-react';
 const AnimatedFooter = ({
   barCount = 23,
   onStart,
+  onNavigate,
 }) => {
   const waveRefs = useRef([]);
   const footerRef = useRef(null);
@@ -75,9 +76,9 @@ const AnimatedFooter = ({
     {
       title: 'Resources',
       links: [
-        { label: 'How It Works', href: '#' },
+        { label: 'How It Works', href: null, view: 'how-it-works' },
         { label: 'API Docs', href: '#' },
-        { label: 'Privacy Policy', href: '#' },
+        { label: 'Privacy Policy', href: null, view: 'privacy' },
         { label: 'Terms of Service', href: '#' },
       ],
     },
@@ -132,25 +133,49 @@ const AnimatedFooter = ({
               <ul className="space-y-2.5">
                 {group.links.map((link, j) => (
                   <li key={j}>
-                    <a href={link.href} className="text-sm text-white/40 hover:text-white/80 transition-colors">
-                      {link.label}
-                    </a>
+                    {link.view ? (
+                      <button
+                        onClick={() => onNavigate?.(link.view)}
+                        className="text-sm text-white/40 hover:text-white/80 transition-colors bg-transparent border-0 cursor-pointer p-0"
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <a href={link.href} className="text-sm text-white/40 hover:text-white/80 transition-colors">
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
             </div>
           ))}
 
-          {/* Extra column — Built With */}
           <div>
             <h4 className="text-[10px] font-semibold uppercase tracking-widest text-white/25 mb-4">
               Built With
             </h4>
             <ul className="space-y-2.5">
-              <li><span className="text-sm text-white/40">GPT-5</span></li>
-              <li><span className="text-sm text-white/40">RAG Pipeline</span></li>
-              <li><span className="text-sm text-white/40">Whisper ASR</span></li>
-              <li><span className="text-sm text-white/40">Twilio IVR</span></li>
+              <li>
+                <a href="https://openai.com/api" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/80 transition-colors">
+                  gpt-5.4-nano
+                </a>
+              </li>
+              <li>
+                <a href="https://python.langchain.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/80 transition-colors">
+                  RAG Pipeline
+                </a>
+              </li>
+              <li>
+                <a href="https://openai.com/research/whisper" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/80 transition-colors">
+                  Whisper ASR
+                </a>
+              </li>
+              <li>
+                <a href="https://www.twilio.com" target="_blank" rel="noopener noreferrer" className="text-sm text-white/40 hover:text-white/80 transition-colors">
+                  Twilio IVR
+                </a>
+              </li>
             </ul>
           </div>
 
