@@ -12,6 +12,7 @@ import Sidebar from './components/Sidebar'
 import ScamDetector from './components/ScamDetector'
 import ComplaintDrafter from './components/ComplaintDrafter'
 import BenchmarksPage from './components/BenchmarksPage'
+import { Menu } from 'lucide-react'
 
 function App() {
   const getInitialView = () => {
@@ -28,6 +29,7 @@ function App() {
   const [view, setView] = useState(getInitialView()) // landing, language, chat, etc.
   const [language, setLanguage] = useState(null)
   const [preFillMessage, setPreFillMessage] = useState(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const handleStart = () => setView('language')
 
@@ -101,13 +103,35 @@ function App() {
       ) : (
         <>
           {/* Sidebar and Main Content Area */}
-          <div className="flex flex-1 overflow-hidden w-full">
-            <Sidebar activeNav={activeNav} onNavigate={handleNavigate} />
+          <div className="flex flex-1 overflow-hidden w-full relative">
+            <Sidebar 
+              activeNav={activeNav} 
+              onNavigate={handleNavigate} 
+              isOpen={isMobileMenuOpen}
+              onClose={() => setIsMobileMenuOpen(false)}
+            />
 
             <main
               className="flex-1 flex flex-col relative overflow-hidden"
               style={{ backgroundColor: 'var(--bg-base)' }}
             >
+              {/* Mobile Header */}
+              <div className="md:hidden flex items-center justify-between p-4 border-b border-border/10 shrink-0 z-10" style={{ backgroundColor: 'var(--bg-base)' }}>
+                <div className="flex items-center gap-2">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="var(--brand-indigo)" strokeWidth="2" strokeLinejoin="round" fill="rgba(27, 20, 100, 0.1)" />
+                  </svg>
+                  <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: '18px', color: 'var(--text-primary)' }}>
+                    Saarthi
+                  </span>
+                </div>
+                <button 
+                  onClick={() => setIsMobileMenuOpen(true)}
+                  className="p-2 -mr-2 text-muted-foreground hover:bg-[var(--bg-surface-hover)] rounded-md transition-colors"
+                >
+                  <Menu size={24} />
+                </button>
+              </div>
               {view === 'language' && <LanguageSelectorPage onSelect={handleLanguageSelect} />}
               {view === 'chat' && (
                 <ChatInterface

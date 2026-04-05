@@ -1,8 +1,8 @@
 import React from 'react';
-import { Home, Globe, Target, ShieldAlert, FileText } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { Home, Globe, Target, ShieldAlert, FileText, X } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-function Sidebar({ activeNav = 'Change Language', onNavigate }) {
+function Sidebar({ activeNav = 'Change Language', onNavigate, isOpen, onClose }) {
   const navItems = [
     { label: 'Home', icon: Home, id: 'landing' },
     { label: 'Change Language', icon: Globe, id: 'language' },
@@ -11,29 +11,35 @@ function Sidebar({ activeNav = 'Change Language', onNavigate }) {
     { label: 'Complaint Drafter', icon: FileText, id: 'draft' },
   ];
 
-  return (
-    <motion.aside
-      initial={{ x: -20 }}
-      animate={{ x: 0 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-      className="hidden md:flex flex-col flex-shrink-0 relative"
+  const handleNavClick = (id) => {
+    onNavigate(id);
+    if (onClose) onClose();
+  };
+
+  const sidebarContent = (
+    <div
+      className="flex flex-col flex-shrink-0 relative h-full w-full"
       style={{
-        width: '260px',
         backgroundColor: 'var(--bg-sidebar)',
         borderRight: '1px solid var(--border-medium)',
         padding: '24px 16px',
-        height: '100%',
       }}
     >
       {/* Top section: Logo */}
-      <div className="flex flex-col gap-[2px] mb-8">
-        <div className="flex items-center gap-2">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="var(--brand-indigo)" strokeWidth="2" strokeLinejoin="round" fill="rgba(27, 20, 100, 0.1)" />
-          </svg>
-          <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: '18px', color: 'var(--text-primary)' }}>
-            Saarthi
-          </span>
+      <div className="flex flex-col gap-[2px] mb-8 relative">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="var(--brand-indigo)" strokeWidth="2" strokeLinejoin="round" fill="rgba(27, 20, 100, 0.1)" />
+            </svg>
+            <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: '18px', color: 'var(--text-primary)' }}>
+              Saarthi
+            </span>
+          </div>
+          {/* Mobile close button */}
+          <button onClick={onClose} className="md:hidden p-1 text-muted-foreground hover:bg-[var(--bg-surface-hover)] rounded-md transition-colors">
+            <X size={20} />
+          </button>
         </div>
         <span style={{ fontFamily: 'DM Sans, sans-serif', fontSize: '12px', color: 'var(--text-tertiary)', marginLeft: '32px' }}>
           AI for Citizens
@@ -49,7 +55,7 @@ function Sidebar({ activeNav = 'Change Language', onNavigate }) {
           return (
             <button
               key={item.label}
-              onClick={() => onNavigate(item.id)}
+              onClick={() => handleNavClick(item.id)}
               className="relative flex items-center gap-[10px] w-full text-left overflow-hidden group transition-all"
               style={{
                 height: '44px',
@@ -114,7 +120,48 @@ function Sidebar({ activeNav = 'Change Language', onNavigate }) {
           50% { opacity: 1; }
         }
       `}</style>
-    </motion.aside>
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <motion.aside
+        initial={{ x: -20 }}
+        animate={{ x: 0 }}
+        transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+        className="hidden md:block h-full relative z-0 shrink-0"
+        style={{ width: '260px' }}
+      >
+        {sidebarContent}
+      </motion.aside>
+
+      {/* Mobile Drawer */}
+      <AnimatePresence>
+        {isOpen && (
+          <div className="md:hidden fixed inset-0 z-50 overflow-hidden flex">
+            {/* Backdrop */}
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/50 backdrop-blur-sm shadow-2xl"
+              onClick={onClose}
+            />
+            {/* Drawer */}
+            <motion.div
+              initial={{ x: '-100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '-100%' }}
+              transition={{ type: 'spring', stiffness: 260, damping: 25 }}
+              className="relative w-[260px] h-full shadow-2xl"
+            >
+              {sidebarContent}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
