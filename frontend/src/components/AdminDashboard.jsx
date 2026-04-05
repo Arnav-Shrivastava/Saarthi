@@ -94,16 +94,16 @@ export default function AdminDashboard({ onBack }) {
           </button>
           <div className="flex items-center gap-2">
             <ShieldAlert size={22} className="text-red-500 animate-pulse" />
-            <h1 className="text-xl font-bold tracking-wider uppercase" style={{ letterSpacing: '0.1em' }}>Foundry | Homeland Security</h1>
+            <h1 className="text-xl font-bold tracking-wider uppercase" style={{ letterSpacing: '0.1em' }}>Saarthi | State Admin Portal</h1>
           </div>
         </div>
         
         <div className="flex items-center gap-6 text-sm font-mono">
           <div className="flex items-center gap-2">
             <Activity size={16} className="text-green-400" />
-            <span className="text-green-400">SYS_ONLINE</span>
+            <span className="text-green-400">SYSTEM ONLINE</span>
           </div>
-          {data && <span>NODES: {data.total_samples}</span>}
+          {data && <span>TOTAL QUERIES: {data.total_samples}</span>}
         </div>
       </div>
 
@@ -115,7 +115,7 @@ export default function AdminDashboard({ onBack }) {
           {loading ? (
              <div className="flex flex-col items-center gap-4">
                <div className="w-16 h-16 border-4 border-t-indigo-500 border-indigo-500/20 rounded-full animate-spin"></div>
-               <p className="font-mono text-indigo-400 animate-pulse">ESTABLISHING UPLINK...</p>
+               <p className="font-mono text-indigo-400 animate-pulse">CONNECTING TO SAARTHI NETWORK...</p>
              </div>
           ) : (
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8 }} className="w-full h-full max-w-4xl max-h-[800px] mt-10">
@@ -173,18 +173,18 @@ export default function AdminDashboard({ onBack }) {
           {!loading && (
             <div className="absolute bottom-8 left-8 pointer-events-none">
               <div className="bg-black/50 backdrop-blur border border-indigo-500/30 p-4 rounded-xl font-mono text-xs text-indigo-200">
-                <p className="font-bold text-white mb-2 uppercase">Threat Density Legend</p>
+                <p className="font-bold text-white mb-2 uppercase">Scam Activity Heatmap</p>
                 <div className="flex items-center gap-2 mb-1">
                   <div className="w-4 h-4 rounded" style={{ backgroundColor: COLORS.threatLow }}></div>
-                  <span>Secure (Nominal)</span>
+                  <span>Normal Activity</span>
                 </div>
                 <div className="flex items-center gap-2 mb-1">
                   <div className="w-4 h-4 rounded" style={{ background: `linear-gradient(to right, ${COLORS.threatLow}, ${COLORS.threatHigh})` }}></div>
-                  <span>Elevated Chatter</span>
+                  <span>Elevated Queries</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 rounded" style={{ backgroundColor: COLORS.threatHigh, boxShadow: '0 0 10px #EF4444' }}></div>
-                  <span className="text-red-400 font-bold animate-pulse">High Risk Intercepts</span>
+                  <span className="text-red-400 font-bold animate-pulse">High Scam Activity</span>
                 </div>
               </div>
             </div>
@@ -212,18 +212,18 @@ export default function AdminDashboard({ onBack }) {
                   <div className="bg-black/40 border border-indigo-500/20 p-4 rounded-xl flex flex-col items-center justify-center">
                     <Target className="text-blue-400 mb-2" size={20} />
                     <span className="text-2xl font-bold text-white">{selectedState.schemeCount || 0}</span>
-                    <span className="text-[10px] text-indigo-300 font-mono text-center mt-1">SCHEME UPLINKS</span>
+                    <span className="text-[10px] text-indigo-300 font-mono text-center mt-1">SCHEME QUERIES</span>
                   </div>
                   <div className="bg-red-500/10 border border-red-500/30 p-4 rounded-xl flex flex-col items-center justify-center relative overflow-hidden">
                     <div className="absolute inset-0 bg-red-500/5 animate-pulse"></div>
                     <AlertTriangle className="text-red-500 mb-2" size={20} />
                     <span className="text-2xl font-bold text-red-500">{selectedState.scamCount || 0}</span>
-                    <span className="text-[10px] text-red-300 font-mono text-center mt-1">ACTIVE THREATS</span>
+                    <span className="text-[10px] text-red-300 font-mono text-center mt-1">DETECTED SCAMS</span>
                   </div>
                 </div>
 
                 <h3 className="font-mono text-indigo-400 mb-4 border-b border-indigo-500/30 pb-2 flex items-center gap-2">
-                  <Terminal size={14}/> REGIONAL INTERCEPTS
+                  <Terminal size={14}/> REGIONAL QUERY LOGS
                 </h3>
                 
                 <div className="space-y-4 pb-20">
@@ -244,7 +244,7 @@ export default function AdminDashboard({ onBack }) {
                     ))
                   ) : (
                     <div className="text-center p-8 border border-dashed border-indigo-500/30 rounded-xl text-indigo-400 font-mono text-xs cursor-default">
-                      NO INTERCEPTS FOUND
+                      NO QUERY DATA FOR THIS REGION
                     </div>
                   )}
                 </div>
