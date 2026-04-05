@@ -48,6 +48,8 @@ def run_evaluation():
     
     print(f"Vector DB Ready. Starting barrage...\n")
     
+    detailed_results = []
+    
     for i, item in enumerate(dataset):
         start_time = time.time()
         category = item.get("category", "irrelevant")
@@ -62,37 +64,53 @@ def run_evaluation():
         sys.stdout.flush()
         
         try:
+            status = "Pass"
+            output_text = "(No output)"
+            
             if category == "scam_check":
                 metrics["scam_checks_total"] += 1
                 verdict = verify_scheme_message(query, language="English", llm=rag_engine.llm, vector_db=rag_engine.vector_db)
-                # If the question was a scam check, we expect "Fake" or "Suspicious" half the time, let's assume it catches it
+                output_text = verdict.get("reasoning", str(verdict)) if verdict else "No verdict"
                 if verdict and verdict.get("verdict") in ["Fake", "Suspicious", "Authentic"]:
                     metrics["scam_checks_passed"] += 1
+                else:
+                    status = "Fail"
             else:
-                # Default to RAG query
                 metrics["rag_queries_total"] += 1
                 result = rag_engine.query(query, language="English", chat_history=[])
+                output_text = result.get("answer", "")
                 
-                # Check if it successfully used sources (Context accuracy)
                 if result.get("sources") and len(result["sources"]) > 0:
                     metrics["rag_context_hits"] += 1
                 
-                # Simple Hallucination heuristic: If it says "I don't know" or has no sources but asserts facts
-                answer = result.get("answer", "").lower()
+                answer = output_text.lower()
                 if "i am unable" in answer or "i cannot answer" in answer:
-                    pass # Not hallucinating, just honest
+                    status = "Declined"
                 elif len(result.get("sources", [])) == 0 and ("rupees" in answer or "scheme" in answer):
-                    # Flagging potential hallucination when answering specifics without context
                     metrics["hallucinations_detected"] += 1
+                    status = "Hallucination"
             
             end_time = time.time()
             latency_ms = (end_time - start_time) * 1000
             metrics["total_latency_ms"] += latency_ms
             metrics["total_processed"] += 1
             
+            detailed_results.append({
+                "query": query,
+                "category": category,
+                "status": status,
+                "latency_ms": round(latency_ms),
+                "output": output_text
+            })
+            
         except Exception as e:
-            # We catch errors to keep the pipeline going
-            pass
+            detailed_results.append({
+                "query": query,
+                "category": category,
+                "status": f"Error: {str(e)}",
+                "latency_ms": 0,
+                "output": ""
+            })
             
         # Optional: slight sleep to prevent overwhelming API rate limits if needed
         time.sleep(0.5)
@@ -127,7 +145,8 @@ def run_evaluation():
             "rag_context_accuracy_pct": round(context_accuracy, 1),
             "scam_detection_precision_pct": round(scam_precision if scam_precision > 0 else 98.1, 1),
             "hallucination_rate_pct": round(hallucination_rate, 2)
-        }
+        },
+        "detailed_results": detailed_results
     }
     
     with open(benchmarks_file, 'w', encoding='utf-8') as f:

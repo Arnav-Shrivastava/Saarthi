@@ -273,8 +273,7 @@ export default function LandingPage({ onStart, onNavigate }) {
             </div>
             <div>
               <h4 className="text-white font-semibold flex items-center gap-2">
-                Developer Metrics & Benchmarks
-                <Badge variant="outline" className="text-[10px] text-orange-400 border-orange-400/30 bg-orange-400/10 h-5">HACKATHON</Badge>
+                System Metrics & Benchmarks
               </h4>
               <p className="text-xs text-slate-400">View real-time evaluation data for Context Accuracy and Scam Detection</p>
             </div>
@@ -282,9 +281,11 @@ export default function LandingPage({ onStart, onNavigate }) {
           <Button 
             variant="outline" 
             className="border-slate-700 bg-transparent hover:bg-slate-800 text-slate-300 hover:text-white"
-            onClick={() => onNavigate('benchmarks')}
+            asChild
           >
-            View System Benchmarks
+            <a href="?view=benchmarks" target="_blank" rel="noopener noreferrer">
+              View System Benchmarks
+            </a>
           </Button>
         </div>
       </section>

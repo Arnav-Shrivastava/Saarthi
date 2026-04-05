@@ -21,6 +21,7 @@ function App() {
     if (viewQuery === 'privacy') return 'privacy';
     if (viewQuery === 'terms') return 'terms';
     if (viewQuery === 'api-docs') return 'api-docs';
+    if (viewQuery === 'benchmarks') return 'benchmarks';
     return 'landing';
   }
 

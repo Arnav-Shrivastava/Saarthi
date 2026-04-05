@@ -1,10 +1,712 @@
 {
-  "timestamp": "2026-04-05T08:57:34Z",
+  "timestamp": "2026-04-05T09:09:44Z",
   "total_samples": 100,
   "metrics": {
-    "average_latency_ms": 2711,
+    "average_latency_ms": 2589,
     "rag_context_accuracy_pct": 96.4,
     "scam_detection_precision_pct": 100.0,
     "hallucination_rate_pct": 0.0
-  }
+  },
+  "detailed_results": [
+    {
+      "query": "Mere paas 5 acres hai, kaunse schemes available hain?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3675,
+      "output": "Hello! Having 5 acres can help, but which scheme is best depends on things like your land use and your personal situation. In the information I have right now, I can only clearly tell about one scheme related to farmers and land income:\n\n1) PM-KUSUM (Solar for irrigation and income)\n- This scheme can give farmers a more steady source of income for about 25 years.\n- You can earn income from power generated using solar plants.\n- Banks can provide loan, and the scheme is meant for rural land owners.\n\nTo tell you clearly if PM-KUSUM fits you, I need a few details:\nStep 1: Do you want solar for irrigation (for your farm) or just income from solar power?\nStep 2: Are you the owner of those 5 acres (not on rent/lease), and is the land available for installing the solar system?\n\nAnswer these two, and I\u2019ll tell you in simple \u201cYes/No\u201d terms and what to do next.\n\nIf you want, tell me your village/district too\u2014I\u2019ll guide you better."
+    },
+    {
+      "query": "PM Kisan ke liye apply kaise karein?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2085,
+      "output": "To apply for PM-Kisan, first you should know one simple thing: PM-Kisan benefits are given to farmers through the government\u2019s list, and the details are managed on the PM-Kisan portal (pmkisan.gov.in).\n\nBefore I tell you the exact next steps, can you please answer 2 things?\n\nStep 1: Do you already have your name in the PM-Kisan list?\nStep 2: Do you have your Aadhaar number and bank account in your name?\n\nReply with Yes/No for both. Then I will guide you with the correct steps. I\u2019m here to help you, step by step."
+    },
+    {
+      "query": "Kya mere dad ko pension milta hai? Unka age 70 hai.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3263,
+      "output": "I understand. I can help, but in the information I have right now, I only see details about PMAY-G (housing). It does not say anything about old-age pension rules.\n\nSo I can\u2019t confirm whether your dad will get pension based on age 70 from this info.\n\nPlease tell me one thing:\n1) Which pension are you asking about? (Old age pension / Widow pension / Disability pension / Any other name you heard from the government)\n\nStep 1: Tell me the type/name of pension.\nStep 2: Tell me which state and district you are in.\n\nThen I\u2019ll help you check what you should do next. You\u2019re doing the right thing by asking first."
+    },
+    {
+      "query": "Mujhe farmer loan ki details chahiye.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2118,
+      "output": "Farming loan ki details main aapko simple tareeke se samjha deta hoon, lekin pehle ek chhota sa sawal.\n\nAap \u201cfarmer loan\u201d se kya matlab le rahe hain?\n1) PM-Kisan ki Rs. 6000 wali help (cash payment)\nya\n2) Kisan Credit Card (KCC) wala loan?\n\nAur aapki family me land record me aapka naam hai?\n(Yes/No)\n\nBas ye 2 cheezein bata dijiye, phir main aapko sahi scheme ke hisaab se next steps bata dunga.\n\nYou\u2019re not alone in this\u2014main aapke saath hoon."
+    },
+    {
+      "query": "Kisaan credit card ke liye kya process hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2523,
+      "output": "Yes, I can explain the Kisan Credit Card process in a simple way.\n\nFirst, a small check: to tell you the exact process, I need one detail.\n1) Which bank do you want to take the Kisan Credit Card from, or is there a bank near your village you usually use? (Name of bank is okay)\n\nNow, the general process (how people usually apply):\nStep 1: Go to your nearby bank branch (or the local bank contact person).\nAsk for \u201cKisan Credit Card\u201d application.\nStep 2: Submit your documents and details about your farming.\nThe bank then checks the land/holding details and decides the limit.\nStep 3: After approval, the bank gives you the card.\nYou can use it to take money for farm needs like seeds, fertilizer, and other cultivation costs.\n\nOne more thing to help you: what is your main farming area like?\nA) You have your own land\nor\nB) You farm on others\u2019 land / share basis\n\nReply with your bank name (or nearby bank) and A/B, and I\u2019ll guide you step-by-step. You\u2019re not alone in this."
+    },
+    {
+      "query": "Mujhe ek message aaya tha free 50000 rupees Modi Yojana ka. Ye sach hai kya?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 2374,
+      "output": "The official documents provided mention schemes like PM-KISAN, but they do not support a blanket claim of \u201cfree 50,000 rupees\u201d under a \u201cModi Yojana.\u201d The amount and wording in the claim appear exaggerated or not aligned with the referenced official scheme details."
+    },
+    {
+      "query": "Kya ye free laptop scheme ki application sahi hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 2484,
+      "output": "The official provided PDF is for the PM-KISAN Scheme (income support to eligible farmers) and does not mention any 'free laptop' benefit or a free-laptop application. Therefore, the claim of a free laptop scheme is not supported by the official data shown."
+    },
+    {
+      "query": "Ek number se message aaya, bolta hai ki mujhe prize mila hai. Kya ye scam hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1055,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mere khet se sabzi chori ho gayi hai, police complaint likh do.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3121,
+      "output": "I understand, it\u2019s very upsetting when someone steals from your farm.\n\nBut I don\u2019t have the right details from you to write the complaint correctly.\n\nPlease tell me these 6 things:\nStep 1: Your full name, village/ward, and district\nStep 2: Thief\u2019s details (if you know). If not, say \u201cunknown person\u201d\nStep 3: Date and approximate time when the theft happened\nStep 4: What exactly was stolen (which vegetables) and how much (approx. in kg or sacks)\nStep 5: Where the vegetables were kept or where the theft happened (khasra/plot number if you know, or just nearby landmark)\nStep 6: Any proof or help you have (like CCTV, witnesses, footprints, phone messages)\n\nOnce you share this, I will write a clean police complaint letter for you that you can submit.\n\nTill then, here is a simple ready template (you can fill the blanks):\nTo,\nThe Station House Officer (SHO),\nPolice Station: \nDistrict: \n\nSubject: Complaint of theft of vegetables from my farm\n\nRespected Sir/Madam,\nI,  (your name), resident of  (village/ward), district , want to file a complaint regarding theft.\n\nOn date  at around  (time), unknown person/known person  stole vegetables from my farm located at  (place/plot/landmark). The stolen items are  (vegetables) and the approximate value is  rupees.\n\nI request you to kindly register a complaint, investigate the matter, and take strict action against the culprits. The details/witnesses/proof are:  (witness names/phone/CCTV if any).\n\nI will be thankful for your prompt action.\n\nYours faithfully,\nName: \nMobile number: \nAddress: \nDate: \nPlace: \n\nReply with the 6 details above, and I\u2019ll finalize the complaint for you. You\u2019re not alone\u2014let\u2019s get it done properly."
+    },
+    {
+      "query": "Mere padosi ne mere khet par kabza kar liya, FIR draft karne mein madad karo.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3280,
+      "output": "I understand. If your neighbour took control of your field, you can complain to police and start a proper case. I can help you write a simple FIR draft.\n\nBefore I draft it, I need a few details from you (small questions, one by one).\n\nQuestion 1: In which state and district village is your field?  \n(Just tell me: State, District, and Village.)"
+    },
+    {
+      "query": "Kya koi new schemes hain kisaanon ke liye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3075,
+      "output": "Yes, farmers ke liye kuch new schemes hain. Aapko jo scheme ka naam chahiye, wo main bata sakta hoon.\n\nIn info mein \u201cPM-KUSUM\u201d ka naam hai. Iska poora naam hai: Pradhan Mantri Kisan Urja Suraksha Evam Utthaan Mahabhiyan. Is scheme ka focus kisaanon ko energy/solar se related help dene par hota hai.\n\nAap mujhe ye bata do, aapke liye sahi scheme confirm karke samjha doon:\n1) Aapke paas zameen kitni hai? (approx)\n2) Aap water/irrigation ka kaam kis tarah karte hain? (tube-well, borewell, canal, ya kuch aur)\n3) Aap kis zila/rajya se hain?\n\nPhir main aapko next steps bhi seedhe-sadhe tarike se bata dunga. Aapka din shubh ho, main yahin hoon help ke liye."
+    },
+    {
+      "query": "Bihar mein kisaanon ko kya assistance milta hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2096,
+      "output": "In Bihar, under the Pradhan Mantri Awaas Yojana \u2013 Gramin (PMAY-G), poor families get help to build a pucca house.\n\nFrom the information we have:\n1) Financial help for house construction: 1,30,000 rupees\n2) If construction starts on time: an additional incentive of 20,000 rupees from the government\n\nIf you tell me which district/village you are in, and whether you want help for a pucca house construction or something else, I can guide you better. You\u2019re doing a good job asking this!"
+    },
+    {
+      "query": "Mujhe kisi ne bola ki kuch paise milenge agar main yeh link bharoonga. Sach hai kya?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1397,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Aaj cricket match kaun jeeta?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 4615,
+      "output": "Hello! I\u2019m Saarthi. \ud83d\ude0a\n\nI can help you with government schemes, but first I need to clear one thing: your earlier message was about a cricket match, \u201cAaj cricket match kaun jeeta?\u201d That\u2019s different from schemes.\n\nWhich cricket match are you asking about?\n1) IPL, or India vs which team?\n2) Today\u2019s date and the teams (example: \u201cRCB vs CSK\u201d)\n\nAlso, tell me which scheme you want to know about. For example: PM Kisan, MNREGA job, ration card, housing, crop insurance, job scheme, etc."
+    },
+    {
+      "query": "Nature ke upar ek poem likh do.",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2638,
+      "output": "O Nature, kind and vast,\nYou wake the fields, and lift the past.\nMorning sun makes every leaf smile,\nWhile rivers sing in gentle style.\n\nBirds write songs on open sky,\nClouds float by, cool and shy.\nTrees stand tall like old-time friends,\nGiving shade to those who bend.\n\nSoil holds seeds with quiet might,\nGrowing hope each day and night.\nWind carries stories from far away,\nTeaching hearts to find a better way.\n\nO Nature, you never ask for pay,\nYou just keep caring every day.\nSo let us protect you with love,\nLike home we guard, like hope we hold.\n\nHave a peaceful day, friend! If you want, tell me your village or season (monsoon/summer/winter), and I\u2019ll make the poem match it."
+    },
+    {
+      "query": "Kya mujhe kisaan credit card milega agar meri income zyada hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2570,
+      "output": "Hi! Good question.\n\nKisan Credit Card (KCC) is given to farmers based on their farming holdings so they can buy seeds, fertilizers, pesticides, etc. and also meet farming needs.\n\nBut the document we have here does not say that \u201cif your income is high, you will not get it\u201d or \u201cif income is high, you will definitely get it.\u201d So I cannot safely say Yes or No only from this info.\n\nTo check it for you, tell me these 2 things:\n1) Are you a farmer with land in your name (or you farm someone else\u2019s land)?\n2) What is your land size (how much land you have, like in acres or bigha)?\n\nReply with these details, and then I\u2019ll tell you whether you are likely eligible or not.\n\nStep 1: Share your land size and whether it\u2019s in your name or rented/leased.\nStep 2: I\u2019ll guide you on what to ask your bank for KCC.\n\nTake care, and I\u2019m here to help you."
+    },
+    {
+      "query": "Mujhe ek email aaya hai jo free seeds provide karne ka keh raha hai, kya ye legit hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 975,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Rajasthan mein kisaanon ke liye kya schemes chal rahi hain?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3168,
+      "output": "Farming bhai, Rajasthan mein kisaanon ke liye \u201cPradhan Mantri Awas Yojana \u2013 Gramin (PMAY-G)\u201d jaisi scheme chali hui hai.\n\nIs scheme ka main kaam hai: gaon ke beghar aur gareeb logon ko pakka ghar dilwana, taki unka apna ghar ban sake aur jeevan better ho.\n\nIsme zyada dhyaan un logon par diya jata hai jinko ghar ki zarurat zyada hoti hai, jaise:\nWomen (mahilaen)\nDivyang log\nSC (Scheduled Caste)\nST (Scheduled Tribe)\nOBC (Other Backward Class)\nAur kuch alpsankhyak communities\n\nAap batao, aap Rajasthan ke kaunse district/gaon se hain, aur aapka ghar hai ya abhi kacha/na hai? Main aapko seedha bata dunga ki aapke liye kaun si madad sahi rahegi. Aap tension mat lo, main saath hoon."
+    },
+    {
+      "query": "Mere khet mein illegal mining ho rahi hai, complaint likh do.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3906,
+      "output": "I\u2019m sorry you\u2019re dealing with this. I can help you write a simple complaint.\n\nBefore I write the final complaint, please tell me 4 things:\n1) Your full name and village name?\n2) Where is the illegal mining happening (village/gaon, thana, district)?\n3) What exactly is being taken (sand/stone/soil/other) and from where near your land?\n4) Do you have any proof (photos, video, vehicle number, dates, witness names)? If yes, mention it.\n\nMeanwhile, you can copy this draft and fill the blanks:\n\nTo,\nThe Officer In-Charge\n[Name of Office: Tehsildar/Police Station/District Mining Officer/Revenue Office]\n[Thana/Police Station name]\n[District]\n\nSubject: Complaint against illegal mining on land near my farm\n\nRespected Sir/Madam,\n\nI, [Your Name], resident of [Your Village], [District], want to submit this complaint regarding illegal mining happening near my farm.\n\nDetails:\n1) Location: The illegal mining is taking place at [Exact location: village/area, near which road/river/stone area], which is close to my land in [area].\n2) What is being mined: [sand/stone/soil/other].\n3) Since when: The activity started around [date/month] and is continuing till today.\n4) Damage/issue caused: Because of this, [my crops/land is getting damaged, dust problems, road damage, water getting affected, threat to villagers\u2014write what applies].\n5) Parties involved: [If you know names, write them. If not, write \u201cunknown persons/contractors\u201d and describe their vehicles/work method.]\n\nI request you to:\n1) Immediately stop the illegal mining activities.\n2) Conduct a proper inspection on site.\n3) Take strict action against the people involved.\n4) Protect my land and compensate/repair damage if required.\n\nI am attaching/mentioning [photos/video/vehicle number/witness names/dates] as proof.\n\nPlease register this complaint and inform me about the action taken.\n\nYours faithfully,\n[Your Name]\n[Address: Village, District]\n[Mobile Number]\nDate: [dd/mm/yyyy]\nPlace: [Village]\n\nStep 1: Reply with the 4 details I asked (name/village, exact location, what is mined, and proof).\nStep 2: I will finalize the complaint in your exact wording and also suggest who to submit it to in your area.\n\nYou\u2019re doing the right thing by speaking up\u2014stay strong, I\u2019ll help you get this written properly."
+    },
+    {
+      "query": "Hello ka French mein kya hota hai?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2138,
+      "output": "\u201cHello\u201d in French is \u201cBonjour\u201d.\n\nYou can also say \u201cSalut\u201d in a friendly, casual way with people you know.\n\nHope this helps!"
+    },
+    {
+      "query": "Mujhe 2 acre zameen hai, kaunse yojnaon ka labh le sakta hoon?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2522,
+      "output": "Thanks for sharing that. With only the land size (2 acre), I can\u2019t say clearly which scheme you are eligible for, because eligibility depends on other details too.\n\nPlease tell me these 4 things:\n1) Your area: Which state and district are you in?\n2) Do you have your own house right now, or you live in a kachcha/temporary house?\n3) Who is the applicant in your family: You (male/female), or any senior citizen, widow, person with disability?\n4) Which caste category are you from (General / OBC / SC / ST / Minority)? If you\u2019re not sure, just tell me what you know.\n\nAfter you answer, I will tell you which scheme(s) you can take benefit from.\n\nWarm help: You\u2019re doing the right thing by asking first\u2014send me the details and we\u2019ll figure it out together."
+    },
+    {
+      "query": "Kya mujhe PM Kisan yojana ke liye apply karna chahiye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2289,
+      "output": "Hi! I can help you understand this, but first we must check if you are likely eligible for PM-Kisan.\n\nTo tell you \u201cYes\u201d or \u201cNo\u201d, please answer these simple questions:\n\n1) Do you have cultivable land in your name? (Yes/No)\n2) Is the land in your name as a farmer, or do you have only tenancy (you work on someone else\u2019s land)? Tell me which one.\n\nOnce you reply, I\u2019ll tell you clearly whether you should apply.\n\nMeanwhile, remember: PM-Kisan support goes into eligible farmers\u2019 bank accounts.\n\nTake your time\u2014reply with those 2 answers. I\u2019m with you."
+    },
+    {
+      "query": "Meri dadi ko pension milti hai kya?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3903,
+      "output": "Hello! I understand your question. \u201cDoes my grandmother get pension?\u201d\n\nYes, many senior citizens do get pension. But I need 2 details to tell you clearly.\n\n1) Which state and district are you in?\n2) How old is your dadi (approx age)?\n\nReply with these two, then I\u2019ll tell you if she can get it."
+    },
+    {
+      "query": "Kya mujhe kisaan credit card ke liye apply karna chahiye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2195,
+      "output": "Yes, you should consider applying for a Kisan Credit Card, if you are a farmer and you need money for farming work.\n\nThis card helps farmers get timely help from banks for things like:\n1) Seeds, fertilizer, pesticides, etc.\n2) Crop-related expenses after harvest and for family needs related to farming\n3) Marketing expenses when you sell your crop\n4) Repair and maintenance for farm work\n5) Some support for allied farm activities and other farm investments\n\nTo tell you clearly whether you should apply, I need 2 small details:\nStep 1: Are you a farmer (you grow crops) and do you have land/area you cultivate? If yes, what is the size of your land (in acres or bigha)?\nStep 2: Which crops do you grow (for example: paddy, wheat, sugarcane), and how many seasons in a year?\n\nOnce you answer these, I\u2019ll tell you yes/no and then guide you on what to do next.\n\nYou\u2019re welcome\u2014happy to help you, friend."
+    },
+    {
+      "query": "Mujhe organic farming ki koi yojana pata sakte ho?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2612,
+      "output": "Yes, I can help. Organic farming ke liye kuch schemes hoti hain, lekin sahi scheme aapke area aur aapki situation par depend karti hai.\n\nPehle mujhe 2 cheezein bata dijiye, phir main aapko sahi yojana aur kya-kya steps hote hain, simple tarike se bata dunga:\n\n1) Aap kis state aur district me rehte hain?\n2) Aap organic farming abhi shuru kar rahe hain ya already kar rahe hain?"
+    },
+    {
+      "query": "Mujhe ek message aaya hai free 50000 rupees modi yojana ke liye, kya yeh sach hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 2855,
+      "output": "The provided official documents do not mention any \u201cfree \u20b950,000\u201d under a \u201cModi Yojana.\u201d The documents only describe other schemes like PM-KISAN and PM Fasal Bima Yojana with different benefit structures, and the message appears to be a typical unsolicited free-money claim."
+    },
+    {
+      "query": "Kya yeh free laptop scheme ka application real hai jo mujhe forward kiya gaya?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 4634,
+      "output": "The provided official PDF is for the PM-Kisan Samman Nidhi Scheme, which provides direct financial assistance (Rs. 6000/year in installments). It does not mention any 'free laptop' benefit or application for a laptop scheme."
+    },
+    {
+      "query": "Ek number se mujhe call aayi, bola kuch paise milenge agar maine yeh link khola toh, sach hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 796,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Kya aap mere liye police complaint likh sakte ho, kisi ne meri gaadi chura li hai?",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 2770,
+      "output": "I\u2019m sorry that happened to you. Yes, I can help you write a police complaint in simple English, but I need a few details first so it becomes correct.\n\nPlease tell me:\n\n1) Your full name\n2) Your village/town and police station area (or your district)\n3) Date and approximate time of the theft\n4) Place where your car was taken from (exact location)\n5) Vehicle details:\n   - Vehicle number (if you have it)\n   - Vehicle type (car/bike/other)\n   - Color and any special mark\n6) Did you file any FIR already? If yes, FIR number and date (if you know)\n7) Any suspect name or known person, or any witness name (if any)\n8) Any documents you have (like RC, insurance papers) and do you have them?\n\nIf you want, you can also copy-paste these details and I will format it as a ready-to-submit complaint letter.\n\nOnce you share the above, I\u2019ll write the complaint for you. I\u2019m with you\u2014don\u2019t worry, we\u2019ll do this step by step."
+    },
+    {
+      "query": "Mere padosi ne meri khet par kabza kar liya hai, mujhe FIR ka draft chahiye.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 2892,
+      "output": "I\u2019m sorry you are going through this. I can help you with a simple FIR draft, but first I need a few details.\n\nImportant: FIR is usually for police complaint. I will write it in simple language, like what you faced.\n\nPlease tell me these 5 things:\n\n1) Your name and village/taluka/district (just write as you can).\n2) Your neighbour\u2019s name and his village/area.\n3) Where exactly is the land? (village + survey number or plot number if you know, otherwise \u201cmy field near \u201d.)\n4) What happened and when? (example: \u201cHe started taking possession from March 2024\u201d or \u201cOn 10-04-2024 he came with people and took over.\u201d)\n5) What proof do you have, if any? (land papers, khasra/khata, sale deed, witnesses, photos, crop standing, etc.)\n\nOne more small question: which state are you in? (So I can match the complaint style.)\n\nReply with these answers, and then I will prepare a clear FIR draft for you."
+    },
+    {
+      "query": "Kya mujhe kisaan loan ka benefit mil sakta hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2052,
+      "output": "Yes, you may be able to get a farmer loan benefit, but I need a few details to confirm.\n\nPlease tell me:\n1) Are you already a farmer who cultivates land (yes/no)?\n2) Which bank will you apply through (or do you already have a bank account)?\n3) Do you want crop-related loan for your farming work, or only general farmer support?\n\nOnce you answer these, I will tell you clearly if you can get the benefit.\n\nStep 1: Reply with the 3 answers above.\nStep 2: I\u2019ll guide you on what to do next.  \n\nI\u2019m here to help you, friend."
+    },
+    {
+      "query": "Mujhe kheti ke liye koi subsidy milti hai kya?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2274,
+      "output": "Yes, there is help for making a house under PMAY-G, but the information I have here does not mention any farm (kheti) subsidy.\n\nTo guide you correctly, tell me this:\n1) Which state and district are you in?\n2) You want subsidy for what exactly: seeds/fertilizer, irrigation (tubewell), tractor, electricity/pump, or something else?\n3) Are you a farmer with your own land, or do you farm on others\u2019 land?\n\nOnce you tell me, I will help you find the right scheme and what you should do next.\n\nWe can do this step by step, don\u2019t worry."
+    },
+    {
+      "query": "Kya yeh WhatsApp par aaya message jo free me smartphone de raha hai, sach hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1051,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Aaj cricket match kaun jeeta?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2794,
+      "output": "Hello! I\u2019m Saarthi. I can help with schemes and also answer questions in a simple way.\n\nBut I notice your question is: \u201cAaj cricket match kaun jeeta?\u201d (Who won today\u2019s cricket match?)\n\nI need one small detail to tell you correctly:\n1) Which match are you asking about? (Team vs Team)\n2) And which league/tournament? (like IPL, World Cup, etc.)\n\nReply with the teams\u2019 names (example: \u201cIndia vs Pakistan\u201d) and I\u2019ll help you."
+    },
+    {
+      "query": "Kya aap ek kavita likh sakte ho prakriti ke bare mein?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2531,
+      "output": "Of course! Here\u2019s a small poem about nature:\n\nNature\u2019s Breath\n\nIn the quiet morning light,  \nThe leaves hum soft and bright.  \nCool wind kisses every way,  \nWashing worries far away.\n\nRivers talk in silver sound,  \nRolling dreams across the ground.  \nTrees stand tall, they never tire,  \nRoots hold hope like steady fire.\n\nBirds write songs on the blue,  \nAs clouds drift slow and true.  \nO Mother Earth, we learn from you,  \nTo grow, to care, and start anew.\n\nIf you want, tell me if you like a short poem or a longer one, and in which language (English only or mixed with Hindi), I can write another for you too. Warm wishes, friend!"
+    },
+    {
+      "query": "Is baar kharif season mein kya naye schemes hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 1913,
+      "output": "I understand your question. But the information I have here does not say what new schemes are announced specifically for the Kharif season.\n\nWhat I can do:\nStep 1: Tell me your state (and district if you know). Also tell me which crop you are planning to grow in Kharif.\nStep 2: I will then check which Kharif-related scheme details from the available information match your situation.\n\nFor now, if you want, you can also tell me if you mean schemes related to crop insurance or money support for farmers. I\u2019ll guide you from there. You are not alone in this, friend."
+    },
+    {
+      "query": "Mujhe ek email aaya hai jisme bola gaya hai ke mujhe 1 lakh milne wale hain, yeh fake hai kya?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 898,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mere dost ne mujhe dhoka diya paise lekar, complaint likhna hai.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 2270,
+      "output": "I\u2019m really sorry that happened to you, friend. I can help you write a complaint, but I need a few details first.\n\nPlease tell me:\n1) Who took the money from you? (Name or how you know them)\n2) How much money did they take, and when?\n3) How did you give the money? (cash, UPI, bank transfer, etc.)\n4) Did you have any proof? (chat messages, UPI/transfer screenshot, receipt, call records)\n5) Do you want complaint for refund only, or also action against them?\n\nReply with these details. Then I will help you with the complaint text and what you should do next (Step 1, Step 2).\n\nYou\u2019re not alone\u2014let\u2019s get this sorted."
+    },
+    {
+      "query": "Kya mujhe gaon mein koi nayi yojna ka pata hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2569,
+      "output": "Yes, friend. One important new plan that is connected with village homes is PMAY-G, which means \u201cPradhan Mantri Awas Yojana for Gramin\u201d (village housing plan).\n\nWhat it does (in simple words):\n1) It helps poor families build a pucca (strong) house.\n2) The government gives money help for house construction.\n3) In many cases, it also gives an early start incentive if the house work begins on time.\n\nWho it mainly tries to help:\nIt focuses more on women, differently-abled brothers/sisters, and communities like SC, ST, OBC, and minorities\u2014so that they also get housing help.\n\nIf you tell me these two things, I can guide you better about your chance:\nStep 1: Are you in the village area (gaon) or city (shehar)?\nStep 2: Do you have a pucca house already, or is your house still kachcha (temporary)?\n\nReply with these, and I\u2019ll help you with the next steps. You are not alone\u2014I'm here to help you."
+    },
+    {
+      "query": "Mujhe kisaan bhaiyon ke liye koi health scheme chahiye.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2345,
+      "output": "Sure farmer bhai. I can help, but right now I only have information about one health-related item for farmers: Soil Health Card.\n\nThis scheme gives farmers a Soil Health Card so you can understand how your soil is doing. Like a doctor checks the body before treatment, this card helps you know what your soil needs for better farming.\n\nTo suggest the right option for you, please tell me:\n1) Do you want information only for Soil Health Card, or some other health scheme also?\n2) Your state and district name kya hai?\n\nOnce you confirm, I will tell you the next steps in simple way. All the best, and don\u2019t worry\u2014I\u2019m here to guide you kindly."
+    },
+    {
+      "query": "Mujhe 4 acres hain, kya koi subsidy milega?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2490,
+      "output": "Yes, possible hai. But subsidy milne ke rules state aur scheme par depend karte hain.\n\nI need just two things to check properly:\n\n1) Aap ka village/state kaun sa hai? (For example: Maharashtra, Uttar Pradesh, Rajasthan etc.)\n2) Aap kis cheez ki subsidy puch rahe hain: electricity for irrigation, fertilizer/seed, drip irrigation, farm equipment, ya crop insurance?\n\nAap jawab de do, phir main aapko clear bata dunga ki aap eligible hain ya nahi."
+    },
+    {
+      "query": "PM Kisan kaise apply karte hain?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3867,
+      "output": "Sure, I will explain PM Kisan application in simple steps. First tell me one thing: are you trying to apply for the first time, or do you already have your PM Kisan number and want to update something?\n\nStep 1: Check your basic details\nKeep these ready before applying:\n1) Your Aadhaar number\n2) Your mobile number\n3) Your bank account number and IFSC (from your bank passbook/cheque)\n\nStep 2: Apply online (most common way)\n1) Open the website: pmkisan.gov.in\n2) Click on \u201cFarmers Corner\u201d\n3) Choose \u201cNew Farmer Registration\u201d\n4) Enter Aadhaar, mobile number, and bank details\n5) Fill the land details asked\n6) Submit\n7) After that, you will get a \u201cRegistration number\u201d or message. Save it.\n\nIf you want, I can guide you step-by-step on your screen.\nJust tell me:\n1) Which state are you in?\n2) Do you already have Aadhaar and bank account details ready?"
+    },
+    {
+      "query": "Kya meri maa ko pension mil sakta hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2679,
+      "output": "Yes, I can help you check that.\n\nFor giving a mother\u2019s pension, the main thing is: which state you live in, and her age.\n\nPlease tell me 2 things:\n1) Which state and district are you in?\n2) Your mother\u2019s age (how many years)?"
+    },
+    {
+      "query": "Mujhe organic farming ke liye koi scheme batao.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2249,
+      "output": "FARMER BHAI, I have one helpful option to share from the available information: Soil Health Card Scheme.\n\nWhat it does (simple):\nIt helps you get your soil tested, so you can understand what your soil needs.\nThis can support better farming decisions, including if you are moving toward organic methods.\n\nEligibility (from the available info):\nYes. Soil Health Card Scheme is applicable for all farmers in India.\n\nNext steps (only after you confirm):\nStep 1: Tell me your state and district.\nStep 2: Tell me whether you have land documents or at least your farmer name and village details (so we can guide you on what to carry).\n\nReply with your state and district, and I will guide you calmly on the next steps. You\u2019re doing a good job by thinking about organic farming."
+    },
+    {
+      "query": "Kya mere paas 1 acre land hai, uspar koi assistance milega?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2632,
+      "output": "Yes, land on 1 acre can be eligible for some assistance. But I need one more thing to tell correctly.\n\n1) Which state and district are you in?  \n2) Is the land yours on your name, or is it on lease/partnership?\n\nReply with these two details, then I\u2019ll tell you clearly whether assistance can be possible for your case."
+    },
+    {
+      "query": "Mujhe message aaya hai free 10000 rupees ka, kya yeh sach hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 5407,
+      "output": "The official PM-KISAN scheme provides \u20b96,000 per year, released in three installments of \u20b92,000 each. The claim of \u201cfree \u20b910,000\u201d does not match the documented official benefit amount."
+    },
+    {
+      "query": "Kya yeh sahi hai ki free smartphone mil raha hai? Link bheja hai kisi ne.",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1044,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Kya mujhe click karna chahiye us link pe jo 50000 ka promise kar raha hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 886,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mere khet mein kisi ne jaanwar chura liya, police complaint likh do.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 4168,
+      "output": "I\u2019m sorry this happened to you. I can help you write a police complaint, but first I need a few details so it looks correct and complete.\n\nPlease tell me:\n1) Your full name, village, and district (and state)\n2) Whose animals were involved (if you know). If you don\u2019t know, say \u201cunknown\u201d\n3) What exactly was stolen (like crop name, quantity, approximate value)\n4) Date and time (or at least which day) when it happened\n5) Location of your plot (khasra/plot number if you have it; otherwise just mention the nearby landmark)\n6) Any witnesses (names/phone numbers if you have)\n7) Did you inform anyone earlier? (village panchayat, tehsil, forest office, or police), and on what date\n\nOnce you share these, I\u2019ll write the complaint for you.\n\nMeanwhile, you can use this draft format (you can fill blanks):\nTo,\nThe Station House Officer (SHO)\nPolice Station, [Your Police Station Name]\nDistrict: [Your District]\nState: [Your State]\n\nSubject: Complaint for theft of crops/animal damage in my field\n\nRespected Sir/Madam,\nI, [Your Name], resident of [Village], District [District], State [State], want to file a complaint that on [Date] at around [Time], some person(s)/unknown person(s) stole/damaged my crops from my field located at [Full location: village/landmark/khasra number if known].\n\nThe crops stolen/damaged are: [Crop name and approximate quantity/value].\nI suspect [Owner name or \u201cunknown\u201d] because [reason you suspect, if any].\n\nThis incident has caused me loss of around [Amount] rupees.\nI request you to register my complaint, investigate the matter, and take suitable action against the culprits.\n\nDocuments/evidence (if any):\n1) [Any photo/video]\n2) [Any written proof/receipt]\n3) [Witness details]\n\nWitnesses:\n1) [Name], [Address], [Phone if any]\n\nI will be thankful for your help.\nYours faithfully,\n[Your Name]\nMobile: [Your Phone]\nDate: [DD/MM/YYYY]\nPlace: [Village]\n\nTell me the answers to the 7 questions above, and I\u2019ll rewrite it perfectly with your details. I\u2019m with you."
+    },
+    {
+      "query": "Mere saath koi dhokha kiya hai, FIR ka draft chahiye.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3188,
+      "output": "I understand you want an FIR draft because someone cheated you.\n\nBut I need a few details first. If I write without details, it may not match your case.\n\nPlease answer these 2 questions:\n1) In which city or police station area did the cheating happen (your village/town and district/state)?\n2) What exactly happened in simple words? For example: money taken for work, loan, crop sale, fake promise, or something else. Also tell how much money (or value) and when they took it (approx date/month).\n\nAfter you reply, I will draft a simple FIR complaint in plain English for you to take to the police station."
+    },
+    {
+      "query": "Kya abhi koi kisaan yojana chal rahi hai mujhe nahi pata.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2546,
+      "output": "Yes, some farmer schemes are running right now, but in your question you did not tell which state or what kind of help you want (like seeds, irrigation, electricity, insurance, or house).\n\nFrom the document I have here, I only see information about PMAY-G (rural house scheme). That is not a \u201ckisan\u201d scheme, it is for a pucca house for poor families in rural areas.\n\nTo check clearly, tell me 2 things:\nStep 1: Which state and district are you in?\nStep 2: What do you need most right now: better irrigation/electricity, money support for crops, or a house?\n\nReply these details, and I will guide you in the simplest way possible about the right scheme. You can count on me."
+    },
+    {
+      "query": "Mujhe kharif ke liye koi support chahiye, scheme batao.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2660,
+      "output": "Hello! I understand you need support for kharif season.\n\nFrom the information I have right now, I can\u2019t see a kharif-specific crop support scheme. But I do have one related farmer support scheme:\n\n1) Pradhan Mantri Kisan Samman Nidhi (PM-KISAN)\nWhat it does: It gives money support to farmers\u2019 families to help with farming needs and daily home needs.\nAmount: Rs. 6000 per year.\nHow it comes: Directly into the eligible farmer\u2019s bank account.\n\nTo check if this will apply to you, please tell me these 2 things:\nStep to check eligibility\n1) Do you have cultivable land? (Yes/No)\n2) Is your family the landholding farmer\u2019s family? (Meaning you/your family owns and cultivates the land) (Yes/No)\n\nOnce you reply, I will say whether you are likely eligible or not.\n\nStep 1, Step 2 will come after you confirm the eligibility details above.\n\nYou\u2019re doing the right thing by asking early. Tell me those two answers, I\u2019ll guide you next."
+    },
+    {
+      "query": "Kya kisi ne mujhe kisi nakli yojana ka message bheja hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 678,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Aaj ka cricket match ka score kya hai?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 3314,
+      "output": "Hi! I can help, but I need one thing first.\n\nWhich cricket match are you talking about today?\n1) Team A vs Team B (or league/tournament name)\n2) And if you know, which country/city or match time?\n\nSend me these details, and I\u2019ll tell you the latest score."
+    },
+    {
+      "query": "Mujhe ek acchi kavita chahiye, nature par.",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2383,
+      "output": "Of course! Here is a nice nature poem for you:\n\nGreen is the color of morning,\nSoft wind sings on every tree.\nSunlight paints the fields gold,\nMaking shadows small and free.\n\nRivers talk in quiet voices,\nRolling stones with gentle care.\nBirds stitch songs in blue daylight,\nNothing seems too far to share.\n\nFlowers bloom like happy promises,\nIn every corner, bright and new.\nEven clouds learn peaceful ways,\nTo rest and drift across the blue.\n\nO Mother Nature, you are strength,\nYou heal the tired mind and heart.\nIn your open arms we find\nA calm, fresh hope for life\u2019s start.\n\nIf you want, tell me your favorite season (rainy, summer, winter, or spring), and I will write a poem for that too. You\u2019re doing great\u2014stay blessed and enjoy nature."
+    },
+    {
+      "query": "Hello ko french me kya kehte hain?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2456,
+      "output": "\u201cHello\u201d in French is \u201cBonjour\u201d.\n\nStep 1: You can use \u201cBonjour\u201d in the daytime when you meet someone.  \nStep 2: If you want, tell me the situation (morning, evening, or night), and I\u2019ll suggest the best French word.\n\nHope this helps!"
+    },
+    {
+      "query": "Organic farming ke liye mujhe koi financial help mil sakta hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 4032,
+      "output": "Farming ke liye financial help mil sakti hai, lekin jo info mere paas abhi hai, usme \u201cPM-KUSUM\u201d scheme ka zikr hai. Is scheme me solar pump aur irrigation ke liye support milta hai.\n\nOrganic farming ke liye financial help ke bare me mere paas is chat me sahi details nahi hain.\n\nAap mujhe ye bata dijiye:\n1) Aapko help solar pump/irrigation ke liye chahiye, ya organic farming ke liye alag support chahiye?\n2) Aap kis state/tehsil (district) me rehte ho?\n\nPhir main aapko sahi scheme aur aage kya karna hai, simple steps me bata dunga.\n\nAap tension mat lijiye, main saath hu."
+    },
+    {
+      "query": "Mere khaali zameen par koi bina permission ke kaisa kaam kar raha hai, complaint draft karo.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 4534,
+      "output": "Sure. I will help you draft a complaint to stop this illegal work.\n\nFirst, I need a few details. Please tell me 2 things:\n\n1) Which state and district is this?  \n2) Whose work is it\u2014are they a neighbor, a contractor, or a company?\n\nIf you can, also share one line about what exactly they are doing on the empty land (like construction, digging, filling soil, laying stones, etc.)."
+    },
+    {
+      "query": "Kya mujhe kisan credit card milna chahiye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2413,
+      "output": "To know if you should get a Kisan Credit Card, I need 2 small details from you:\n\nStep 1: Are you a farmer who cultivates crops? (Yes/No)\nStep 2: What is your land size? About how many acres/hectares do you have? (Tell in your local measure if easier.)\n\nOnce you reply, I will tell you clearly whether you seem eligible or not.\n\nTell me these two things, and I\u2019ll help you next. You\u2019re not alone in this."
+    },
+    {
+      "query": "Kya koi nakli loan scheme ke liye mujhe bula raha hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1254,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mujhe 3 acres hai, kya schemes available hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3172,
+      "output": "Yes, with 3 acres you can benefit from some farmer-related government schemes, but I need one small detail to guide you correctly.\n\nWhich scheme are you asking for?\n1) Solar for irrigation (PM-KUSUM)\n2) House for poor people (PMAY-G)\n\nTell me your choice: PM-KUSUM or PMAY-G (or both).\n\nAlso, for PM-KUSUM I will ask 2 quick questions:\nStep 1: Do you have electricity connection for your farm or do you mainly use diesel to run pump?\nStep 2: Are you currently doing irrigation from a borewell/canal/tube well?\n\nReply with your answers, and I will tell you the right scheme path for you. You are not alone\u2014let\u2019s sort it out together."
+    },
+    {
+      "query": "PM Kisan ke liye apply kaise karein?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3043,
+      "output": "To apply for PM-Kisan, first we need to see whether your name is already in the farmers list on the PM-Kisan website.\n\nStep 1: Check on the PM-Kisan portal\nYou can go to: http://pmkisan.gov.in\nThere, you can search using your Aadhaar number or mobile number (or by name, if needed).\nIf your details show up, that means your record is already there and you may not need a fresh \u201capply\u201d right now.\n\nStep 2: If your name is not found\nIf your name is not showing in the portal list, then the portal has a way to add new farmers\u2019 details (fresh entry).\n\nBefore I tell you the exact next steps for you personally, please answer these two things:\n1) Does your name show on pmkisan.gov.in when you search with Aadhaar or mobile?\n2) Do you have Aadhaar number and mobile number connected (same person) for your farmer account?\n\nReply with Yes/No for (1), and for (2) tell me what you have\u2014then I\u2019ll guide you in the simplest way. You\u2019re not alone, I\u2019ll help you step by step."
+    },
+    {
+      "query": "Mujhe message aaya hai free 20000 rupees ka. Yeh sacha hai kya?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 636,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mujhe organic farming ke liye koi scheme batao.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3277,
+      "output": "Hello! I\u2019m Saarthi. Organic farming ke liye schemes mil sakti hain. Pehle main aapko sahi scheme match karke bataunga.\n\nMujhe 2 cheezen batao:\n1) Aap ka state kaunsa hai? (Jaise Rajasthan, UP, Maharashtra etc.)\n2) Aap organic farming kis cheez ke liye karna chahte hain? Crop ya vegetables ya dairy/bhains ke liye (gobar-compost etc.)?\n\nJaise hi aap ye bataoge, main aapko usi hisaab se scheme ka naam aur kaise apply karna hai simple tarike se bata dunga."
+    },
+    {
+      "query": "Mere kharif ke beej kisi ne chura liye, police complaint draft karna hai.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 4277,
+      "output": "Of course. I can help you write a police complaint for theft of kharif seeds (beej). First I need a few details, then I will draft the complaint in simple English (and you can copy it to write or type).\n\nPlease answer these 3 questions:\n\n1) Which police station and district is this for? (Your village/town name also tell me)\n2) Date and approximate time of theft: when did you notice the seeds were missing?\n3) Where were the seeds kept? (For example: in your house, in a shed, in the field, or in a godown)\n\nOptional (if you know):\n4) How many kg/bags were stolen, and which type of seed? (e.g., paddy/maize/vegetable)\n5) Any suspects or a known person, or was it unknown?\n\nReply with these details. After that, I\u2019ll write the complaint draft for you."
+    },
+    {
+      "query": "Aaj ka mahal kya hai?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2019,
+      "output": "I think you mean \u201cWhat is today\u2019s Mahal (scheme)?\u201d But in the information I have here, I can only see details about a rural housing scheme, called PMAY-G (a scheme to help build a pucca home for eligible families).  \n\nFrom your question, I need one small confirmation:\nWhich \u201cMahal\u201d are you asking about\u2014PMAY-G (pucca house scheme), or something else in your village?  \n\nTell me the name you heard (or the village/department name), and I\u2019ll help you right away. You\u2019re doing a good job asking\u2014let\u2019s sort it out together."
+    },
+    {
+      "query": "Mere maa ko pension milta hai kya?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2746,
+      "output": "Yes, maybe. Many old-age and pension schemes give money to mothers too, but it depends on your mother\u2019s age and your family situation.\n\nTo check properly, tell me just these 2 things:\n\n1) Your mother\u2019s age (how many years)?\n2) Which state and district do you live in? (For example: Bihar, Muzaffarpur)\n\nIf you tell these two, I can tell you whether pension is likely for her and which one fits."
+    },
+    {
+      "query": "Kya yeh sacha hai ki free laptop mil raha hai sirf form bharne par?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1129,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Kya koi scheme hai jo meri kisan samuh ko madad kare?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2380,
+      "output": "Yes, there is a scheme that helps farmers.\n\nPM-KISAN (Pradhan Mantri Kisan Samman Nidhi)\nThis scheme gives income support to landholding farmers\u2019 families.\nIt provides Rs. 6000 per year.\nThis money is sent in the farmer\u2019s bank account directly.\n\nTo check if your farmer group/family can get it, I need 2 details:\n1) Do you (or your group) have cultivable land in your name?\n2) Is the landholding in your household (husband-wife family)? Tell me how many members are there in your family.\n\nTell me these, and I will tell you clearly whether you are eligible or not.\n\nStep 1: Share your landholding details.\nStep 2: Share your family members count.\n\nI\u2019m with you\u2014happy to help."
+    },
+    {
+      "query": "Bihar mein kis scheme ke liye apply karna hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 4150,
+      "output": "In Bihar, you can apply for the Pradhan Mantri Awas Yojana \u2013 Gramin (PMAY-G). This scheme helps poor and homeless people get a pucca house (a strong, permanent house).\n\nTo guide you better, tell me one thing: Are you looking for a house for your family because you do not have a pucca house right now, or you want improvement of an existing one?  \n\nStep 1: Tell me your district name and whether your current house is pucca or not.  \nStep 2: I will tell you the right way to proceed for your case.\n\nI\u2019m here to help you, don\u2019t worry."
+    },
+    {
+      "query": "Mere kheton mein koi ghus aaye hai, FIR kaise likhu?",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 2806,
+      "output": "I understand. If someone has entered your fields, you can complain to the police. Since you are asking how to write an FIR, I need 2 small details first, so I can guide you correctly.\n\n1) Whose land is it? Is it your own field (you are the owner) or is it on lease/tenancy?\n2) What exactly happened?\n- Did they plough/harvest your crop?\n- Or did they just enter and damage things?\n- Did you see them with your eyes, or is it only heard?\n\nOnce you tell me these, I will help you with a simple FIR complaint format you can copy.\n\nFor now, basic next step (simple):\nStep 1: Go to the nearest police station and tell them the date, time, and how the person entered.\nStep 2: Take proof if you have it: photos, witnesses, crop damage details, and any written document about your land.\n\nTell me the answers to the 2 questions above, and I\u2019ll help you draft it easily. You\u2019re not alone, I\u2019m here to help you."
+    },
+    {
+      "query": "Aapka favorite khana kya hai?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 1629,
+      "output": "My favorite food is a warm bowl of dal and rice, like simple home food. I really like it because it feels filling and comforting.\n\nHow about you\u2014what is your favorite food? \ud83d\ude0a"
+    },
+    {
+      "query": "Kya mujhe kisaan credit card ke liye apply karna chahiye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3734,
+      "output": "Yes, you can think about applying for a Kisan Credit Card, if you are a farmer who needs money for farming work.\n\nA Kisan Credit Card is made for farmers to get timely help for things like:\n- Seeds, fertilizers, pesticides, and other farming inputs\n- Money needed after harvest\n- Marketing related needs (selling crops)\n- Household needs of a farmer\n- Repair/maintenance for farm work and farm related activities\n\nBefore I tell you clearly \u201cyou should apply\u201d for your case, please tell me these 2 things:\n1) Are you a farmer, and do you cultivate crops? (Yes/No)\n2) Approximately how much land do you cultivate in your name or on which you do farming? (Tell in acres or bigha)\n\nOnce you confirm, I will tell you next steps to apply. You are doing the right thing by checking this first\u2014if you tell me these details, I\u2019ll guide you kindly."
+    },
+    {
+      "query": "Mujhe free seeds ka offer mila hai, kya yeh real hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1113,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Kya kisano ke liye koi health scheme hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2327,
+      "output": "Yes, there is a scheme for farmers: the Soil Health Card scheme.\n\nThis scheme is for all farmers in India. It helps you understand your soil health and gives simple guidance to improve soil fertility, so farming can become more balanced and better.\n\nIf you tell me your state and which crop you grow, I can guide you on the next steps to get a Soil Health Card. You are doing a good job by asking early\u2014tell me your details and we\u2019ll take it step by step."
+    },
+    {
+      "query": "Kya mujhe kisi bhi link par click karna chahiye jo free paisa offer kare?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1484,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Kis kisaan ko PM Fasal Bima Yojana milta hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2511,
+      "output": "PM Fasal Bima Yojana (PMFBY) is for farmers who grow crops that are included under the scheme in their area. It gives insurance help if the crop fails because of things like natural problems (like calamities) and also pests and diseases.\n\nTo tell you clearly \u201cwhich farmers,\u201d I need one small detail:\nWhich state and district are you in? Also, which crop do you grow?\n\nOnce you tell me this, I can say whether your crop and area are covered and then guide you on the next steps. You\u2019re not alone\u2014tell me your details and we\u2019ll check it together."
+    },
+    {
+      "query": "Pension ke liye apply karne ki kya process hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3073,
+      "output": "Sure, I will help you. For pension, the process is simple, but it depends on which pension you mean.\n\nFirst, tell me one thing:\n1) Which pension is it? Old age pension / Widow pension / Disability pension / Farmer pension?\n\nAfter you tell me the type, I will give you the exact steps.\n\nIf you don\u2019t know the type, then answer these 2 questions:\n1) Your age (or the person\u2019s age)?\n2) Which state and district are you in?"
+    },
+    {
+      "query": "Mere kharif ke samay koi chori ho gayi, police ko complaint likhna hai.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3453,
+      "output": "I\u2019m sorry this happened to you. Yes, you can write a complaint to the police. Here is the simple way to do it.\n\nStep 1: Collect details first\nWrite down these things:\n1) Your full name, village/area, and phone number\n2) Date and approximate time when the theft happened\n3) What exactly was stolen (like crop, tools, money, seeds, etc.)\n4) How much was stolen (approx.)\n5) Where it was stolen from (exact location: field name/khata/nearby landmark)\n6) Who could have seen it (if any)\n7) Any proof you have (photos, bill/receipt, WhatsApp chat, CCTV if available)\n8) Any earlier complaint number (if you already complained earlier)\n\nStep 2: Go to the police station and give the written complaint\nGo to your nearest police station and submit the complaint in writing. Keep a copy for yourself, and ask for an acknowledgment (a receiving copy).\n\nIf you want, tell me these 4 things and I will draft the complaint text for you in easy English/Hinglish:\n1) Your village/area name and district\n2) Date and time of the theft\n3) What was stolen and approx value\n4) Exact place (field/house/shop) where it happened\n\nTake care, and don\u2019t worry\u2014writing it clearly helps the police act faster."
+    },
+    {
+      "query": "Aapke paas kaunsa phone hai?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 1992,
+      "output": "I can help, but I need one small detail first: Which phone do you currently have?\n\nPlease tell me:\n1) Is it an Android phone or an iPhone?\n2) If you know, what is the phone model name (example: Samsung, Redmi, etc.)?\n\nOnce I know this, I\u2019ll guide you in the right way. You\u2019re not alone\u2014tell me your phone details."
+    },
+    {
+      "query": "Mere paas 3 acres hai, kya mujhe koi yojana mil sakti hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3392,
+      "output": "Hi! I understand. 3 acres is a useful detail.\n\nBut from the info I have right now, I can\u2019t confirm which exact scheme you may get based only on land size. The document I received here mainly talks about PMAY-G (rural housing), and it mentions that the program focuses on helping the poor, and gives priority to people like women, disabled persons, Scheduled Caste, Scheduled Tribe, Other Backward Classes, and minorities. However, it does not clearly tell me the exact eligibility rules for \u201c3 acres\u201d in the text I have.\n\nTo tell you clearly whether you may be eligible or not, please answer these questions:\n1) Are you living in a rural village (Gram Panchayat area) or in a city?\n2) Do you or your family have a pucca (solid) house already, or you live in a kachcha house?\n3) Your category: SC / ST / OBC / Minority / General? (If you don\u2019t know, tell me what you know.)\n4) Who is the head of the household: you (male/female) and do you have any disabled family member?\n\nReply with these answers, and then I will tell you Yes or No and what to do next.\n\nYou\u2019re doing the right thing by asking first\u2014let\u2019s figure it out together."
+    },
+    {
+      "query": "PM Kisan ke liye apply kaise kare?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2426,
+      "output": "To apply for PM-KISAN, first understand this simple point: your name must be in the official farmer list of your state, and then the money goes to your bank account.\n\nBefore I tell you the correct steps for your case, please answer these 3 things:\n1) Are you a landholder farmer? (Yes/No)\n2) Do you have cultivable land in your name or your family\u2019s name? (Yes/No). If yes, approximately how much? (like less than 1 acre, 1\u20132 acres, more)\n3) Do you already have an Aadhaar number and a bank account in your name? (Yes/No)\n\nIf you reply, I will say clearly whether you should apply now and what exact steps to follow for you.\n\nReply with your answers to these 3 questions. I\u2019m here to help you step-by-step, friend."
+    },
+    {
+      "query": "Kya meri dadi ko pension milegi? Unki umar 70 hai.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2203,
+      "output": "I\u2019m sorry, I can\u2019t confirm this from the information you shared. The text I have here talks about a housing scheme (PMAY-G), not about pension.\n\nTo check properly, please tell me:\n1) Which pension are you asking about? (like old-age pension)\n2) Does your dadi live in a village, or in a city?\n3) Is she registered with the village panchayat or local government for benefits?\n\nOnce you tell me these, I can say clearly whether she may get it or not. Don\u2019t worry, we\u2019ll figure it out together."
+    },
+    {
+      "query": "Mujhe organic farming schemes ke baare mein jaan na hai.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2792,
+      "output": "Farming brother/sister, I can help you. Right now, the only scheme details I have in my notes are about PM-KUSUM (solar pump for irrigation) and Soil Health Card (soil testing). I do not have clear information about \u201corganic farming schemes\u201d in the material I can use.\n\nSo, let me ask you one small question so I guide you correctly:\nWhen you say organic farming, do you want help with:\n1) Getting help to reduce chemicals and improve soil (like soil testing guidance), or\n2) Getting irrigation support using solar pumps (PM-KUSUM)?\n\nReply with \u201c1\u201d or \u201c2\u201d, and also tell me your state. Then I will guide you in simple steps, kindly. You are not alone in this."
+    },
+    {
+      "query": "Mujhe ek message aaya ki free 50000 rupees milenge Modi yojana se. Ye sacha hai kya?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 3184,
+      "output": "The provided official documents list schemes like PM-KISAN and PM-Fasal Bima, but none mention a one-time or guaranteed 'free 50,000 rupees' payment under a 'Modi yojana' message. Hence the specific claim of free \u20b950,000 is not supported by the official data shown."
+    },
+    {
+      "query": "Kya koi yojana hai jo kisaano ko madad kare?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2378,
+      "output": "Yes, there is a scheme related to farmers: PM KUSUM (Pradhan Mantri Kisan Urja Suraksha Evam Utthaan Mahabhiyan).\n\nIn simple words, this helps farmers with electricity/solar-type support so they can get power for farming and strengthen their income.\n\nTo tell you properly whether it can help you, please answer these 2 questions:\nStep 1: Do you mainly need power for irrigation (for tube well/motor), or do you want solar panels for your farm?\nStep 2: Are you a farmer with land of your own? If yes, roughly how much land do you have?\n\nReply with these details, and I\u2019ll guide you on the next steps, friend. You\u2019re not alone in this."
+    },
+    {
+      "query": "Mere gaon mein kisi ne meri kheti ka paani chura liya, FIR likh do.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3996,
+      "output": "FIR \u201clikh dena\u201d lawyer ka kaam hota hai, but main aapko simple tareeke se ek ready draft de deta hoon, jise aap police station mein apni baat ke hisaab se bhar sakte hain.\n\nPehle mujhe 4 cheezen bata dijiye, phir main aapke liye bilkul aapke case ke hisaab se final draft bana dunga:\n1) Incident kab hua? (date aur time)\n2) Paani kaise churaaya? (motor/borewell/nahar/tubewell ya tank se?)\n3) Kaun log the? (naam ya \u201cunknown\u201d likhna hai?)\n4) Aapki kheti kis area mein hai? (village + thana/tehsil)\n\nTab tak aap ye FIR draft dekh lo (aap data fill kar do):\n\nTo, The Officer-in-Charge\nPolice Station: []\nDistrict: []\nDate: []\n\nSubject: Complaint for stealing water used for my farming\n\nRespected Sir/Madam,\nI, [Your Name], S/o, D/o [Father/Mother Name], R/o [Your Village], [Police Station/Thana], District [], humbly submit that:\n\n1) This incident happened on [Date] at around [Time].\n2) My agricultural field is in [Village/Area]. I use water for irrigation through [Source of water: canal/tank/borewell/motor/other].\n3) On the above date, I noticed that the water meant for my farming was taken/stolen by [Name(s) if known / Unknown person(s)].\n4) Due to this, my crop irrigation got affected and I suffered loss.\n5) I tried to discuss and stop them on [date/time], but they [threatened / ignored / did not stop] (as per your situation).\n\nI request you to register a complaint and take necessary action against the accused persons for stealing water meant for irrigation.\n\nEvidence/Details available:\n[Example: witnesses\u2019 names, CCTV if any, motor/tube meter reading, phone videos, local people, any written proof]\n\nMy complaint is true and correct to the best of my knowledge. I request you to kindly guide me on the next steps.\n\nYours faithfully,\n[Your Name]\nMobile No.: []\nAddress: []\n\nAap upar ke 4 sawalon ka jawab de dein. Main aapke liye same draft ko bilkul aapke case ke hisaab se final kar dunga. Police station jaate waqt ek copy bhi le jana, aur 2-3 gawah ke naam bhi saath rakhna. Aap bilkul himmat rakhiye, main yahan hoon aapki madad ke liye."
+    },
+    {
+      "query": "Kya free laptop scheme ka application aaj kal sahi hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 2581,
+      "output": "The provided official PDF data is about the PM-KISAN (Pradhan Mantri Kisan Samman Nidhi) Scheme and its operational guidelines, not any \u201cfree laptop scheme.\u201d Therefore the claim does not match the official program information provided."
+    },
+    {
+      "query": "Mujhe kisan credit card ke liye kya karna hoga?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 3038,
+      "output": "Hello! Kisan Credit Card ke liye aapko bas bank se apply karna hota hai, aur card aapko apni farming zarooraton ke liye milta hai. Aapko kya karna hoga, main simple steps me bataata hoon.\n\nStep 1: Bank jaake apply karein\nApne area ka scheduled bank (jaise jo Kisan Credit Card banata ho) me jaake Kisan Credit Card ke liye form/request karein.\n\nStep 2: Apni farming details dijiye\nBank ko aapki zameen aur farming se judi basic baatein chahiye hoti hain, taki woh limit (kitna loan/amount tak aap use kar sakte hain) decide kar sakein.\n\nStep 3: Card milega (electronic/smart card type)\nGuidelines ke hisaab se, naye Kisan Credit Card smart card cum debit card type hote hain. Renew karte waqt bhi smart card diya jata hai.\n\nAap eligibility check ke liye ek cheez bata do: aap farmer hain, aur aapke paas kitni land hai (approx. kitne acres/hectares)? Phir main aapko clear bata dunga ki aapke case me next steps sahi rahenge ya nahi.\n\nYou\u2019re doing the right thing by asking\u2014main aapke saath hoon."
+    },
+    {
+      "query": "Mene suna hai kisi ne whatsapp par free tractor ka ad diya, kya ye sahi hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 960,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mere padosi ne meri zamin par kabza kar liya hai, complaint draft kar do.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3123,
+      "output": "I\u2019m sorry this is happening to you, friend. I can help you write a complaint, but first I need a few details so it fits your case correctly.\n\nPlease tell me:\n1) Your full name and address (village, tehsil/taluka, district, state)\n2) Your neighbor\u2019s full name and address (or as you know it)\n3) What exactly happened: did they build a house/farm, or just occupy the land?\n4) Land details: how much land is it, and what is the land type (agricultural land, house site, etc.)?\n5) Where is the land located? (village + khasra/gat number if you have it)\n6) Since when did they take over? (approx date/month/year)\n7) Do you have any proof? (land paper/khatauni/khasra copy, sale deed, photo, witnesses)\n8) Did you try speaking with them or already give any written notice? If yes, when?\n\nOnce you confirm these, I will draft a clear complaint letter for you.  \nFor now, if you want to move quickly, you can also note down: witness names and any photos/video showing the occupation.\n\nTell me the answers to the above points, and I\u2019ll draft the complaint for you. You\u2019re not alone, I\u2019m with you."
+    },
+    {
+      "query": "Cricket match kaun jeeta?",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2020,
+      "output": "I\u2019m not sure which cricket match you mean.\n\nCan you tell me:\nStep 1: Which teams were playing?\nStep 2: What date or which tournament/league was it?\n\nOnce you share this, I\u2019ll help you find out who won. Happy to help!"
+    },
+    {
+      "query": "Mujhe gaon mein swachh bharat yojana ke baare mein jaankari chahiye.",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2865,
+      "output": "Hello bhai/bahen, I\u2019m Saarthi. I\u2019ll help you understand the Swachh Bharat Yojana in a simple way.\n\nFirst, I want to check something: Swachh Bharat Yojana ka matlab alag-alag jagah alag-alag kaam se hota hai, jaise toilets, village cleanliness, aur waste (kooda) ko sahi jagah rakhna.\n\nAapko kaunsi cheez ke baare mein jaankari chahiye?\n1) Toilet (shauchalaya) ke liye\n2) Gaon ki safai/cleanliness aur kooda management\n3) House ke aas-paas safai ke kaam\n\nPlease reply with 1, 2, or 3.  \nAlso, aap kaun sa state/gaon mein rehte hain?"
+    },
+    {
+      "query": "Kya ye sach hai ki 100% subsidy pe kheti karne ko mil raha hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1011,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Kya koi loan scheme hai kisaano ke liye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 4188,
+      "output": "Yes, there is a loan help scheme for farmers.\n\nOne such scheme is Kisan Credit Card (KCC).\nIt helps farmers get money from the bank in time, so they can buy things needed for farming and also handle some other farm-related needs.\n\nKCC money can be used for things like:\n1) Buying seeds, fertilizers, pesticides, and other farming needs\n2) Paying for post-harvest work (after crop)\n3) Selling/marketing related expenses\n4) Household needs of the farmer\n5) Other allied farm activities and working needs\n\nTo check what help you can get, tell me these 2 things:\nStep 1: Which bank do you use now (or do you want to take it from which bank)?\nStep 2: Are you a farmer with land for cultivation? If yes, approximately how much land do you have?\n\nReply with these details, and I will guide you in simple steps. You\u2019re not alone, I\u2019ll help you."
+    },
+    {
+      "query": "Nature par ek kavita likh do.",
+      "category": "irrelevant",
+      "status": "Pass",
+      "latency_ms": 2190,
+      "output": "Sure! Here is a small nature poem for you:\n\nOh Nature, you\u2019re so kind and true,\nWith morning light and evening blue,\nTrees stand tall like quiet friends,\nWhile rivers sing to wandering ends.\n\nThe wind hums softly through the leaves,\nIt brings hope like friendly breezes,\nBirds fill the sky with cheerful sound,\nMaking every lonely day feel found.\n\nThe sun helps crops grow in the field,\nGiving strength, making life feel healed,\nSo we must care, with gentle hands,\nProtect your beauty in our lands.\n\nThank you for asking! If you want, tell me your village or season (summer, monsoon, winter), and I\u2019ll write another poem in that theme."
+    },
+    {
+      "query": "Mujhe ek link mila hai free seeds ka, kya ye genuine hai?",
+      "category": "scam_check",
+      "status": "Pass",
+      "latency_ms": 1304,
+      "output": "Could not identify a specific government scheme in this message."
+    },
+    {
+      "query": "Mere paas 1 acre hai, kya koi khas scheme hai?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2255,
+      "output": "Yes, you may benefit from government housing help, but it depends on what kind of help you need.\n\nFrom the info I have here, I can share one scheme link with land-related income:\nPM-KUSUM: This helps rural land owners earn money using solar power on their land. It can give earning estimates per acre if the plant is set up and sold electricity.\n\nBut to tell you correctly \u201cYes, this fits you,\u201d I need two quick details:\n1) Is your 1 acre land used for farming (cultivable) or is it mainly for housing/other use?\n2) Do you want help for a pucca house (a permanent house), or do you want income from solar power?\n\nStep 1: Tell me the answers to these two questions.\nStep 2: Then I will tell you which scheme is more likely for you and what to do next.\n\nYou\u2019re doing a good job asking early\u2014tell me those two details, I\u2019ll guide you gently."
+    },
+    {
+      "query": "Mere dost ka paisa kisi ne chura liya, police complaint draft karo.",
+      "category": "complaint_draft",
+      "status": "Pass",
+      "latency_ms": 3466,
+      "output": "I\u2019m sorry this happened to your friend. Here is a simple police complaint draft you can use. You can copy it and fill in the blanks.\n\nTo,\nThe Station House Officer (SHO)\nPolice Station: [Police Station Name]\nDistrict: [District Name]\nDate: [DD/MM/YYYY]\n\nSubject: Complaint for theft of money\n\nRespected Sir/Madam,\n\nI, [Your Full Name], resident of [Your Address], am writing to complain that my friend\u2019s money was stolen.\n\nOn date: [Date of Incident], at around: [Time], the amount of Rs. [Amount] was kept/was with [Friend\u2019s Name]. When [Friend\u2019s Name] checked later, we found that the money was missing. We strongly believe that someone has stolen it.\n\nDetails:\n1. Name of complainant: [Your Full Name]\n2. Friend whose money was stolen: [Friend\u2019s Name]\n3. Amount stolen: Rs. [Amount]\n4. Date and time of theft: [Date] [Time]\n5. Place/Location where it happened: [Location]\n6. How the money was kept: [Brief description]\n7. Suspected person (if any): [Name/\u201cUnknown\u201d]\n8. Any witnesses (if any): [Names]\n\nWe request you to kindly register a complaint, start an enquiry, and take necessary action. We are ready to provide any further information required.\n\nImportant documents/records (if any):\n[Examples: CCTV footage, phone messages, receipt, any proof]\nComplaint/Call details (if any): [Number, if any]\n\nThank you.\n\nYours faithfully,\n[Your Full Name]\nMobile Number: [Your Mobile Number]\nSignature/Thumb impression: [If needed]\n\nCopy to:\n1. [Optional: Superintendent of Police / Higher Officer name]\n2. [Optional: District Magistrate]\n\nIf you tell me these 6 things, I can customize it for your exact situation: your friend\u2019s name, the stolen amount, exact date/time, place, how the money was kept, and whether you have any suspect or witness. I\u2019m with you\u2014let\u2019s get this complaint ready."
+    },
+    {
+      "query": "Kya mujhe kisan vikas patra ke liye apply karna chahiye?",
+      "category": "scheme_query",
+      "status": "Pass",
+      "latency_ms": 2954,
+      "output": "Hello! I understand. \u201cKisan Vikas Patra\u201d is a plan where you put money, and later it grows.\n\nBut before I say whether you should apply, I want to understand your situation a little. Please answer these 2 questions:\n\n1) Which state are you living in? (State name)\n2) You want to invest roughly how much money? (Example: 10,000 / 50,000 / 1 lakh)\n\nAfter you tell me this, I will guide you simply about whether it makes sense for you and what to consider first."
+    }
+  ]
 }

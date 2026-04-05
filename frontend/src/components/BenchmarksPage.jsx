@@ -131,6 +131,66 @@ export default function BenchmarksPage({ onBack }) {
           </div>
         )}
 
+        {/* Detailed Logs Section */}
+        {!loading && data && data.detailed_results && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="mt-16"
+          >
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
+              <h2 className="text-2xl font-bold tracking-tight">Detailed Query Logs</h2>
+              <Badge variant="outline" className="w-fit">Total Recorded: {data.detailed_results.length}</Badge>
+            </div>
+            
+            <div className="bg-card border border-border rounded-2xl overflow-hidden shadow-sm w-full">
+              <div className="overflow-x-auto w-full">
+                <table className="w-full text-sm text-left align-middle">
+                  <thead className="bg-muted/50 text-muted-foreground">
+                    <tr>
+                      <th className="px-4 text-xs sm:text-sm sm:px-6 py-4 font-medium whitespace-nowrap">Query</th>
+                      <th className="px-4 text-xs sm:text-sm sm:px-6 py-4 font-medium whitespace-nowrap">Intent</th>
+                      <th className="px-4 text-xs sm:text-sm sm:px-6 py-4 font-medium whitespace-nowrap">Output Snippet</th>
+                      <th className="px-4 text-xs sm:text-sm sm:px-6 py-4 font-medium whitespace-nowrap">Latency</th>
+                      <th className="px-4 text-xs sm:text-sm sm:px-6 py-4 font-medium whitespace-nowrap">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-border">
+                    {data.detailed_results.map((log, idx) => (
+                      <tr key={idx} className="hover:bg-muted/30 transition-colors">
+                        <td className="px-4 sm:px-6 py-4 max-w-[150px] sm:max-w-xs truncate" title={log.query}>
+                          {log.query}
+                        </td>
+                        <td className="px-4 sm:px-6 py-4">
+                          <span className="bg-primary/10 text-primary px-2 py-1 rounded text-[10px] sm:text-xs whitespace-nowrap inline-block">
+                            {log.category.replace('_', ' ')}
+                          </span>
+                        </td>
+                        <td className="px-4 sm:px-6 py-4 max-w-[150px] sm:max-w-sm truncate text-muted-foreground" title={log.output}>
+                          {log.output.length > 40 ? log.output.substring(0, 40) + '...' : log.output}
+                        </td>
+                        <td className="px-4 sm:px-6 py-4 font-mono text-[10px] sm:text-xs whitespace-nowrap">
+                          {log.latency_ms}ms
+                        </td>
+                        <td className="px-4 sm:px-6 py-4 whitespace-nowrap">
+                          {log.status === 'Pass' ? (
+                            <span className="text-green-500 font-medium flex items-center gap-1"><ShieldCheck size={14}/> Pass</span>
+                          ) : log.status === 'Declined' ? (
+                            <span className="text-blue-500 flex items-center gap-1"><AlertTriangle size={14}/> Declined</span>
+                          ) : (
+                            <span className="text-red-500 font-medium flex items-center gap-1"><AlertTriangle size={14}/> {log.status}</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </motion.div>
+        )}
+
       </div>
     </div>
   );
