@@ -12,12 +12,14 @@ import Sidebar from './components/Sidebar'
 import ScamDetector from './components/ScamDetector'
 import ComplaintDrafter from './components/ComplaintDrafter'
 import BenchmarksPage from './components/BenchmarksPage'
+import AdminDashboard from './components/AdminDashboard'
 import { Menu } from 'lucide-react'
 
 function App() {
   const getInitialView = () => {
     const params = new URLSearchParams(window.location.search);
     const viewQuery = params.get('view');
+    if (window.location.pathname === '/admin' || viewQuery === 'admin') return 'admin';
     if (viewQuery === 'how-it-works') return 'how-it-works';
     if (viewQuery === 'privacy') return 'privacy';
     if (viewQuery === 'terms') return 'terms';
@@ -99,6 +101,10 @@ function App() {
       ) : view === 'benchmarks' ? (
         <div className="flex-1 overflow-y-auto w-full">
           <BenchmarksPage onBack={() => setView('landing')} />
+        </div>
+      ) : view === 'admin' ? (
+        <div className="flex-1 overflow-y-auto w-full">
+          <AdminDashboard onBack={() => setView('landing')} />
         </div>
       ) : (
         <>
