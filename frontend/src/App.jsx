@@ -9,6 +9,8 @@ import PrivacyPolicyPage from './components/PrivacyPolicyPage'
 import TermsOfServicePage from './components/TermsOfServicePage'
 import ApiDocsPage from './components/ApiDocsPage'
 import Sidebar from './components/Sidebar'
+import ScamDetector from './components/ScamDetector'
+import ComplaintDrafter from './components/ComplaintDrafter'
 
 function App() {
   const getInitialView = () => {
