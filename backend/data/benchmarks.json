@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-04-05T08:57:34Z",
+  "total_samples": 100,
+  "metrics": {
+    "average_latency_ms": 2711,
+    "rag_context_accuracy_pct": 96.4,
+    "scam_detection_precision_pct": 100.0,
+    "hallucination_rate_pct": 0.0
+  }
+}

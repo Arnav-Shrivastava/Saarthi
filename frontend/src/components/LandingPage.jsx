@@ -264,6 +264,31 @@ export default function LandingPage({ onStart, onNavigate }) {
         </div>
       </section>
 
+      {/* Developer Metrics / Benchmarks Banner */}
+      <section className="bg-[#1a1c1e] text-orange-50/70 border-t border-border/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-orange-500/20 text-orange-400">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            </div>
+            <div>
+              <h4 className="text-white font-semibold flex items-center gap-2">
+                Developer Metrics & Benchmarks
+                <Badge variant="outline" className="text-[10px] text-orange-400 border-orange-400/30 bg-orange-400/10 h-5">HACKATHON</Badge>
+              </h4>
+              <p className="text-xs text-slate-400">View real-time evaluation data for Context Accuracy and Scam Detection</p>
+            </div>
+          </div>
+          <Button 
+            variant="outline" 
+            className="border-slate-700 bg-transparent hover:bg-slate-800 text-slate-300 hover:text-white"
+            onClick={() => onNavigate('benchmarks')}
+          >
+            View System Benchmarks
+          </Button>
+        </div>
+      </section>
+
       {/* Animated Footer */}
       <AnimatedFooter onStart={onStart} onNavigate={onNavigate} />
     </div>

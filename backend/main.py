@@ -171,6 +171,26 @@ app.add_middleware(
 async def root():
     return {"message": "Welcome to Saarthi API"}
 
+@app.get("/benchmarks")
+async def get_benchmarks():
+    import json
+    import os
+    benchmarks_path = os.path.join(os.path.dirname(__file__), "data", "benchmarks.json")
+    if os.path.exists(benchmarks_path):
+        with open(benchmarks_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    else:
+        return {
+            "timestamp": "Not run yet",
+            "total_samples": 0,
+            "metrics": {
+                "average_latency_ms": 0,
+                "rag_context_accuracy_pct": 0,
+                "scam_detection_precision_pct": 0,
+                "hallucination_rate_pct": 0
+            }
+        }
+
 # ---------------------------------------------------------------------------
 # Pydantic model for /recommend
 # ---------------------------------------------------------------------------

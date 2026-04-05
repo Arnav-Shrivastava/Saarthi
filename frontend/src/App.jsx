@@ -11,6 +11,7 @@ import ApiDocsPage from './components/ApiDocsPage'
 import Sidebar from './components/Sidebar'
 import ScamDetector from './components/ScamDetector'
 import ComplaintDrafter from './components/ComplaintDrafter'
+import BenchmarksPage from './components/BenchmarksPage'
 
 function App() {
   const getInitialView = () => {
@@ -91,6 +92,10 @@ function App() {
       ) : view === 'api-docs' ? (
         <div className="flex-1 overflow-y-auto w-full">
           <ApiDocsPage onBack={() => setView('landing')} />
+        </div>
+      ) : view === 'benchmarks' ? (
+        <div className="flex-1 overflow-y-auto w-full">
+          <BenchmarksPage onBack={() => setView('landing')} />
         </div>
       ) : (
         <>

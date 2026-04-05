@@ -1,0 +1,602 @@
+[
+  {
+    "id": "q_1",
+    "category": "scheme_query",
+    "query": "Mere paas 5 acres hai, kaunse schemes available hain?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_2",
+    "category": "scheme_query",
+    "query": "PM Kisan ke liye apply kaise karein?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_3",
+    "category": "scheme_query",
+    "query": "Kya mere dad ko pension milta hai? Unka age 70 hai.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_4",
+    "category": "scheme_query",
+    "query": "Mujhe farmer loan ki details chahiye.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_5",
+    "category": "scheme_query",
+    "query": "Kisaan credit card ke liye kya process hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_6",
+    "category": "scam_check",
+    "query": "Mujhe ek message aaya tha free 50000 rupees Modi Yojana ka. Ye sach hai kya?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_7",
+    "category": "scam_check",
+    "query": "Kya ye free laptop scheme ki application sahi hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_8",
+    "category": "scam_check",
+    "query": "Ek number se message aaya, bolta hai ki mujhe prize mila hai. Kya ye scam hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_9",
+    "category": "complaint_draft",
+    "query": "Mere khet se sabzi chori ho gayi hai, police complaint likh do.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_10",
+    "category": "complaint_draft",
+    "query": "Mere padosi ne mere khet par kabza kar liya, FIR draft karne mein madad karo.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_11",
+    "category": "scheme_query",
+    "query": "Kya koi new schemes hain kisaanon ke liye?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_12",
+    "category": "scheme_query",
+    "query": "Bihar mein kisaanon ko kya assistance milta hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_13",
+    "category": "scam_check",
+    "query": "Mujhe kisi ne bola ki kuch paise milenge agar main yeh link bharoonga. Sach hai kya?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_14",
+    "category": "irrelevant",
+    "query": "Aaj cricket match kaun jeeta?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_15",
+    "category": "irrelevant",
+    "query": "Nature ke upar ek poem likh do.",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_16",
+    "category": "scheme_query",
+    "query": "Kya mujhe kisaan credit card milega agar meri income zyada hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_17",
+    "category": "scam_check",
+    "query": "Mujhe ek email aaya hai jo free seeds provide karne ka keh raha hai, kya ye legit hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_18",
+    "category": "scheme_query",
+    "query": "Rajasthan mein kisaanon ke liye kya schemes chal rahi hain?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_19",
+    "category": "complaint_draft",
+    "query": "Mere khet mein illegal mining ho rahi hai, complaint likh do.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_20",
+    "category": "irrelevant",
+    "query": "Hello ka French mein kya hota hai?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_21",
+    "category": "scheme_query",
+    "query": "Mujhe 2 acre zameen hai, kaunse yojnaon ka labh le sakta hoon?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_22",
+    "category": "scheme_query",
+    "query": "Kya mujhe PM Kisan yojana ke liye apply karna chahiye?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_23",
+    "category": "scheme_query",
+    "query": "Meri dadi ko pension milti hai kya?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_24",
+    "category": "scheme_query",
+    "query": "Kya mujhe kisaan credit card ke liye apply karna chahiye?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_25",
+    "category": "scheme_query",
+    "query": "Mujhe organic farming ki koi yojana pata sakte ho?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_26",
+    "category": "scam_check",
+    "query": "Mujhe ek message aaya hai free 50000 rupees modi yojana ke liye, kya yeh sach hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_27",
+    "category": "scam_check",
+    "query": "Kya yeh free laptop scheme ka application real hai jo mujhe forward kiya gaya?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_28",
+    "category": "scam_check",
+    "query": "Ek number se mujhe call aayi, bola kuch paise milenge agar maine yeh link khola toh, sach hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_29",
+    "category": "complaint_draft",
+    "query": "Kya aap mere liye police complaint likh sakte ho, kisi ne meri gaadi chura li hai?",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_30",
+    "category": "complaint_draft",
+    "query": "Mere padosi ne meri khet par kabza kar liya hai, mujhe FIR ka draft chahiye.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_31",
+    "category": "scheme_query",
+    "query": "Kya mujhe kisaan loan ka benefit mil sakta hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_32",
+    "category": "scheme_query",
+    "query": "Mujhe kheti ke liye koi subsidy milti hai kya?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_33",
+    "category": "scam_check",
+    "query": "Kya yeh WhatsApp par aaya message jo free me smartphone de raha hai, sach hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_34",
+    "category": "irrelevant",
+    "query": "Aaj cricket match kaun jeeta?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_35",
+    "category": "irrelevant",
+    "query": "Kya aap ek kavita likh sakte ho prakriti ke bare mein?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_36",
+    "category": "scheme_query",
+    "query": "Is baar kharif season mein kya naye schemes hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_37",
+    "category": "scam_check",
+    "query": "Mujhe ek email aaya hai jisme bola gaya hai ke mujhe 1 lakh milne wale hain, yeh fake hai kya?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_38",
+    "category": "complaint_draft",
+    "query": "Mere dost ne mujhe dhoka diya paise lekar, complaint likhna hai.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_39",
+    "category": "scheme_query",
+    "query": "Kya mujhe gaon mein koi nayi yojna ka pata hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_40",
+    "category": "scheme_query",
+    "query": "Mujhe kisaan bhaiyon ke liye koi health scheme chahiye.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_41",
+    "category": "scheme_query",
+    "query": "Mujhe 4 acres hain, kya koi subsidy milega?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_42",
+    "category": "scheme_query",
+    "query": "PM Kisan kaise apply karte hain?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_43",
+    "category": "scheme_query",
+    "query": "Kya meri maa ko pension mil sakta hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_44",
+    "category": "scheme_query",
+    "query": "Mujhe organic farming ke liye koi scheme batao.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_45",
+    "category": "scheme_query",
+    "query": "Kya mere paas 1 acre land hai, uspar koi assistance milega?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_46",
+    "category": "scam_check",
+    "query": "Mujhe message aaya hai free 10000 rupees ka, kya yeh sach hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_47",
+    "category": "scam_check",
+    "query": "Kya yeh sahi hai ki free smartphone mil raha hai? Link bheja hai kisi ne.",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_48",
+    "category": "scam_check",
+    "query": "Kya mujhe click karna chahiye us link pe jo 50000 ka promise kar raha hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_49",
+    "category": "complaint_draft",
+    "query": "Mere khet mein kisi ne jaanwar chura liya, police complaint likh do.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_50",
+    "category": "complaint_draft",
+    "query": "Mere saath koi dhokha kiya hai, FIR ka draft chahiye.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_51",
+    "category": "scheme_query",
+    "query": "Kya abhi koi kisaan yojana chal rahi hai mujhe nahi pata.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_52",
+    "category": "scheme_query",
+    "query": "Mujhe kharif ke liye koi support chahiye, scheme batao.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_53",
+    "category": "scam_check",
+    "query": "Kya kisi ne mujhe kisi nakli yojana ka message bheja hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_54",
+    "category": "irrelevant",
+    "query": "Aaj ka cricket match ka score kya hai?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_55",
+    "category": "irrelevant",
+    "query": "Mujhe ek acchi kavita chahiye, nature par.",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_56",
+    "category": "irrelevant",
+    "query": "Hello ko french me kya kehte hain?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_57",
+    "category": "scheme_query",
+    "query": "Organic farming ke liye mujhe koi financial help mil sakta hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_58",
+    "category": "complaint_draft",
+    "query": "Mere khaali zameen par koi bina permission ke kaisa kaam kar raha hai, complaint draft karo.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_59",
+    "category": "scheme_query",
+    "query": "Kya mujhe kisan credit card milna chahiye?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_60",
+    "category": "scam_check",
+    "query": "Kya koi nakli loan scheme ke liye mujhe bula raha hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_61",
+    "category": "scheme_query",
+    "query": "Mujhe 3 acres hai, kya schemes available hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_62",
+    "category": "scheme_query",
+    "query": "PM Kisan ke liye apply kaise karein?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_63",
+    "category": "scam_check",
+    "query": "Mujhe message aaya hai free 20000 rupees ka. Yeh sacha hai kya?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_64",
+    "category": "scheme_query",
+    "query": "Mujhe organic farming ke liye koi scheme batao.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_65",
+    "category": "complaint_draft",
+    "query": "Mere kharif ke beej kisi ne chura liye, police complaint draft karna hai.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_66",
+    "category": "irrelevant",
+    "query": "Aaj ka mahal kya hai?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_67",
+    "category": "scheme_query",
+    "query": "Mere maa ko pension milta hai kya?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_68",
+    "category": "scam_check",
+    "query": "Kya yeh sacha hai ki free laptop mil raha hai sirf form bharne par?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_69",
+    "category": "scheme_query",
+    "query": "Kya koi scheme hai jo meri kisan samuh ko madad kare?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_70",
+    "category": "scheme_query",
+    "query": "Bihar mein kis scheme ke liye apply karna hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_71",
+    "category": "complaint_draft",
+    "query": "Mere kheton mein koi ghus aaye hai, FIR kaise likhu?",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_72",
+    "category": "irrelevant",
+    "query": "Aapka favorite khana kya hai?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_73",
+    "category": "scheme_query",
+    "query": "Kya mujhe kisaan credit card ke liye apply karna chahiye?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_74",
+    "category": "scam_check",
+    "query": "Mujhe free seeds ka offer mila hai, kya yeh real hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_75",
+    "category": "scheme_query",
+    "query": "Kya kisano ke liye koi health scheme hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_76",
+    "category": "scam_check",
+    "query": "Kya mujhe kisi bhi link par click karna chahiye jo free paisa offer kare?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_77",
+    "category": "scheme_query",
+    "query": "Kis kisaan ko PM Fasal Bima Yojana milta hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_78",
+    "category": "scheme_query",
+    "query": "Pension ke liye apply karne ki kya process hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_79",
+    "category": "complaint_draft",
+    "query": "Mere kharif ke samay koi chori ho gayi, police ko complaint likhna hai.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_80",
+    "category": "irrelevant",
+    "query": "Aapke paas kaunsa phone hai?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_81",
+    "category": "scheme_query",
+    "query": "Mere paas 3 acres hai, kya mujhe koi yojana mil sakti hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_82",
+    "category": "scheme_query",
+    "query": "PM Kisan ke liye apply kaise kare?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_83",
+    "category": "scheme_query",
+    "query": "Kya meri dadi ko pension milegi? Unki umar 70 hai.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_84",
+    "category": "scheme_query",
+    "query": "Mujhe organic farming schemes ke baare mein jaan na hai.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_85",
+    "category": "scam_check",
+    "query": "Mujhe ek message aaya ki free 50000 rupees milenge Modi yojana se. Ye sacha hai kya?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_86",
+    "category": "scheme_query",
+    "query": "Kya koi yojana hai jo kisaano ko madad kare?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_87",
+    "category": "complaint_draft",
+    "query": "Mere gaon mein kisi ne meri kheti ka paani chura liya, FIR likh do.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_88",
+    "category": "scam_check",
+    "query": "Kya free laptop scheme ka application aaj kal sahi hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_89",
+    "category": "scheme_query",
+    "query": "Mujhe kisan credit card ke liye kya karna hoga?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_90",
+    "category": "scam_check",
+    "query": "Mene suna hai kisi ne whatsapp par free tractor ka ad diya, kya ye sahi hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_91",
+    "category": "complaint_draft",
+    "query": "Mere padosi ne meri zamin par kabza kar liya hai, complaint draft kar do.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_92",
+    "category": "irrelevant",
+    "query": "Cricket match kaun jeeta?",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_93",
+    "category": "scheme_query",
+    "query": "Mujhe gaon mein swachh bharat yojana ke baare mein jaankari chahiye.",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_94",
+    "category": "scam_check",
+    "query": "Kya ye sach hai ki 100% subsidy pe kheti karne ko mil raha hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_95",
+    "category": "scheme_query",
+    "query": "Kya koi loan scheme hai kisaano ke liye?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_96",
+    "category": "irrelevant",
+    "query": "Nature par ek kavita likh do.",
+    "expected_intent": "decline gently"
+  },
+  {
+    "id": "q_97",
+    "category": "scam_check",
+    "query": "Mujhe ek link mila hai free seeds ka, kya ye genuine hai?",
+    "expected_intent": "detect scam"
+  },
+  {
+    "id": "q_98",
+    "category": "scheme_query",
+    "query": "Mere paas 1 acre hai, kya koi khas scheme hai?",
+    "expected_intent": "recommend schemes"
+  },
+  {
+    "id": "q_99",
+    "category": "complaint_draft",
+    "query": "Mere dost ka paisa kisi ne chura liya, police complaint draft karo.",
+    "expected_intent": "draft complaint"
+  },
+  {
+    "id": "q_100",
+    "category": "scheme_query",
+    "query": "Kya mujhe kisan vikas patra ke liye apply karna chahiye?",
+    "expected_intent": "recommend schemes"
+  }
+]
