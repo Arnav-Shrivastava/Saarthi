@@ -198,6 +198,17 @@ const AnimatedFooter = ({
                 </div>
                 <span className="text-sm text-white/40 group-hover:text-white/70 transition-colors">Arnav Shrivastava</span>
               </a>
+              <a
+                href="https://github.com/AtharvGogia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex items-center gap-2.5"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-full border border-dotted border-white/10 group-hover:border-white/20 group-hover:bg-white/[0.04] transition-all">
+                  <Github className="h-4 w-4 text-white/40 group-hover:text-white/70 transition-colors" />
+                </div>
+                <span className="text-sm text-white/40 group-hover:text-white/70 transition-colors">Atharv Gogia</span>
+              </a>
             </div>
           </div>
 
@@ -226,7 +237,7 @@ const AnimatedFooter = ({
           </p>
           <p className="flex items-center gap-1">
             Made with <span className="text-red-400 animate-pulse">♥</span> by{' '}
-            <span className="text-white/50 font-medium">Arnav Shrivastava & Kunal Krishna</span>
+            <span className="text-white/50 font-medium">Arnav Shrivastava, Kunal Krishna & Atharv Gogia</span>
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
