@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
@@ -22,7 +22,19 @@ export default function ScamDetector({ language = 'English' }) {
     const [isRecording, setIsRecording] = useState(false)
     const [isSpeaking, setIsSpeaking] = useState(false)
     const [file, setFile] = useState(null)
-    const recognitionRef = React.useRef(null)
+    const recognitionRef = useRef(null)
+
+    // Cleanup TTS and Mic on unmount to prevent floating audio or open mic when navigating away
+    useEffect(() => {
+        return () => {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+            if (recognitionRef.current) {
+                recognitionRef.current.stop();
+            }
+        };
+    }, []);
 
     const handleVerify = async () => {
         if (!text.trim() && !file) return
