@@ -83,4 +83,20 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  .bg-grid-saarthi {
+    background-image: linear-gradient(to right, rgba(27, 20, 100, 0.035) 1px, transparent 1px),
+                      linear-gradient(to bottom, rgba(27, 20, 100, 0.035) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .glow-indigo {
+    filter: blur(140px);
+    background: radial-gradient(circle, rgba(27, 20, 100, 0.08) 0%, transparent 70%);
+  }
+
+  .glow-saffron {
+    filter: blur(140px);
+    background: radial-gradient(circle, rgba(255, 159, 28, 0.08) 0%, transparent 70%);
+  }
 }

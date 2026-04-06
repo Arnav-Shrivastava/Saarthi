@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Volume2, ChevronRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { CATEGORY_COLORS, getT } from '@/lib/translations'
@@ -12,6 +12,15 @@ const langMap = {
 function SchemeCard({ scheme, language, onLearnMore }) {
     const t = getT(language)
     const colors = CATEGORY_COLORS[scheme.category] || CATEGORY_COLORS['Social Security']
+
+    // Cleanup TTS on unmount to prevent floating audio when navigating away
+    useEffect(() => {
+        return () => {
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+            }
+        };
+    }, []);
 
     const handleListen = () => {
         if (!('speechSynthesis' in window)) return

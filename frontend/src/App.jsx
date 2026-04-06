@@ -14,6 +14,7 @@ import ComplaintDrafter from './components/ComplaintDrafter'
 import BenchmarksPage from './components/BenchmarksPage'
 import AdminDashboard from './components/AdminDashboard'
 import { Menu } from 'lucide-react'
+import Logo from './components/ui/Logo'
 
 function App() {
   const getInitialView = () => {
@@ -124,9 +125,7 @@ function App() {
               {/* Mobile Header */}
               <div className="md:hidden flex items-center justify-between p-4 border-b border-border/10 shrink-0 z-10" style={{ backgroundColor: 'var(--bg-base)' }}>
                 <div className="flex items-center gap-2">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="var(--brand-indigo)" strokeWidth="2" strokeLinejoin="round" fill="rgba(27, 20, 100, 0.1)" />
-                  </svg>
+                  <Logo size={24} containerSize="h-9 w-9" className="shadow-lg shadow-indigo-500/10" />
                   <span style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600, fontSize: '18px', color: 'var(--text-primary)' }}>
                     Saarthi
                   </span>
@@ -165,7 +164,7 @@ function App() {
               )}
               {view === 'draft' && (
                 <div className="flex-1 overflow-y-auto w-full h-full">
-                  <ComplaintDrafter />
+                  <ComplaintDrafter language={language} />
                 </div>
               )}
             </main>
