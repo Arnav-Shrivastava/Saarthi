@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { ArrowLeft, ArrowRight, Sparkles, RefreshCw, Target } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -41,15 +41,6 @@ function SchemeRecommender({ language, onLearnMore }) {
     const [schemes, setSchemes] = useState(null)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
-
-    // Cleanup TTS on unmount to prevent floating audio when navigating away
-    useEffect(() => {
-        return () => {
-            if (window.speechSynthesis) {
-                window.speechSynthesis.cancel();
-            }
-        };
-    }, []);
 
     const TOTAL_STEPS = 4
 
@@ -241,23 +232,23 @@ function SchemeRecommender({ language, onLearnMore }) {
                 {/* Progress */}
                 <div className="mb-10">
                     <div className="flex items-center justify-between mb-3">
-                        <span 
-                          className="text-[11px] font-bold uppercase tracking-widest"
-                          style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}
+                        <span
+                            className="text-[11px] font-bold uppercase tracking-widest"
+                            style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}
                         >
                             {t.step} {step} {t.of} {TOTAL_STEPS}
                         </span>
                         <span className="text-[11px] font-bold" style={{ color: 'var(--brand-indigo)' }}>
-                          {Math.round((step / TOTAL_STEPS) * 100)}%
+                            {Math.round((step / TOTAL_STEPS) * 100)}%
                         </span>
                     </div>
                     <div className="w-full h-2 rounded-full overflow-hidden" style={{ backgroundColor: 'var(--border-soft)' }}>
                         <div
                             className="h-full transition-all duration-700 ease-out"
-                            style={{ 
-                              width: `${(step / TOTAL_STEPS) * 100}%`,
-                              backgroundColor: 'var(--brand-indigo)',
-                              boxShadow: '0 0 12px rgba(27,20,100,0.2)'
+                            style={{
+                                width: `${(step / TOTAL_STEPS) * 100}%`,
+                                backgroundColor: 'var(--brand-indigo)',
+                                boxShadow: '0 0 12px rgba(27,20,100,0.2)'
                             }}
                         />
                     </div>
@@ -266,14 +257,14 @@ function SchemeRecommender({ language, onLearnMore }) {
                 {/* ── Step 1: Occupation ── */}
                 {step === 1 && (
                     <div className="animate-fade-in">
-                        <h2 
-                          className="mb-1"
-                          style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
+                        <h2
+                            className="mb-1"
+                            style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
                         >
-                          {t.steps.occupation.title}
+                            {t.steps.occupation.title}
                         </h2>
                         <p className="text-sm mb-8" style={{ fontFamily: 'DM Sans, sans-serif', color: 'var(--text-secondary)' }}>
-                          {t.steps.occupation.subtitle}
+                            {t.steps.occupation.subtitle}
                         </p>
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                             {OCCUPATION_META.map(({ key, emoji, bg }) => {
@@ -294,24 +285,24 @@ function SchemeRecommender({ language, onLearnMore }) {
                                             isSelected ? 'ring-2 ring-offset-2' : ''
                                         )}
                                         style={{
-                                          backgroundColor: isSelected ? 'var(--brand-saffron-bg)' : 'var(--bg-surface)',
-                                          borderColor: isSelected ? 'var(--brand-saffron)' : 'var(--border-soft)',
-                                          boxShadow: isSelected ? '0 8px 24px rgba(255,159,28,0.15)' : 'none'
+                                            backgroundColor: isSelected ? 'var(--brand-saffron-bg)' : 'var(--bg-surface)',
+                                            borderColor: isSelected ? 'var(--brand-saffron)' : 'var(--border-soft)',
+                                            boxShadow: isSelected ? '0 8px 24px rgba(255,159,28,0.15)' : 'none'
                                         }}
                                     >
-                                        <div 
-                                          className="text-3xl transition-transform group-hover:scale-110 duration-200"
+                                        <div
+                                            className="text-3xl transition-transform group-hover:scale-110 duration-200"
                                         >
-                                          {emoji}
+                                            {emoji}
                                         </div>
-                                        <span 
-                                          className="text-xs font-bold uppercase tracking-wider"
-                                          style={{ 
-                                            color: isSelected ? 'var(--brand-indigo)' : 'var(--text-secondary)',
-                                            fontFamily: 'DM Sans, sans-serif'
-                                          }}
+                                        <span
+                                            className="text-xs font-bold uppercase tracking-wider"
+                                            style={{
+                                                color: isSelected ? 'var(--brand-indigo)' : 'var(--text-secondary)',
+                                                fontFamily: 'DM Sans, sans-serif'
+                                            }}
                                         >
-                                          {label}
+                                            {label}
                                         </span>
                                     </button>
                                 )
@@ -323,18 +314,18 @@ function SchemeRecommender({ language, onLearnMore }) {
                 {/* ── Step 2: State ── */}
                 {step === 2 && (
                     <div className="animate-fade-in">
-                        <h2 
-                          className="mb-1"
-                          style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
+                        <h2
+                            className="mb-1"
+                            style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
                         >
-                          {t.steps.state.title}
+                            {t.steps.state.title}
                         </h2>
                         <p className="text-sm mb-8" style={{ fontFamily: 'DM Sans, sans-serif', color: 'var(--text-secondary)' }}>
-                          {t.steps.state.subtitle}
+                            {t.steps.state.subtitle}
                         </p>
-                        <div 
-                          className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-80 overflow-y-auto pr-1 p-2 rounded-xl"
-                          style={{ backgroundColor: 'rgba(27, 20, 100, 0.02)', border: '1px solid var(--border-soft)' }}
+                        <div
+                            className="grid grid-cols-2 sm:grid-cols-3 gap-2 max-h-80 overflow-y-auto pr-1 p-2 rounded-xl"
+                            style={{ backgroundColor: 'rgba(27, 20, 100, 0.02)', border: '1px solid var(--border-soft)' }}
                         >
                             {INDIAN_STATES.map((st) => {
                                 const isSelected = profile.state === st;
@@ -349,10 +340,10 @@ function SchemeRecommender({ language, onLearnMore }) {
                                                 : 'bg-white hover:border-indigo-200'
                                         )}
                                         style={{
-                                          borderColor: isSelected ? 'var(--brand-indigo)' : 'var(--border-soft)',
-                                          backgroundColor: isSelected ? 'var(--brand-indigo)' : 'white',
-                                          color: isSelected ? 'white' : 'var(--text-secondary)',
-                                          fontFamily: 'DM Sans, sans-serif'
+                                            borderColor: isSelected ? 'var(--brand-indigo)' : 'var(--border-soft)',
+                                            backgroundColor: isSelected ? 'var(--brand-indigo)' : 'white',
+                                            color: isSelected ? 'white' : 'var(--text-secondary)',
+                                            fontFamily: 'DM Sans, sans-serif'
                                         }}
                                     >
                                         {st}
@@ -361,11 +352,11 @@ function SchemeRecommender({ language, onLearnMore }) {
                             })}
                         </div>
                         <div className="flex gap-2 mt-8">
-                            <Button 
-                              variant="outline" 
-                              onClick={() => setStep(1)} 
-                              className="gap-2 px-6 rounded-xl border-border-medium hover:bg-slate-50"
-                              style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600 }}
+                            <Button
+                                variant="outline"
+                                onClick={() => setStep(1)}
+                                className="gap-2 px-6 rounded-xl border-border-medium hover:bg-slate-50"
+                                style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600 }}
                             >
                                 <ArrowLeft className="h-4 w-4" />
                                 {t.back}
@@ -377,14 +368,14 @@ function SchemeRecommender({ language, onLearnMore }) {
                 {/* ── Step 3: Income ── */}
                 {step === 3 && (
                     <div className="animate-fade-in">
-                        <h2 
-                          className="mb-1"
-                          style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
+                        <h2
+                            className="mb-1"
+                            style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
                         >
-                          {t.steps.income.title}
+                            {t.steps.income.title}
                         </h2>
                         <p className="text-sm mb-8" style={{ fontFamily: 'DM Sans, sans-serif', color: 'var(--text-secondary)' }}>
-                          {t.steps.income.subtitle}
+                            {t.steps.income.subtitle}
                         </p>
                         <div className="flex flex-col gap-3">
                             {t.incomeRanges.map((range) => {
@@ -398,40 +389,40 @@ function SchemeRecommender({ language, onLearnMore }) {
                                             isSelected ? 'shadow-md scale-[1.01]' : ''
                                         )}
                                         style={{
-                                          borderColor: isSelected ? 'var(--brand-indigo)' : 'var(--border-soft)',
-                                          backgroundColor: isSelected ? 'rgba(27, 20, 100, 0.05)' : 'white',
+                                            borderColor: isSelected ? 'var(--brand-indigo)' : 'var(--border-soft)',
+                                            backgroundColor: isSelected ? 'rgba(27, 20, 100, 0.05)' : 'white',
                                         }}
                                     >
-                                        <span 
-                                          style={{ 
-                                            fontFamily: 'DM Sans, sans-serif', 
-                                            fontWeight: isSelected ? 700 : 500,
-                                            color: isSelected ? 'var(--brand-indigo)' : 'var(--text-primary)'
-                                          }}
+                                        <span
+                                            style={{
+                                                fontFamily: 'DM Sans, sans-serif',
+                                                fontWeight: isSelected ? 700 : 500,
+                                                color: isSelected ? 'var(--brand-indigo)' : 'var(--text-primary)'
+                                            }}
                                         >
-                                          {range.label}
+                                            {range.label}
                                         </span>
-                                        <div 
-                                          className={cn("h-5 w-5 rounded-full border-2 flex items-center justify-center transition-all", 
-                                            isSelected ? "border-brand-indigo bg-brand-indigo" : "border-slate-200"
-                                          )}
-                                          style={{ 
-                                            borderColor: isSelected ? 'var(--brand-indigo)' : '#e2e8f0',
-                                            backgroundColor: isSelected ? 'var(--brand-indigo)' : 'transparent' 
-                                          }}
+                                        <div
+                                            className={cn("h-5 w-5 rounded-full border-2 flex items-center justify-center transition-all",
+                                                isSelected ? "border-brand-indigo bg-brand-indigo" : "border-slate-200"
+                                            )}
+                                            style={{
+                                                borderColor: isSelected ? 'var(--brand-indigo)' : '#e2e8f0',
+                                                backgroundColor: isSelected ? 'var(--brand-indigo)' : 'transparent'
+                                            }}
                                         >
-                                          {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
+                                            {isSelected && <div className="h-1.5 w-1.5 rounded-full bg-white" />}
                                         </div>
                                     </button>
                                 )
                             })}
                         </div>
                         <div className="flex gap-2 mt-8">
-                            <Button 
-                              variant="outline" 
-                              onClick={() => setStep(2)} 
-                              className="gap-2 px-6 rounded-xl border-border-medium hover:bg-slate-50"
-                              style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600 }}
+                            <Button
+                                variant="outline"
+                                onClick={() => setStep(2)}
+                                className="gap-2 px-6 rounded-xl border-border-medium hover:bg-slate-50"
+                                style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600 }}
                             >
                                 <ArrowLeft className="h-4 w-4" />
                                 {t.back}
@@ -443,21 +434,21 @@ function SchemeRecommender({ language, onLearnMore }) {
                 {/* ── Step 4: Details (Age + Land) ── */}
                 {step === 4 && (
                     <div className="animate-fade-in">
-                        <h2 
-                          className="mb-1"
-                          style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
+                        <h2
+                            className="mb-1"
+                            style={{ fontFamily: 'Syne, sans-serif', fontSize: '28px', fontWeight: 700, color: 'var(--text-primary)' }}
                         >
-                          {t.steps.details.title}
+                            {t.steps.details.title}
                         </h2>
                         <p className="text-sm mb-8" style={{ fontFamily: 'DM Sans, sans-serif', color: 'var(--text-secondary)' }}>
-                          {t.steps.details.subtitle}
+                            {t.steps.details.subtitle}
                         </p>
 
                         <div className="flex flex-col gap-6 mb-10">
                             <div>
-                                <label 
-                                  className="text-[11px] font-bold uppercase tracking-widest mb-2 block"
-                                  style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}
+                                <label
+                                    className="text-[11px] font-bold uppercase tracking-widest mb-2 block"
+                                    style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}
                                 >
                                     {t.steps.details.ageLabel}
                                 </label>
@@ -470,10 +461,10 @@ function SchemeRecommender({ language, onLearnMore }) {
                                     onChange={(e) => setProfile(p => ({ ...p, age: e.target.value }))}
                                     className="w-full px-5 py-4 text-sm outline-none transition-all placeholder:text-slate-400"
                                     style={{
-                                      borderRadius: '16px',
-                                      border: '1px solid var(--border-medium)',
-                                      backgroundColor: 'white',
-                                      fontFamily: 'DM Sans, sans-serif'
+                                        borderRadius: '16px',
+                                        border: '1px solid var(--border-medium)',
+                                        backgroundColor: 'white',
+                                        fontFamily: 'DM Sans, sans-serif'
                                     }}
                                 />
                             </div>
@@ -481,9 +472,9 @@ function SchemeRecommender({ language, onLearnMore }) {
                             {/* Show land size only for farmers/msme */}
                             {(profile.occupation === 'farmer' || profile.occupation === 'msme') && (
                                 <div>
-                                    <label 
-                                      className="text-[11px] font-bold uppercase tracking-widest mb-2 block"
-                                      style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}
+                                    <label
+                                        className="text-[11px] font-bold uppercase tracking-widest mb-2 block"
+                                        style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}
                                     >
                                         {t.steps.details.landLabel}
                                     </label>
@@ -496,10 +487,10 @@ function SchemeRecommender({ language, onLearnMore }) {
                                         onChange={(e) => setProfile(p => ({ ...p, land_size: e.target.value }))}
                                         className="w-full px-5 py-4 text-sm outline-none transition-all placeholder:text-slate-400"
                                         style={{
-                                          borderRadius: '16px',
-                                          border: '1px solid var(--border-medium)',
-                                          backgroundColor: 'white',
-                                          fontFamily: 'DM Sans, sans-serif'
+                                            borderRadius: '16px',
+                                            border: '1px solid var(--border-medium)',
+                                            backgroundColor: 'white',
+                                            fontFamily: 'DM Sans, sans-serif'
                                         }}
                                     />
                                 </div>
@@ -507,9 +498,9 @@ function SchemeRecommender({ language, onLearnMore }) {
                         </div>
 
                         {error && (
-                            <div 
-                              className="text-xs mb-6 p-4 rounded-xl flex items-start gap-3"
-                              style={{ backgroundColor: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#b91c1c' }}
+                            <div
+                                className="text-xs mb-6 p-4 rounded-xl flex items-start gap-3"
+                                style={{ backgroundColor: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#b91c1c' }}
                             >
                                 <div className="mt-0.5">⚠️</div>
                                 <p style={{ fontFamily: 'DM Sans, sans-serif' }}>
@@ -519,11 +510,11 @@ function SchemeRecommender({ language, onLearnMore }) {
                         )}
 
                         <div className="flex gap-3">
-                            <Button 
-                              variant="outline" 
-                              onClick={() => setStep(3)} 
-                              className="gap-2 px-8 py-6 rounded-xl border-border-medium hover:bg-slate-50"
-                              style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600 }}
+                            <Button
+                                variant="outline"
+                                onClick={() => setStep(3)}
+                                className="gap-2 px-8 py-6 rounded-xl border-border-medium hover:bg-slate-50"
+                                style={{ fontFamily: 'Syne, sans-serif', fontWeight: 600 }}
                             >
                                 <ArrowLeft className="h-4 w-4" />
                                 {t.back}
@@ -533,13 +524,13 @@ function SchemeRecommender({ language, onLearnMore }) {
                                 disabled={!profile.age}
                                 className="flex-1 gap-3 py-6 shadow-xl"
                                 style={{
-                                  backgroundColor: 'var(--brand-saffron)',
-                                  color: 'var(--brand-indigo)',
-                                  fontFamily: 'Syne, sans-serif',
-                                  fontWeight: 700,
-                                  fontSize: '16px',
-                                  borderRadius: '16px',
-                                  boxShadow: '0 8px 32px rgba(255,159,28,0.3)'
+                                    backgroundColor: 'var(--brand-saffron)',
+                                    color: 'var(--brand-indigo)',
+                                    fontFamily: 'Syne, sans-serif',
+                                    fontWeight: 700,
+                                    fontSize: '16px',
+                                    borderRadius: '16px',
+                                    boxShadow: '0 8px 32px rgba(255,159,28,0.3)'
                                 }}
                             >
                                 <Sparkles className="h-5 w-5" />

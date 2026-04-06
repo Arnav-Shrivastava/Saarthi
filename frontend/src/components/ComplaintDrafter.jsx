@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { 
-  FileText, Copy, Printer, Download, Search, 
+import {
+  FileText, Copy, Printer, Download, Search,
   Loader2, Sparkles, Volume2, Square, ArrowRight,
   ShieldCheck, AlertCircle, RefreshCw
 } from 'lucide-react';
@@ -44,23 +44,23 @@ export default function ComplaintDrafter({ language = 'English' }) {
     setIsDrafting(true);
     setDraft('');
     setError('');
-    
+
     try {
       const response = await fetch(`${API_BASE_URL}/draft-complaint`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          story, 
-          language: targetLanguage, 
-          recipient 
+        body: JSON.stringify({
+          story,
+          language: targetLanguage,
+          recipient
         }),
       });
-      
+
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
         throw new Error(errData.detail || `Server error: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setDraft(data.draft || 'No draft was returned.');
     } catch (err) {
@@ -103,14 +103,14 @@ export default function ComplaintDrafter({ language = 'English' }) {
     if (!draft) return;
 
     const utterance = new SpeechSynthesisUtterance(draft);
-    
+
     const langMap = {
       English: 'en-IN', Hindi: 'hi-IN', Tamil: 'ta-IN', Telugu: 'te-IN',
       Bengali: 'bn-IN', Marathi: 'mr-IN', Kannada: 'kn-IN',
       Gujarati: 'gu-IN', Punjabi: 'pa-IN', Malayalam: 'ml-IN'
     };
     utterance.lang = langMap[targetLanguage] || 'en-IN';
-    
+
     utterance.onend = () => setIsSpeaking(false);
     setIsSpeaking(true);
     window.speechSynthesis.speak(utterance);
@@ -129,12 +129,12 @@ export default function ComplaintDrafter({ language = 'English' }) {
   return (
     <div className="flex-1 overflow-y-auto px-4 sm:px-8 py-10" style={{ backgroundColor: 'transparent' }}>
       <div className="max-w-3xl mx-auto space-y-8">
-        
+
         {/* Header */}
         <div className="flex items-center gap-5 border-b border-border-soft pb-8">
-          <div 
+          <div
             className="h-14 w-14 rounded-2xl flex items-center justify-center transition-transform hover:scale-105"
-            style={{ 
+            style={{
               backgroundColor: 'var(--brand-indigo)',
               border: '1px solid var(--border-medium)',
               boxShadow: '0 8px 32px rgba(27,20,100,0.12)'
@@ -143,7 +143,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
             <FileText className="h-7 w-7 text-white" />
           </div>
           <div>
-            <h1 
+            <h1
               style={{ fontFamily: 'Syne, sans-serif', fontWeight: 700, fontSize: '32px', color: 'var(--text-primary)' }}
             >
               {t.title}
@@ -155,14 +155,14 @@ export default function ComplaintDrafter({ language = 'English' }) {
         </div>
 
         {!draft && !isDrafting ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Card 
-              style={{ 
-                borderRadius: '20px', 
+            <Card
+              style={{
+                borderRadius: '20px',
                 border: '1px solid var(--border-soft)',
                 backgroundColor: 'var(--bg-surface)',
                 overflow: 'hidden',
@@ -170,7 +170,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
               }}
             >
               <CardHeader className="pb-4" style={{ backgroundColor: 'rgba(27, 20, 100, 0.02)' }}>
-                <CardTitle 
+                <CardTitle
                   className="flex items-center gap-2"
                   style={{ fontFamily: 'Syne, sans-serif', fontSize: '18px', fontWeight: 600, color: 'var(--brand-indigo)' }}
                 >
@@ -180,7 +180,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
               </CardHeader>
               <CardContent className="pt-8 space-y-6">
                 <div>
-                  <textarea 
+                  <textarea
                     placeholder={t.placeholder}
                     value={story}
                     onChange={(e) => setStory(e.target.value)}
@@ -194,13 +194,13 @@ export default function ComplaintDrafter({ language = 'English' }) {
                     }}
                   />
                 </div>
-                
+
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="text-[11px] font-bold uppercase tracking-widest mb-2 block" style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}>
                       {t.languageLabel}
                     </label>
-                    <select 
+                    <select
                       value={targetLanguage}
                       onChange={(e) => setTargetLanguage(e.target.value)}
                       className="w-full px-4 py-3 text-sm outline-none bg-white border border-slate-200 rounded-xl"
@@ -216,12 +216,12 @@ export default function ComplaintDrafter({ language = 'English' }) {
                       <option>Punjabi</option>
                     </select>
                   </div>
-                  
+
                   <div>
                     <label className="text-[11px] font-bold uppercase tracking-widest mb-2 block" style={{ color: 'var(--text-tertiary)', fontFamily: 'Syne, sans-serif' }}>
                       {t.authorityLabel}
                     </label>
-                    <select 
+                    <select
                       value={recipient}
                       onChange={(e) => setRecipient(e.target.value)}
                       className="w-full px-4 py-3 text-sm outline-none bg-white border border-slate-200 rounded-xl"
@@ -237,7 +237,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
                 </div>
 
                 {error && (
-                  <div 
+                  <div
                     className="text-xs p-4 rounded-xl flex items-start gap-3"
                     style={{ backgroundColor: 'rgba(239, 68, 68, 0.05)', border: '1px solid rgba(239, 68, 68, 0.2)', color: '#b91c1c' }}
                   >
@@ -246,9 +246,9 @@ export default function ComplaintDrafter({ language = 'English' }) {
                   </div>
                 )}
 
-                <Button 
-                  onClick={handleDraft} 
-                  disabled={!story.trim()} 
+                <Button
+                  onClick={handleDraft}
+                  disabled={!story.trim()}
                   className="w-full py-7 gap-3 shadow-xl"
                   style={{
                     backgroundColor: 'var(--brand-saffron)',
@@ -288,20 +288,20 @@ export default function ComplaintDrafter({ language = 'English' }) {
               </div>
             ) : (
               <>
-                <Card 
+                <Card
                   className="overflow-hidden border-none"
-                  style={{ 
-                    borderRadius: '24px', 
+                  style={{
+                    borderRadius: '24px',
                     boxShadow: '0 12px 48px rgba(27,20,100,0.08)',
                     backgroundColor: 'white'
                   }}
                 >
                   <div className="p-1 sm:p-2 bg-slate-50 border-b border-slate-100 flex items-center justify-between">
                     <div className="flex items-center gap-2 px-4 py-2">
-                       <ShieldCheck className="h-4 w-4 text-emerald-500" />
-                       <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400" style={{ fontFamily: 'Syne, sans-serif' }}>
-                         {t.resultTitle}
-                       </span>
+                      <ShieldCheck className="h-4 w-4 text-emerald-500" />
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400" style={{ fontFamily: 'Syne, sans-serif' }}>
+                        {t.resultTitle}
+                      </span>
                     </div>
                     <div className="flex gap-1 p-1">
                       <Button variant="ghost" size="icon" className="h-9 w-9 rounded-lg" onClick={handleCopy}>
@@ -315,26 +315,26 @@ export default function ComplaintDrafter({ language = 'English' }) {
                       </Button>
                     </div>
                   </div>
-                  
+
                   <div className="p-8 sm:p-10 min-h-[400px]">
                     <div className="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'DM Sans, sans-serif' }}>
                       <ReactMarkdown>{draft}</ReactMarkdown>
                     </div>
                   </div>
-                  
+
                   <div className="bg-slate-50 border-t border-slate-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                     <p className="text-[11px] text-slate-400 font-medium italic">
-                       * This draft is AI-generated for structural guidance. Please review before official submission.
-                     </p>
-                     <Button 
-                       variant="outline" 
-                       size="sm" 
-                       onClick={reset}
-                       className="gap-2 rounded-xl border-slate-200"
-                     >
-                       <RefreshCw className="h-3.5 w-3.5" />
-                       Draft Another
-                     </Button>
+                    <p className="text-[11px] text-slate-400 font-medium italic">
+                      * This draft is AI-generated for structural guidance. Please review before official submission.
+                    </p>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={reset}
+                      className="gap-2 rounded-xl border-slate-200"
+                    >
+                      <RefreshCw className="h-3.5 w-3.5" />
+                      Draft Another
+                    </Button>
                   </div>
                 </Card>
 
