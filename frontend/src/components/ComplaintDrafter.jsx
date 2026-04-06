@@ -58,7 +58,13 @@ export default function ComplaintDrafter({ language = 'English' }) {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.detail || `Server error: ${response.status}`);
+        let detail = errData.detail;
+        if (Array.isArray(detail)) {
+          detail = detail.map(e => e.msg || JSON.stringify(e)).join(', ');
+        } else if (typeof detail === 'object' && detail !== null) {
+          detail = JSON.stringify(detail);
+        }
+        throw new Error(detail || `Server error: ${response.status}`);
       }
 
       const data = await response.json();
