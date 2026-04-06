@@ -7,7 +7,6 @@ import {
   Loader2, Sparkles, Volume2, Square, ArrowRight,
   ShieldCheck, AlertCircle, RefreshCw
 } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
 import { getT } from '@/lib/translations';
 import { cn } from '@/lib/utils';
 
@@ -24,6 +23,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
   const [isDrafting, setIsDrafting] = useState(false);
   const [error, setError] = useState('');
   const [isSpeaking, setIsSpeaking] = useState(false);
+  const formattedDraft = typeof draft === 'string' ? draft.replace(/\r\n/g, '\n') : '';
 
   // Sync target language with component language prop initially
   useEffect(() => {
@@ -93,12 +93,19 @@ export default function ComplaintDrafter({ language = 'English' }) {
         <head>
           <title>Legal Draft - Saarthi</title>
           <style>
-            body { font-family: 'DM Sans', sans-serif; padding: 40px; line-height: 1.6; }
-            pre { white-space: pre-wrap; font-size: 14px; }
+            body { padding: 40px; line-height: 1.6; font-size: 14px; }
+            pre {
+              margin: 0;
+              white-space: pre-wrap;
+              word-wrap: break-word;
+              font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+              line-height: 1.6;
+              font-size: 14px;
+            }
           </style>
         </head>
         <body onload="window.print()">
-          <pre>${draft}</pre>
+          <pre>${formattedDraft}</pre>
         </body>
       </html>
     `);
@@ -328,9 +335,17 @@ export default function ComplaintDrafter({ language = 'English' }) {
                   </div>
 
                   <div className="p-8 sm:p-10 min-h-[400px]">
-                    <div className="prose prose-slate max-w-none text-sm sm:text-base leading-relaxed" style={{ fontFamily: 'DM Sans, sans-serif' }}>
-                      <ReactMarkdown>{draft}</ReactMarkdown>
-                    </div>
+                    <pre
+                      className="max-w-none whitespace-pre-wrap break-words"
+                      style={{
+                        margin: 0,
+                        lineHeight: 1.6,
+                        fontSize: '14px',
+                        fontFamily: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace',
+                      }}
+                    >
+                      {formattedDraft}
+                    </pre>
                   </div>
 
                   <div className="bg-slate-50 border-t border-slate-100 p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
