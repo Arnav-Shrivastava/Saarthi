@@ -18,7 +18,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
   const t = t_full.legalDrafter || t_full.scamDetector; // Fallback to scamDetector if legalDrafter missing in some languages
 
   const [story, setStory] = useState('');
-  const [targetLanguage, setTargetLanguage] = useState(language);
+  const [targetLanguage, setTargetLanguage] = useState(language || 'English');
   const [recipient, setRecipient] = useState('Police Station');
   const [draft, setDraft] = useState('');
   const [isDrafting, setIsDrafting] = useState(false);
@@ -27,7 +27,7 @@ export default function ComplaintDrafter({ language = 'English' }) {
 
   // Sync target language with component language prop initially
   useEffect(() => {
-    setTargetLanguage(language);
+    setTargetLanguage(language || 'English');
   }, [language]);
 
   // Cleanup TTS on unmount to prevent floating audio when navigating away
@@ -58,7 +58,18 @@ export default function ComplaintDrafter({ language = 'English' }) {
 
       if (!response.ok) {
         const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.detail || `Server error: ${response.status}`);
+        const detail = errData?.detail;
+        let message = `Server error: ${response.status}`;
+        if (typeof detail === 'string') {
+          message = detail;
+        } else if (Array.isArray(detail)) {
+          message = detail
+            .map((d) => d?.msg || d?.message || JSON.stringify(d))
+            .join('; ');
+        } else if (detail && typeof detail === 'object') {
+          message = detail.message || JSON.stringify(detail);
+        }
+        throw new Error(message);
       }
 
       const data = await response.json();
