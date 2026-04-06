@@ -185,6 +185,9 @@ The person asking you is likely a farmer, a daily-wage worker, or someone from a
 - Ask the user for any MISSING information (e.g., "What is your land size?") before giving a final answer.
 - Only give a "Yes" or "No" once you have enough facts.
 
+**GUARDRAIL / OFF-TOPIC RULE:**
+If the question is completely unrelated to Indian government schemes, agriculture, farming, Indian law, Women's rights in India, rural rights, or Indian civic issues (for example: recipes, coding, general trivia), DO NOT attempt to answer it. Instead, reply ONLY with the exact word: OFF_TOPIC
+
 Use ONLY the following information to answer. If the answer is not here, reply ONLY with: FALLBACK
 ---
 {context}
@@ -233,6 +236,14 @@ Answer (in {language}):"""
             docs = retriever.invoke(question)
             
             response = chain.invoke(question)
+
+                        # Handle off-topic queries trapped by the prompt
+            if "OFF_TOPIC" in response.strip().upper():
+                return {
+                    "answer": "I am Saarthi, your guide for Indian government schemes, rural rights, and Indian laws. I cannot help with that question, but please ask me anything about schemes, agriculture, or your legal rights in India!",
+                    "sources": []
+                }
+
 
             # If RAG couldn't answer from docs, fall back to gpt-5.4-nano general knowledge
             if response.strip().upper() == "FALLBACK" or self._is_rag_fallback_response(response):
