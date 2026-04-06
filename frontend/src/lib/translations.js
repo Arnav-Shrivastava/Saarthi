@@ -74,6 +74,17 @@ export const TRANSLATIONS = {
             micStop: "Stop Recording",
             listen: "Listen to Verdict",
             readingPdf: "Reading PDF...",
+        },
+        legalDrafter: {
+            title: "Legal Complaint Drafter",
+            subtitle: "Describe what happened and we'll format it into a formal legal complaint.",
+            whatHappened: "Tell us what happened",
+            placeholder: "In your own words, describe the incident — who, what, when, and where...",
+            languageLabel: "Complaint Language",
+            authorityLabel: "Address To",
+            formatBtn: "Draft My Complaint",
+            drafting: "Drafting your complaint...",
+            resultTitle: "AI-Drafted Legal Complaint",
         }
     },
 
@@ -147,6 +158,17 @@ export const TRANSLATIONS = {
             micStop: "रिकॉर्डिंग रोकें",
             listen: "निर्णय सुनें",
             readingPdf: "PDF पढ़ा जा रहा है...",
+        },
+        legalDrafter: {
+            title: "शिकायत पत्र तैयार करें",
+            subtitle: "जो हुआ वो बताएं — सार्थी आपके लिए एक औपचारिक शिकायत पत्र लिखेगा।",
+            whatHappened: "आपके साथ क्या हुआ?",
+            placeholder: "अपने शब्दों में बताएं — कब, क्या, कहां, और किसने किया...",
+            languageLabel: "शिकायत की भाषा",
+            authorityLabel: "किसे संबोधित करें",
+            formatBtn: "शिकायत पत्र तैयार करें",
+            drafting: "शिकायत पत्र लिखा जा रहा है...",
+            resultTitle: "AI द्वारा तैयार शिकायत पत्र",
         }
     },
 
@@ -220,6 +242,17 @@ export const TRANSLATIONS = {
             micStop: "பதிவு செய்வதை நிறுத்துங்கள்",
             listen: "தீர்ப்பைக் கேளுங்கள்",
             readingPdf: "PDF படிக்கப்படுகிறது...",
+        },
+        legalDrafter: {
+            title: "புகார் கடிதம் தயாரிக்கவும்",
+            subtitle: "என்ன நடந்தது என்று சொல்லுங்கள் — Saarthi உங்களுக்கு ஒரு முறையான புகாரை தயாரிக்கும்.",
+            whatHappened: "என்ன நடந்தது?",
+            placeholder: "உங்கள் சொந்த வார்த்தைகளில் விவரிக்கவும் — எப்போது, என்ன, எங்கே, யார்...",
+            languageLabel: "புகார் மொழி",
+            authorityLabel: "யாரிடம் சமர்ப்பிக்க",
+            formatBtn: "புகார் தயாரிக்கவும்",
+            drafting: "புகார் தயாரிக்கப்படுகிறது...",
+            resultTitle: "AI தயாரித்த புகார் கடிதம்",
         }
     },
 
@@ -277,6 +310,17 @@ export const TRANSLATIONS = {
             micStop: "రికార్డింగ్ ఆపండి",
             listen: "తీర్పు వినండి",
             readingPdf: "PDF చదువుతోంది...",
+        },
+        legalDrafter: {
+            title: "ఫిర్యాదు పత్రం తయారు చేయండి",
+            subtitle: "ఏం జరిగిందో చెప్పండి — Saarthi మీకు అధికారిక ఫిర్యాదు రాసిస్తుంది.",
+            whatHappened: "ఏం జరిగింది?",
+            placeholder: "మీ మాటల్లో వివరించండి — ఎప్పుడు, ఏమి, ఎక్కడ, ఎవరు...",
+            languageLabel: "ఫిర్యాదు భాష",
+            authorityLabel: "ఎవరికి పంపాలి",
+            formatBtn: "ఫిర్యాదు తయారు చేయండి",
+            drafting: "ఫిర్యాదు తయారవుతోంది...",
+            resultTitle: "AI తయారు చేసిన ఫిర్యాదు",
         }
     },
 
@@ -334,6 +378,17 @@ export const TRANSLATIONS = {
             micStop: "রেকর্ডিং থামান",
             listen: "রায় শুনুন",
             readingPdf: "PDF পড়া হচ্ছে...",
+        },
+        legalDrafter: {
+            title: "অভিযোগ পত্র তৈরি করুন",
+            subtitle: "কী হয়েছে তা বলুন — Saarthi আপনার জন্য একটি আনুষ্ঠানিক অভিযোগ লিখবে।",
+            whatHappened: "কী হয়েছে?",
+            placeholder: "নিজের ভাষায় বর্ণনা করুন — কখন, কী, কোথায়, কে...",
+            languageLabel: "অভিযোগের ভাষা",
+            authorityLabel: "কাকে পাঠাবেন",
+            formatBtn: "অভিযোগ তৈরি করুন",
+            drafting: "অভিযোগ তৈরি হচ্ছে...",
+            resultTitle: "AI-তৈরি অভিযোগ পত্র",
         }
     },
 
@@ -391,6 +446,17 @@ export const TRANSLATIONS = {
             micStop: "रेकॉर्डिंग थांबवा",
             listen: "निकाल ऐका",
             readingPdf: "PDF वाचत आहे...",
+        },
+        legalDrafter: {
+            title: "तक्रार अर्ज तयार करा",
+            subtitle: "काय झाले ते सांगा — सार्थी तुमच्यासाठी औपचारिक तक्रार लिहील.",
+            whatHappened: "काय झाले?",
+            placeholder: "आपल्या शब्दांत सांगा — कधी, काय, कोठे, कोणी...",
+            languageLabel: "तक्रारीची भाषा",
+            authorityLabel: "कोणाला पाठवायचे",
+            formatBtn: "तक्रार तयार करा",
+            drafting: "तक्रार तयार होत आहे...",
+            resultTitle: "AI-तयार तक्रार अर्ज",
         }
     },
 
@@ -448,6 +514,17 @@ export const TRANSLATIONS = {
             micStop: "ರೆಕಾರ್ಡಿಂಗ್ ನಿಲ್ಲಿಸಿ",
             listen: "ತೀರ್ಪು ಕೇಳಿ",
             readingPdf: "PDF ಓದಲಾಗುತ್ತಿದೆ...",
+        },
+        legalDrafter: {
+            title: "ದೂರು ಪತ್ರ ತಯಾರಿಸಿ",
+            subtitle: "ಏನು ಆಯಿತು ಎಂದು ಹೇಳಿ — Saarthi ನಿಮಗಾಗಿ ಔಪಚಾರಿಕ ದೂರು ಬರೆಯುತ್ತದೆ.",
+            whatHappened: "ಏನು ಆಯಿತು?",
+            placeholder: "ನಿಮ್ಮ ಮಾತುಗಳಲ್ಲಿ ವಿವರಿಸಿ — ಯಾವಾಗ, ಏನು, ಎಲ್ಲಿ, ಯಾರು...",
+            languageLabel: "ದೂರಿನ ಭಾಷೆ",
+            authorityLabel: "ಯಾರಿಗೆ ಕಳಿಸಬೇಕು",
+            formatBtn: "ದೂರು ತಯಾರಿಸಿ",
+            drafting: "ದೂರು ತಯಾರಾಗುತ್ತಿದೆ...",
+            resultTitle: "AI ತಯಾರಿಸಿದ ದೂರು ಪತ್ರ",
         }
     },
 
@@ -505,6 +582,17 @@ export const TRANSLATIONS = {
             micStop: "રેકોર્ડિંગ બંધ કરો",
             listen: "ચુકાદો સાંભળો",
             readingPdf: "PDF વાંચી રહ્યા છીએ...",
+        },
+        legalDrafter: {
+            title: "ફરિયાદ પત્ર તૈયાર કરો",
+            subtitle: "શું થયું તે જણાવો — Saarthi તમારા માટે ઔપચારિક ફરિયાદ લખશે.",
+            whatHappened: "શું થયું?",
+            placeholder: "તમારા શબ્દોમાં વર્ણવો — ક્યારે, શું, ક્યાં, કોણે...",
+            languageLabel: "ફરિયાદની ભાષા",
+            authorityLabel: "કોને મોકલવી",
+            formatBtn: "ફરિયાદ તૈયાર કરો",
+            drafting: "ફરિયાદ તૈયાર થઈ રહી છે...",
+            resultTitle: "AI-તૈયાર ફરિયાદ પત્ર",
         }
     },
 
@@ -562,6 +650,17 @@ export const TRANSLATIONS = {
             micStop: "ਰਿਕਾਰਡਿੰਗ ਬੰਦ ਕਰੋ",
             listen: "ਫੈਸਲਾ ਸੁਣੋ",
             readingPdf: "PDF ਪੜ੍ਹਿਆ ਜਾ ਰਿਹਾ ਹੈ...",
+        },
+        legalDrafter: {
+            title: "ਸ਼ਿਕਾਇਤ ਪੱਤਰ ਤਿਆਰ ਕਰੋ",
+            subtitle: "ਕੀ ਹੋਇਆ ਦੱਸੋ — Saarthi ਤੁਹਾਡੇ ਲਈ ਇੱਕ ਰਸਮੀ ਸ਼ਿਕਾਇਤ ਲਿਖੇਗਾ।",
+            whatHappened: "ਕੀ ਹੋਇਆ?",
+            placeholder: "ਆਪਣੇ ਸ਼ਬਦਾਂ ਵਿੱਚ ਦੱਸੋ — ਕਦੋਂ, ਕੀ, ਕਿੱਥੇ, ਕਿਸਨੇ...",
+            languageLabel: "ਸ਼ਿਕਾਇਤ ਦੀ ਭਾਸ਼ਾ",
+            authorityLabel: "ਕਿਸਨੂੰ ਭੇਜਣਾ ਹੈ",
+            formatBtn: "ਸ਼ਿਕਾਇਤ ਤਿਆਰ ਕਰੋ",
+            drafting: "ਸ਼ਿਕਾਇਤ ਤਿਆਰ ਹੋ ਰਹੀ ਹੈ...",
+            resultTitle: "AI-ਤਿਆਰ ਸ਼ਿਕਾਇਤ ਪੱਤਰ",
         }
     },
 
@@ -620,6 +719,17 @@ export const TRANSLATIONS = {
             micStop: "റെക്കോർഡിംഗ് നിർത്തുക",
             listen: "വിധി കേൾക്കുക",
             readingPdf: "PDF വായിക്കുന്നു...",
+        },
+        legalDrafter: {
+            title: "പരാതി കത്ത് തയ്യാറാക്കുക",
+            subtitle: "എന്ത് സംഭവിച്ചു എന്ന് പറയൂ — Saarthi നിങ്ങൾക്ക് ഔദ്യോഗിക പരാതി എഴുതും.",
+            whatHappened: "എന്ത് സംഭവിച്ചു?",
+            placeholder: "നിങ്ങളുടെ ഭാഷയിൽ വിവരിക്കൂ — എപ്പോൾ, എന്ത്, എവിടെ, ആര്...",
+            languageLabel: "പരാതിയുടെ ഭാഷ",
+            authorityLabel: "ആർക്ക് അയക്കണം",
+            formatBtn: "പരാതി തയ്യാറാക്കുക",
+            drafting: "പരാതി തയ്യാറാക്കുന്നു...",
+            resultTitle: "AI തയ്യാറാക്കിയ പരാതി കത്ത്",
         }
     },
 }
